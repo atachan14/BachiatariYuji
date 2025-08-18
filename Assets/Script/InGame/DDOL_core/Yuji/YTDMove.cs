@@ -1,0 +1,14 @@
+using UnityEngine;
+
+public class YTDMove : DDOL_child<YTDMove>
+{
+ 
+    [SerializeField] Transform parentTransform;
+
+    private void Update()
+    {
+        Vector2 dir = InputReceiver.Instance.MoveAxis; // éŒÇﬂï‚ê≥çœÇ›
+        float speed = YujiParams.Instance.MoveSpeed ;
+        parentTransform.position += (Vector3)dir * speed * Time.deltaTime;
+    }
+}
