@@ -9,16 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15aa62bb0a1bea34d9de5ecae88a1b96, type: 3}
-  m_Name: ElderTalk
+  m_Script: {fileID: 11500000, guid: 3da47618c2e8cc64d8a34a7407daa911, type: 3}
+  m_Name: ElderPopup
   m_EditorClassIdentifier: 
-  talkName: 
-  uiType: 1
-  text: 'ponnponn
+  PopupName: 
+  text: 'papapa
 
-    ddddd
+    poopo
 
-    hihihihihihihi'
+    nnniin'
   textSize: 20
   yOffset: 1
   lifeTime: 3

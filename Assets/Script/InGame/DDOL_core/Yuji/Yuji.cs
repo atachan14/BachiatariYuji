@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Yuji : DDOL_child<Yuji>
+public class Yuji : SingletonMonoBehaviour<Yuji>
 {
 
     [SerializeField] GameObject TopDown;

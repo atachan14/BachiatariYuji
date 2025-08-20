@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GameData : DDOL_child<GameData>
+public class GameData : SingletonMonoBehaviour<GameData>
 {
     int bank;
     int cash;

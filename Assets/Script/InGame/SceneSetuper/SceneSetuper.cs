@@ -20,14 +20,13 @@ public class SceneSetuper : MonoBehaviour
 
     protected virtual void Start()
     {
-        var inputMode = ConvertSceneViewModeToInputMode(viewMode);
-        InputReceiver.Instance.SwitchMode(inputMode);
+        InputReceiver.Instance.SwitchMode(GetInputMode());
         Yuji.Instance.SwitchMode(viewMode);
         CameraController.Instance.SwitchMode(cameraMode, cameraSize);
         SelectSpawnDoor();
     }
 
-    private InputMode ConvertSceneViewModeToInputMode(SceneViewMode viewMode)
+    public InputMode GetInputMode()
     {
         switch (viewMode)
         {

@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class PopupManager : DDOL_child<PopupManager>
+public class PopupManager : SingletonMonoBehaviour<PopupManager>
 {
     [SerializeField] private GameObject popupPrefab;
 
-    public void ShowPopup(Transform target, TalkData talk)
+    public void ShowPopup( PopupData talk, Transform target)
     {
         var popup = Instantiate(popupPrefab, transform);
         popup.GetComponent<PopupUI>().Init(target, talk);

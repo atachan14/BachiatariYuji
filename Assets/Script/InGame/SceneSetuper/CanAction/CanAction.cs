@@ -1,6 +1,10 @@
 using UnityEngine;
 
-public abstract class CanAction : MonoBehaviour
+public class CanAction : MonoBehaviour
 {
-    public abstract void DoAction();
+    [SerializeField] EventBase[] events;
+    public virtual void DoAction()
+    {
+        events[0].DoEvent();
+    }
 }

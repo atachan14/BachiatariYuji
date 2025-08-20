@@ -6,8 +6,8 @@ public class PopupUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI tmp;
     [SerializeField] private RectTransform background; // Image の RectTransform
-    [SerializeField] private float yOffset = 1f;       // 頭上オフセットをフィールド化
-
+   
+    private PopupData talk;       // 頭上オフセットをフィールド化
     private Transform target;
     private Camera mainCam;
 
@@ -16,20 +16,20 @@ public class PopupUI : MonoBehaviour
     public float width;
     public float height;
 
-    public void Init(Transform target, TalkData talk)
+    public void Init(Transform target, PopupData talk)
     {
         this.target = target;
+        this.talk = talk;
         tmp.text = talk.text;
 
         // TMP の推奨サイズを取得
         Vector2 preferredSize = tmp.GetPreferredValues(tmp.text);
         tmp.rectTransform.sizeDelta = preferredSize;
 
-        // デバッグ用
-        lineCount = tmp.textInfo.lineCount;
-        width = preferredSize.x;
-        height = preferredSize.y;
-        Debug.Log($"Popup Init -> Lines:{lineCount}, Width:{width}, Height:{height}");
+        //// デバッグ用
+        //lineCount = tmp.textInfo.lineCount;
+        //width = preferredSize.x;
+        //height = preferredSize.y;
 
         // 背景をテキストよりちょい大きめに（余白 20px とか）
         Vector2 padding = new Vector2(20, 20);
@@ -43,7 +43,7 @@ public class PopupUI : MonoBehaviour
     {
         if (target != null && mainCam != null)
         {
-            Vector3 screenPos = mainCam.WorldToScreenPoint(target.position + Vector3.up * yOffset);
+            Vector3 screenPos = mainCam.WorldToScreenPoint(target.position + Vector3.up * talk.yOffset);
             transform.position = screenPos;
         }
     }

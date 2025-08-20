@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class YTDMove : DDOL_child<YTDMove>
+public class YTDMove : SingletonMonoBehaviour<YTDMove>
 {
  
     [SerializeField] Transform parentTransform;

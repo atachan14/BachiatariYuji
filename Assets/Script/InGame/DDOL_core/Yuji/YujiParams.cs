@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class YujiParams : DDOL_child<YujiParams>
+public class YujiParams : SingletonMonoBehaviour<YujiParams>
 {
     [Header("ˆÚ“®İ’è")]
     [SerializeField] private float moveSpeed = 5f;

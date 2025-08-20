@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 371870669835991560}
-  - component: {fileID: 3319495866760825093}
   - component: {fileID: 4534961657470135878}
+  - component: {fileID: 8706075111321099100}
   m_Layer: 10
-  m_Name: CanTalk
+  m_Name: CanAction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,21 +33,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3319495866760825093
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7569535878201996079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6405ece4d83df094888773f8713eb8c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tmp: {fileID: 0}
-  canvas: {fileID: 0}
-  talks: []
 --- !u!61 &4534961657470135878
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -94,3 +79,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &8706075111321099100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7569535878201996079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17e4ab2974e5a45438725ebe5eed1a53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  events: []

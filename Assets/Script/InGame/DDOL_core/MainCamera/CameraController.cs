@@ -2,7 +2,7 @@ using UnityEngine;
 
 public enum CameraMode { Fixed, Follow, SideScroll }
 
-public class CameraController : DDOL_child<CameraController>
+public class CameraController : SingletonMonoBehaviour<CameraController>
 {
     [SerializeField] Camera cam;
     [SerializeField] private OriginCamera originCam;

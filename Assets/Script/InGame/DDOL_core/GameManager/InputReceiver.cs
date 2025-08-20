@@ -4,19 +4,21 @@ using Input = UnityEngine.Input;
 
 public enum InputMode
 {
-    TopDown, SideScroll, Talk
+    TopDown, SideScroll, UnderTalk
 }
-public class InputReceiver : DDOL_child<InputReceiver>
+public class InputReceiver : SingletonMonoBehaviour<InputReceiver>
 {
     private InputMode Mode;
 
 
     public Vector2 MoveAxis { get; private set; }
-    public bool PlayE {  get; private set; }
+    public bool Action { get; private set; }
 
     public float MoveAxisX { get; private set; }
     public bool JumpPressed { get; private set; }
     public bool CrouchHeld { get; private set; }
+
+    public bool NextTalk { get; set; }
 
     public void SwitchMode(InputMode newMode)
     {
@@ -28,9 +30,13 @@ public class InputReceiver : DDOL_child<InputReceiver>
     void ResetInputs()
     {
         MoveAxis = Vector2.zero;
+        Action = false;
+
         MoveAxisX = 0;
         JumpPressed = false;
         CrouchHeld = false;
+
+        NextTalk = false;
     }
 
     void Update()
@@ -43,7 +49,7 @@ public class InputReceiver : DDOL_child<InputReceiver>
             case InputMode.SideScroll:
                 SideScrollInput();
                 break;
-            case InputMode.Talk:
+            case InputMode.UnderTalk:
                 TalkInput();
                 break;
         }
@@ -55,7 +61,7 @@ public class InputReceiver : DDOL_child<InputReceiver>
         float v = Input.GetAxisRaw("Vertical");
         MoveAxis = new Vector2(h, v).normalized;
 
-        PlayE = Input.GetKeyDown(KeyCode.E);
+        Action = Input.GetKeyDown(KeyCode.E);
     }
 
     void SideScrollInput()
@@ -67,6 +73,6 @@ public class InputReceiver : DDOL_child<InputReceiver>
 
     void TalkInput()
     {
-
+        NextTalk = Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0);
     }
 }

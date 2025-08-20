@@ -39,7 +39,7 @@ public class YujiDoActioner : MonoBehaviour
         }
 
         // 2. E押下時にアクション
-        if (InputReceiver.Instance.PlayE && canActionInRange.Count > 0)
+        if (InputReceiver.Instance.Action && canActionInRange.Count > 0)
         {
             canActionInRange[0].DoAction(); // 基本1個なので[0]でOK
         }

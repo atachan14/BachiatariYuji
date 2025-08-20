@@ -5,10 +5,9 @@ public enum TalkUIType
     Under,Popup
 }
 [CreateAssetMenu(fileName = "TalkData", menuName = "Scriptable Objects/TalkData")]
-public class TalkData : ScriptableObject
+public class PopupData : ScriptableObject
 {
-    public string talkName; // 識別子用
-    public TalkUIType uiType;
+    public string PopupName; // 識別子用
     [TextArea] public string text;
     public float textSize = 20f;
     public float yOffset = 1f;

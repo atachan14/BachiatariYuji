@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public enum SceneViewMode { TopDown, SideScroll }
 
 
-public class SceneChanger : DDOL_child<SceneChanger>
+public class SceneChanger : SingletonMonoBehaviour<SceneChanger>
 {
     public DoorName SpawnDoorName { get; private set; }
 
