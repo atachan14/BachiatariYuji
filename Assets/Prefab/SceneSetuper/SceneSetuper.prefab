@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 7482667652216324306, guid: 056204f447ba28144bdd95eafc79dfd4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -351,9 +351,7 @@ MonoBehaviour:
   btmWindow: {fileID: 7247576723771361292}
   tmp: {fileID: 4411160520346848539}
   nextCursor: {fileID: 862980647142161959}
-  maxVisibleLines: 3
-  charDelay: 0.05
-  fastDelay: 0
+  fastForwardRatio: 20
 --- !u!1 &3897852439774683843
 GameObject:
   m_ObjectHideFlags: 0

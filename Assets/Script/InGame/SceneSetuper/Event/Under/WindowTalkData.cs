@@ -9,7 +9,7 @@ public class WindowTalkData : ScriptableObject
     public float fontSize = 50f;
     public int maxVisibleLines = 3;
     public float charDelay = 0.05f;
-    public float fastDelay = 0.0f;
+    public bool canFastForward = true;
 
 
     public EventBase nextEvent; // i–³‚¢ê‡‚Í null or ‹ó”z—ñj

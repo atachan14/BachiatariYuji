@@ -7,9 +7,7 @@ public class WindowTalkManager : SingletonMonoBehaviour<WindowTalkManager>
     [SerializeField] private GameObject btmWindow;
     [SerializeField] private TextMeshProUGUI tmp;
     [SerializeField] private GameObject nextCursor;
-    [SerializeField] private int maxVisibleLines = 3;
-    [SerializeField] private float charDelay = 0.05f; // 秒数で調整
-    [SerializeField] private float fastDelay = 0.0f;  // 早送り時は1f or 即表示
+    [SerializeField] private float fastForwardRatio = 20f;
 
     private WindowTalkData currentData;
     private int textIndex;
@@ -20,6 +18,8 @@ public class WindowTalkManager : SingletonMonoBehaviour<WindowTalkManager>
     public void ShowUnder(WindowTalkData data)
     {
         currentData = data;
+        tmp.fontSize = currentData.fontSize;
+
         StopAllCoroutines();
         StartCoroutine(PlayTalkRoutine());
     }
@@ -54,7 +54,7 @@ public class WindowTalkManager : SingletonMonoBehaviour<WindowTalkManager>
             yield return TryAppendChar(c);
 
             // 文字ごとのディレイ（早送り対応）
-            yield return WaitForCharDelay(charDelay);
+            yield return WaitForCharDelay(currentData.charDelay);
         }
 
     }
@@ -66,7 +66,7 @@ public class WindowTalkManager : SingletonMonoBehaviour<WindowTalkManager>
         tmp.ForceMeshUpdate();
 
         // 行数オーバー？
-        if (tmp.textInfo.lineCount > maxVisibleLines)
+        if (tmp.textInfo.lineCount > currentData.maxVisibleLines)
         {
             // 直前の追加を戻す
             tmp.text = tmp.text.Substring(0, tmp.text.Length - 1);
@@ -88,12 +88,12 @@ public class WindowTalkManager : SingletonMonoBehaviour<WindowTalkManager>
         while (timer < delay)
         {
             // 押されてたら早送りに切り替え
-            if (InputReceiver.Instance.NextTalk)
+            if (InputReceiver.Instance.NextTalk && currentData.canFastForward)
                 isFastForward = true;
 
             float dt = Time.deltaTime;
             if (isFastForward)
-                dt *= 10f; // 早送り速度調整（ここは1fでもOK）
+                dt *= fastForwardRatio; // 早送り速度調整（ここは1fでもOK）
 
             timer += dt;
             yield return null;
