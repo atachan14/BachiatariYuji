@@ -1,10 +1,26 @@
+using System.Linq;
 using UnityEngine;
 
-public class CanAction : MonoBehaviour
+public  class CanAction : MonoBehaviour
 {
-    [SerializeField] EventBase[] events;
+    [SerializeField] protected BaseNode[] nodes;
+    protected BaseNode currentNode;
+
+    private void Start()
+    {
+        ChooseNode();
+    }
+    protected virtual void ChooseNode()
+    {
+        currentNode = nodes[0];
+    }
     public virtual void DoAction()
     {
-        events[0].DoEvent();
+        currentNode.PlayNode();
     }
+    protected BaseNode GetNode(string nodeName)
+    {
+        return nodes.FirstOrDefault(n => n.NodeName == nodeName);
+    }
+
 }

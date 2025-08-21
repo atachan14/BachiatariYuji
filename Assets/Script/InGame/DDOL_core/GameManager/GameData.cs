@@ -1,9 +1,15 @@
 using UnityEngine;
 
+public enum DayTime
+{
+    Morning,Night
+}
 public class GameData : SingletonMonoBehaviour<GameData>
 {
-    int bank;
-    int cash;
-    int todayEvil;
-    int totalEvil;
+    [field: SerializeField] public int Day { get; set; }
+    [field: SerializeField] public DayTime DayTime { get; set; }
+    [field: SerializeField] public int Bank { get; set; }
+    [field: SerializeField] public int Cash { get; set; }
+    [field: SerializeField] public int DayEvil { get; set; }
+    [field: SerializeField] public int TotalEvil { get; set; }
 }

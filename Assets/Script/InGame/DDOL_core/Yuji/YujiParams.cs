@@ -2,14 +2,19 @@ using UnityEngine;
 
 public class YujiParams : SingletonMonoBehaviour<YujiParams>
 {
-    [Header("ˆÚ“®İ’è")]
+    [Header("‹¤’Ê")]
     [SerializeField] private float moveSpeed = 5f;
 
-    [Header("ƒWƒƒƒ“ƒvİ’è")]
-    [SerializeField] private float jumpForce = 7f;
+    [Header("TopDown")]
 
-    [Header("‚µ‚á‚ª‚İİ’è")]
+    [Header("SideScroll")]
+    [SerializeField] private float jumpForce = 7f;
     [SerializeField] private float crouchScaleY = 0.5f;
+
+
+
+    [Header("ThiefGame")]
+
 
     public float MoveSpeed
     {

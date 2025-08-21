@@ -6,6 +6,6 @@ public class ForestCamera : MonoBehaviour
 
     private void LateUpdate()
     {
-        transform.position = new Vector3(yuji.position.x, 0, -10);
+        transform.position = new Vector3(yuji.position.x, -3, -10);
     }
 }
