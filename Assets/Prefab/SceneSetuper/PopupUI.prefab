@@ -227,7 +227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tmp: {fileID: 739791800488117213}
   background: {fileID: 8638403958476873991}
-  yOffset: 1
+  defaultFontAsset: {fileID: 11400000, guid: b7855b5d6d7f6d049b0d001bbc47af10, type: 2}
   lineCount: 0
   width: 0
   height: 0

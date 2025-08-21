@@ -6,6 +6,7 @@ public class TalkManager : SingletonMonoBehaviour<TalkManager>
 {
     [SerializeField] private GameObject DialogWindow;
     [SerializeField] private TextMeshProUGUI tmp;
+    [SerializeField] private TMP_FontAsset defaultFontAsset;
     [SerializeField] private GameObject nextCursor;
     [SerializeField] private float fastForwardRatio = 20f;
 
@@ -19,6 +20,7 @@ public class TalkManager : SingletonMonoBehaviour<TalkManager>
     {
         currentData = data;
         tmp.fontSize = currentData.fontSize;
+        tmp.font = data.fontAsset ?? defaultFontAsset;
 
         StopAllCoroutines();
         StartCoroutine(PlayTalkRoutine());

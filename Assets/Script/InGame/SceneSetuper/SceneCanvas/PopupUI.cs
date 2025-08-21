@@ -6,7 +6,8 @@ public class PopupUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI tmp;
     [SerializeField] private RectTransform background; // Image の RectTransform
-   
+    [SerializeField] private TMP_FontAsset defaultFontAsset;
+
     private PopupSO talk;       // 頭上オフセットをフィールド化
     private Transform target;
     private Camera mainCam;
@@ -22,6 +23,7 @@ public class PopupUI : MonoBehaviour
         this.talk = talk;
         tmp.text = talk.text;
         tmp.fontSize = talk.fontSize;
+        tmp.font = talk.fontAsset ?? defaultFontAsset;
 
         // TMP の推奨サイズを取得
         Vector2 preferredSize = tmp.GetPreferredValues(tmp.text);
