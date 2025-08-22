@@ -2,14 +2,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
-public enum TalkUIType
-{
-    Under,Popup
-}
-[CreateAssetMenu(fileName = "TalkData", menuName = "NodeSO/PopupSO")]
+[CreateAssetMenu(fileName = "PopupSO", menuName = "NodeSO/PopupSO")]
 public class PopupSO : NodeSO
 {
-    public string PopupName; // Ž¯•ÊŽq—p
     [TextArea] public string text;
     public float fontSize = 20f;
     public TMP_FontAsset fontAsset;

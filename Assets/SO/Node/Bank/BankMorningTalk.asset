@@ -12,20 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2278893486d92d44ba4608dfaa14e321, type: 3}
   m_Name: BankMorningTalk
   m_EditorClassIdentifier: 
-  talkName: Moning
+  nodeName: 
   text:
-  - "\u7D2B\u967D\u82B1"
-  - '2222222222222
-
-    333333
-
-'
-  - '44444444444444444445555555555555
-
-    ddddddddddd
-
-'
+  - "\u304A\u91D1\u3092\u96C6\u3081\u306A\u304D\u3083\u30FB\u30FB\u30FB"
   fontSize: 50
+  fontAsset: {fileID: 11400000, guid: c8a653bd9bf88af4288db4a066606f8a, type: 2}
   maxVisibleLines: 3
   charDelay: 0.05
   canFastForward: 1

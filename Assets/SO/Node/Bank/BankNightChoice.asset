@@ -9,14 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2278893486d92d44ba4608dfaa14e321, type: 3}
-  m_Name: BankNightTalk
+  m_Script: {fileID: 11500000, guid: 42596cfabff10cc4cba8164a445160aa, type: 3}
+  m_Name: BankNightChoice
   m_EditorClassIdentifier: 
-  talkName: Night
-  text:
-  - Bank?
+  text: 
   fontSize: 50
-  maxVisibleLines: 3
+  fontAsset: {fileID: 0}
   charDelay: 0.05
   canFastForward: 1
-  nextEvent: {fileID: 0}
+  choices:
+    text: 
+    nextNode: {fileID: 0}

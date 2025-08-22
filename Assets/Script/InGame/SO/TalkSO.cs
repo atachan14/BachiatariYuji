@@ -5,7 +5,6 @@ using UnityEngine.TextCore.Text;
 [CreateAssetMenu(fileName = "TalkSO", menuName = "NodeSO/TalkSO")]
 public class TalkSO : NodeSO
 {
-    public string talkName;
     [TextArea] public string[] text;   // 1つの会話のセリフの流れ（順番で表示）
 
     public float fontSize = 50f;

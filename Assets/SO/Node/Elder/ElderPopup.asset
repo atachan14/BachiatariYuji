@@ -12,12 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3da47618c2e8cc64d8a34a7407daa911, type: 3}
   m_Name: ElderPopup
   m_EditorClassIdentifier: 
-  PopupName: 
-  text: 'papapadddddddddd
-
-    poopo
-
-    nnniin'
-  fontSize: 50
+  nodeName: 
+  text: "\u60AA\u3044\u3053\u3068\u3092\u3059\u308B\u8005\u306F\u30FB\u30FB\u30FB\n\u3044\u305A\u308C\u7F70\u306B\u5F53\u305F\u308B\u306E\u3058\u3083\u30FB\u30FB\u30FB"
+  fontSize: 20
+  fontAsset: {fileID: 0}
   yOffset: 1
   lifeTime: 3
