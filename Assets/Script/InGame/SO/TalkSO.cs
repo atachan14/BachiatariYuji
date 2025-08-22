@@ -14,5 +14,4 @@ public class TalkSO : NodeSO
     public bool canFastForward = true;
 
 
-    public BaseNode nextEvent; // i–³‚¢ê‡‚Í null or ‹ó”z—ñj
 }

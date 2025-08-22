@@ -690,6 +690,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1217157791216985110}
   - component: {fileID: 2154992782367525371}
+  - component: {fileID: 3601018471094825598}
   m_Layer: 0
   m_Name: DialogManager
   m_TagString: Untagged
@@ -734,6 +735,22 @@ MonoBehaviour:
   defaultFontAsset: {fileID: 11400000, guid: b7855b5d6d7f6d049b0d001bbc47af10, type: 2}
   nextCursor: {fileID: 2484924048156228982}
   fastForwardRatio: 20
+--- !u!114 &3601018471094825598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5216309997529882421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e1f2d7d0e6fde746a613fe90d7807f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DialogWindow: {fileID: 2876962247620293588}
+  tmp: {fileID: 58470312352658803}
+  defaultFontAsset: {fileID: 11400000, guid: b7855b5d6d7f6d049b0d001bbc47af10, type: 2}
+  nextCursor: {fileID: 0}
 --- !u!1 &6095796984825992060
 GameObject:
   m_ObjectHideFlags: 0

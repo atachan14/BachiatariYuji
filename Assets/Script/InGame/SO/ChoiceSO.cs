@@ -4,8 +4,8 @@ using UnityEngine;
 [System.Serializable]
 public class ChoiceData
 {
-    public string text;           // 選択肢の表示内容
-    public BaseNode nextNode;     // 選んだら飛ぶ先
+    public string text;
+    // 他にもフォントや色を個別設定したいならここで持たせられる
 }
 
 [CreateAssetMenu(fileName = "ChoicesSO", menuName = "NodeSO/ChoicesSO")]

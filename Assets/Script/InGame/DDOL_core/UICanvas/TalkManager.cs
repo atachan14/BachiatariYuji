@@ -10,17 +10,19 @@ public class TalkManager : SingletonMonoBehaviour<TalkManager>
     [SerializeField] private GameObject nextCursor;
     [SerializeField] private float fastForwardRatio = 20f;
 
-    private TalkSO currentData;
+    private TalkNode currentNode;
+    private TalkSO currentSo;
     private int textIndex;
     private bool isFastForward = false;
 
 
     // ===== Public API =====
-    public void ShowUnder(TalkSO data)
+    public void ShowTalk(TalkNode node)
     {
-        currentData = data;
-        tmp.fontSize = currentData.fontSize;
-        tmp.font = data.fontAsset ?? defaultFontAsset;
+        currentNode = node;
+        currentSo = node.so;
+        tmp.fontSize = currentSo.fontSize;
+        tmp.font = currentSo.fontAsset ?? defaultFontAsset;
 
         StopAllCoroutines();
         StartCoroutine(PlayTalkRoutine());
@@ -31,9 +33,9 @@ public class TalkManager : SingletonMonoBehaviour<TalkManager>
     {
         EnterUnderTalkMode();
 
-        for (textIndex = 0; textIndex < currentData.text.Length; textIndex++)
+        for (textIndex = 0; textIndex < currentSo.text.Length; textIndex++)
         {
-            yield return StartCoroutine(PlayOneElement(currentData.text[textIndex]));
+            yield return StartCoroutine(PlayOneElement(currentSo.text[textIndex]));
 
             // 要素の終わりでワンテンポ待つ → ページクリア
             yield return WaitNextPress();
@@ -42,8 +44,8 @@ public class TalkManager : SingletonMonoBehaviour<TalkManager>
 
         ExitUnderTalkMode();
 
-        if (currentData.nextEvent != null)
-            currentData.nextEvent.PlayNode();
+        if (currentNode.nextNode != null)
+            currentNode.nextNode.PlayNode();
     }
 
     private IEnumerator PlayOneElement(string fullText)
@@ -56,7 +58,7 @@ public class TalkManager : SingletonMonoBehaviour<TalkManager>
             yield return TryAppendChar(c);
 
             // 文字ごとのディレイ（早送り対応）
-            yield return WaitForCharDelay(currentData.charDelay);
+            yield return WaitForCharDelay(currentSo.charDelay);
         }
 
     }
@@ -68,7 +70,7 @@ public class TalkManager : SingletonMonoBehaviour<TalkManager>
         tmp.ForceMeshUpdate();
 
         // 行数オーバー？
-        if (tmp.textInfo.lineCount > currentData.maxVisibleLines)
+        if (tmp.textInfo.lineCount > currentSo.maxVisibleLines)
         {
             // 直前の追加を戻す
             tmp.text = tmp.text.Substring(0, tmp.text.Length - 1);
@@ -90,7 +92,7 @@ public class TalkManager : SingletonMonoBehaviour<TalkManager>
         while (timer < delay)
         {
             // 押されてたら早送りに切り替え
-            if (InputReceiver.Instance.NextTalk && currentData.canFastForward)
+            if (InputReceiver.Instance.NextTalk && currentSo.canFastForward)
                 isFastForward = true;
 
             float dt = Time.deltaTime;
