@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class ChoiceNode : BaseNode
 {
-    [SerializeField] private ChoiceSO choiceSO;
-    [SerializeField] private BaseNode[] nextNodes; // choiceSO.choices とインデックス対応
+    public ChoiceSO so;
+    public BaseNode[] nextNodes; // choiceSO.choices とインデックス対応
 
     public override void PlayNode()
     {

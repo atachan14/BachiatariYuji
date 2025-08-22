@@ -4,7 +4,7 @@ using Input = UnityEngine.Input;
 
 public enum InputMode
 {
-    TopDown, SideScroll, UnderTalk
+    TopDown, SideScroll, Dialog
 }
 public class InputReceiver : SingletonMonoBehaviour<InputReceiver>
 {
@@ -49,7 +49,7 @@ public class InputReceiver : SingletonMonoBehaviour<InputReceiver>
             case InputMode.SideScroll:
                 SideScrollInput();
                 break;
-            case InputMode.UnderTalk:
+            case InputMode.Dialog:
                 TalkInput();
                 break;
         }
