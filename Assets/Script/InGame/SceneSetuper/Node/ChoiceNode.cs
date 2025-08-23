@@ -13,12 +13,32 @@ public class ChoiceNode : BaseNode
         StartCoroutine(PlayNodeCoroutine());
     }
 
- 
+
     private IEnumerator PlayNodeCoroutine()
     {
         DialogWindowManager.Instance.EnterDialogMode();
+
         yield return DialogTextManager.Instance.PlayTextRoutine(so);
-        yield return ChoiceContainerManager.Instance.PlayChoiceRoutine(choiceData);
+
+        bool done = false;
+        ChoiceData selected = null;
+
+        // ChoiceContainerManagerにコールバック渡す
+        yield return ChoiceContainerManager.Instance.PlayChoiceRoutine(choiceData, choice =>
+        {
+            selected = choice;
+            done = true;
+        });
+
+        // 選択完了まで待機
+        while (!done) yield return null;
+
         DialogWindowManager.Instance.ExitDialogMode();
+
+        // 次のNodeへ
+        if (selected != null && selected.nextNode != null)
+        {
+            selected.nextNode.PlayNode();
+        }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -27,7 +28,7 @@ public class ChoiceContainerManager : SingletonMonoBehaviour<ChoiceContainerMana
     private int currentCol = 0;
 
     // メイン処理
-    public IEnumerator PlayChoiceRoutine(ChoiceData[] datas)
+    public IEnumerator PlayChoiceRoutine(ChoiceData[] datas, Action<ChoiceData> onDecided)
     {
         SpawnChoices(datas);
 
@@ -39,15 +40,13 @@ public class ChoiceContainerManager : SingletonMonoBehaviour<ChoiceContainerMana
 
         ResetCursor();
 
-        _selectedChoice = null; // 初期化
-        yield return StartCoroutine(HandleInput(datas));
-
-        if (_selectedChoice != null && _selectedChoice.nextNode != null)
-        {
-            _selectedChoice.nextNode.PlayNode();
-        }
+        ChoiceData selected = null;
+        yield return StartCoroutine(HandleInput(datas, result => selected = result));
 
         ClearChoices();
+
+        if (selected != null)
+            onDecided?.Invoke(selected);
     }
 
     #region === UI生成 ===
@@ -109,7 +108,7 @@ public class ChoiceContainerManager : SingletonMonoBehaviour<ChoiceContainerMana
     #endregion
 
     #region === 入力処理 ===
-    private IEnumerator HandleInput(ChoiceData[] datas)
+    private IEnumerator HandleInput(ChoiceData[] datas, Action<ChoiceData> onDecided)
     {
         bool decided = false;
 
@@ -120,7 +119,8 @@ public class ChoiceContainerManager : SingletonMonoBehaviour<ChoiceContainerMana
             if (InputReceiver.Instance.Confirm)
             {
                 decided = true;
-                _selectedChoice = GetCurrentChoice(datas); // フィールドに設定
+                var choice = GetCurrentChoice(datas);
+                onDecided?.Invoke(choice);
             }
 
             yield return null;
