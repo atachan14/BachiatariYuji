@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2278893486d92d44ba4608dfaa14e321, type: 3}
-  m_Name: BankNightCountinueTalk
+  m_Name: BedNightTalk
   m_EditorClassIdentifier: 
   nodeName: 
-  text: "\u591C\u3092\u7D9A\u3051\u3088\u3046\u3002"
+  text: "\u7720\u308B\u524D\u306B\u8CAF\u91D1\u3057\u306A\u304F\u3061\u3083\u3002"
   fontSize: 50
   fontAsset: {fileID: 0}
   maxVisibleLines: 3

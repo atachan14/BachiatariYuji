@@ -22,5 +22,6 @@ public class TalkNode : BaseNode
         yield return StartCoroutine(DialogTextManager.Instance.PlayTextRoutine(so));
         yield return StartCoroutine(DialogTextManager.Instance.WaitNextPress());
         DialogWindowManager.Instance.ExitDialogMode();
+        nextNode?.PlayNode();
     }
 }
