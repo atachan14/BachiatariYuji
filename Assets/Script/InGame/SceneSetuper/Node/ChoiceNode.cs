@@ -1,20 +1,24 @@
+using System.Collections;
 using UnityEngine;
+
 
 public class ChoiceNode : BaseNode
 {
-    public ChoiceSO so;
-    public BaseNode[] nextNodes; // choiceSO.choices とインデックス対応
+    public TalkSO so;
+    public ChoiceData[] choiceData; // choiceSO.choices とインデックス対応
 
     public override void PlayNode()
     {
-        //ChoiceManager.Instance.ShowChoices(choiceSO.choices, OnChoiceSelected);
+        StopAllCoroutines();
+        StartCoroutine(PlayNodeCoroutine());
     }
 
-    private void OnChoiceSelected(int index)
+ 
+    private IEnumerator PlayNodeCoroutine()
     {
-        if (index >= 0 && index < nextNodes.Length)
-        {
-            nextNodes[index].PlayNode();
-        }
+        DialogWindowManager.Instance.EnterDialogMode();
+        yield return DialogTextManager.Instance.PlayTextRoutine(so);
+        yield return ChoiceContainerManager.Instance.PlayChoiceRoutine(choiceData);
+        DialogWindowManager.Instance.ExitDialogMode();
     }
 }

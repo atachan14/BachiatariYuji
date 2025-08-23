@@ -1,11 +1,10 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 [CreateAssetMenu(fileName = "TalkSO", menuName = "NodeSO/TalkSO")]
 public class TalkSO : NodeSO
 {
-    [TextArea] public string[] text;   // 1つの会話のセリフの流れ（順番で表示）
+    [TextArea] public string text;   // 1つの会話のセリフの流れ（順番で表示）
 
     public float fontSize = 50f;
     public TMP_FontAsset fontAsset;

@@ -11,7 +11,6 @@ public class YujiDoActioner : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("on trigger enter 2D");
         CanAction c = other.GetComponent<CanAction>();
         if (c != null && !canActionInRange.Contains(c))
         {
@@ -21,7 +20,6 @@ public class YujiDoActioner : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log("on trigger exit 2D");
         CanAction c = other.GetComponent<CanAction>();
         if (c != null && canActionInRange.Contains(c))
         {

@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: BankNightCountinueTalk
   m_EditorClassIdentifier: 
   nodeName: 
-  text: []
+  text: 
   fontSize: 50
   fontAsset: {fileID: 0}
   maxVisibleLines: 3
   charDelay: 0.05
   canFastForward: 1
-  nextEvent: {fileID: 0}

@@ -18,7 +18,11 @@ public class InputReceiver : SingletonMonoBehaviour<InputReceiver>
     public bool JumpPressed { get; private set; }
     public bool CrouchHeld { get; private set; }
 
-    public bool NextTalk { get; set; }
+    public bool Confirm { get; set; }
+    public bool Up { get; set; }
+    public bool Down { get; set; }
+    public bool Left { get; set; }
+    public bool Right { get; set; }
 
     public void SwitchMode(InputMode newMode)
     {
@@ -36,7 +40,7 @@ public class InputReceiver : SingletonMonoBehaviour<InputReceiver>
         JumpPressed = false;
         CrouchHeld = false;
 
-        NextTalk = false;
+        Confirm = false;
     }
 
     void Update()
@@ -73,6 +77,10 @@ public class InputReceiver : SingletonMonoBehaviour<InputReceiver>
 
     void TalkInput()
     {
-        NextTalk = Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0);
+        Confirm = Input.GetKeyDown(KeyCode.E);
+        Up = Input.GetKeyDown(KeyCode.W);
+        Down = Input.GetKeyDown(KeyCode.S);
+        Left = Input.GetKeyDown(KeyCode.A);
+        Right = Input.GetKeyDown(KeyCode.D);
     }
 }

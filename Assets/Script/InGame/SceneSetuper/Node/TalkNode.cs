@@ -1,4 +1,6 @@
 
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TalkNode : BaseNode
@@ -7,6 +9,18 @@ public class TalkNode : BaseNode
     public BaseNode nextNode;
     public override void PlayNode()
     {
-        TalkManager.Instance.ShowTalk(this);
+       
+        StopAllCoroutines();
+        StartCoroutine(PlayNodeRoutine());
+        
+    }
+
+    IEnumerator PlayNodeRoutine()
+    {
+        Debug.Log(so);
+        DialogWindowManager.Instance.EnterDialogMode();
+        yield return StartCoroutine(DialogTextManager.Instance.PlayTextRoutine(so));
+        yield return StartCoroutine(DialogTextManager.Instance.WaitNextPress());
+        DialogWindowManager.Instance.ExitDialogMode();
     }
 }
