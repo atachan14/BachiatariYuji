@@ -2763,6 +2763,38 @@ PrefabInstance:
       propertyPath: choiceData.Array.data[1].fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: c8a653bd9bf88af4288db4a066606f8a, type: 2}
+    - target: {fileID: 321807101582301852, guid: 7fb9af9a8435dd940a53035ca4456db3, type: 3}
+      propertyPath: choiceData.Array.data[0].localizedTexts.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 321807101582301852, guid: 7fb9af9a8435dd940a53035ca4456db3, type: 3}
+      propertyPath: choiceData.Array.data[1].localizedTexts.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 321807101582301852, guid: 7fb9af9a8435dd940a53035ca4456db3, type: 3}
+      propertyPath: choiceData.Array.data[0].localizedTexts.Array.data[0].text
+      value: Yes
+      objectReference: {fileID: 0}
+    - target: {fileID: 321807101582301852, guid: 7fb9af9a8435dd940a53035ca4456db3, type: 3}
+      propertyPath: choiceData.Array.data[0].localizedTexts.Array.data[1].text
+      value: Yes
+      objectReference: {fileID: 0}
+    - target: {fileID: 321807101582301852, guid: 7fb9af9a8435dd940a53035ca4456db3, type: 3}
+      propertyPath: choiceData.Array.data[1].localizedTexts.Array.data[0].text
+      value: No
+      objectReference: {fileID: 0}
+    - target: {fileID: 321807101582301852, guid: 7fb9af9a8435dd940a53035ca4456db3, type: 3}
+      propertyPath: choiceData.Array.data[1].localizedTexts.Array.data[1].text
+      value: No
+      objectReference: {fileID: 0}
+    - target: {fileID: 321807101582301852, guid: 7fb9af9a8435dd940a53035ca4456db3, type: 3}
+      propertyPath: choiceData.Array.data[0].localizedTexts.Array.data[1].language
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 321807101582301852, guid: 7fb9af9a8435dd940a53035ca4456db3, type: 3}
+      propertyPath: choiceData.Array.data[1].localizedTexts.Array.data[1].language
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 344036960259881698, guid: 7fb9af9a8435dd940a53035ca4456db3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

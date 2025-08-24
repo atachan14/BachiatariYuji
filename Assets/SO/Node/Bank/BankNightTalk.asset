@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: BankNightTalk
   m_EditorClassIdentifier: 
   nodeName: 
-  text: "\u4ECA\u65E5\u306F\u3082\u3046\u3001\u8CAF\u91D1\u3057\u3066\u7720\u308B\uFF1F"
+  localizedTexts:
+  - language: 0
+    text: "\u4ECA\u65E5\u306F\u3082\u3046\u3001\u8CAF\u91D1\u3057\u3066\u7720\u308B\uFF1F"
+  - language: 1
+    text: Today, will I depositt and sleep?
   fontSize: 50
   fontAsset: {fileID: 11400000, guid: c8a653bd9bf88af4288db4a066606f8a, type: 2}
   maxVisibleLines: 2

@@ -10,10 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2278893486d92d44ba4608dfaa14e321, type: 3}
-  m_Name: OfferingBoxNightTalk
+  m_Name: SaisenBoxNightTalk
   m_EditorClassIdentifier: 
   nodeName: 
-  text: "\u3088\u3057\u3001\u5E30\u308D\u3046\uFF01"
+  localizedTexts:
+  - language: 0
+    text: "\u3088\u3057\u3001\u5E30\u308D\u3046\uFF01"
+  - language: 1
+    text: Okay, let's go home!
   fontSize: 50
   fontAsset: {fileID: 0}
   maxVisibleLines: 3

@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: Elder999Popup
   m_EditorClassIdentifier: 
   nodeName: 
-  text: "\u3086\u3046\u3058\u3001\u304A\u306C\u3057\u30FB\u30FB\u30FB"
+  localizedTexts:
+  - language: 0
+    text: "\u3086\u3046\u3058\u3001\u304A\u306C\u3057\u30FB\u30FB\u30FB"
+  - language: 1
+    text: Yuji, you are...
   fontSize: 0
-  fontAsset: {fileID: 0}
+  fontAsset: {fileID: 11400000, guid: c8a653bd9bf88af4288db4a066606f8a, type: 2}
   yOffset: 1
   lifeTime: 3

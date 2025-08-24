@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class ChoiceData
 {
     public string text;
+    public List<LocalizedText> localizedTexts;
     public int rowIndex;
     public float fontSize = 50f;
     public TMP_FontAsset fontAsset;
@@ -92,7 +93,7 @@ public class ChoiceContainerManager : SingletonMonoBehaviour<ChoiceContainerMana
         TMP_Text label = optionObj.GetComponentInChildren<TMP_Text>();
         if (label != null)
         {
-            label.text = data.text;
+            label.text = data.localizedTexts.GetText(OptionData.Instance.Language);
             label.fontSize = data.fontSize;
             label.font = data.fontAsset ?? defaultFontAsset;
         }

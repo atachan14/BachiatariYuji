@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: ElderPopup
   m_EditorClassIdentifier: 
   nodeName: 
-  text: "\u60AA\u3044\u3053\u3068\u3092\u3059\u308B\u8005\u306F\u30FB\u30FB\u30FB\n\u3044\u305A\u308C\u7F70\u306B\u5F53\u305F\u308B\u306E\u3058\u3083\u30FB\u30FB\u30FB"
+  localizedTexts:
+  - language: 0
+    text: "\u60AA\u3044\u3053\u3068\u3092\u3059\u308B\u8005\u306F\u30FB\u30FB\u30FB\n\u3044\u305A\u308C\u7F70\u306B\u5F53\u305F\u308B\u306E\u3058\u3083\u30FB\u30FB\u30FB"
+  - language: 1
+    text: "Those who do evil will \neventually face punishment."
   fontSize: 0
-  fontAsset: {fileID: 0}
+  fontAsset: {fileID: 11400000, guid: c8a653bd9bf88af4288db4a066606f8a, type: 2}
   yOffset: 1
   lifeTime: 3

@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: BedNightTalk
   m_EditorClassIdentifier: 
   nodeName: 
-  text: "\u7720\u308B\u524D\u306B\u8CAF\u91D1\u3057\u306A\u304F\u3061\u3083\u3002"
+  localizedTexts:
+  - language: 0
+    text: "\u7720\u308B\u524D\u306B\u8CAF\u91D1\u3057\u306A\u304F\u3061\u3083\u3002"
+  - language: 1
+    text: I have to save up before I go to sleep.
   fontSize: 50
   fontAsset: {fileID: 0}
   maxVisibleLines: 3

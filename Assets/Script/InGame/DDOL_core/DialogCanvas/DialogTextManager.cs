@@ -14,7 +14,7 @@ public class TalkData
     // SO から生成するコンストラクタ
     public TalkData(TalkSO so)
     {
-        text = so.text;
+        text = so.GetText(OptionData.Instance.Language);
         fontAsset = so.fontAsset;
         fontSize = so.fontSize;
         maxVisibleLines = so.maxVisibleLines;

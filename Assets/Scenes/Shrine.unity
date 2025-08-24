@@ -2277,7 +2277,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6663932514313713119, guid: 1468284fa9fc0ed4c99be14847a85133, type: 3}
       propertyPath: m_Name
-      value: OfferingBox
+      value: SaisenBox
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

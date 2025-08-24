@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: BankNightCountinueTalk
   m_EditorClassIdentifier: 
   nodeName: 
-  text: "\u3082\u3063\u3068\u308F\u308B\u3044\u3053\u3068\u3057\u306A\u304D\u3083\uFF01"
+  localizedTexts:
+  - language: 0
+    text: "\u3082\u3063\u3068\u308F\u308B\u3044\u3053\u3068\u3057\u306A\u304D\u3083\uFF01"
+  - language: 1
+    text: I must do evil more !
   fontSize: 50
   fontAsset: {fileID: 0}
   maxVisibleLines: 3

@@ -10,10 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2278893486d92d44ba4608dfaa14e321, type: 3}
-  m_Name: OfferingBoxMorningTalk
+  m_Name: SaisenBoxMorningTalk
   m_EditorClassIdentifier: 
   nodeName: 
-  text: "\u3088\u3057\u3001\u3084\u308B\u304B\uFF01"
+  localizedTexts:
+  - language: 0
+    text: "\u3088\u3057\u3001\u3084\u308B\u304B\uFF01"
+  - language: 1
+    text: Okay, let's do it!
   fontSize: 50
   fontAsset: {fileID: 0}
   maxVisibleLines: 3
