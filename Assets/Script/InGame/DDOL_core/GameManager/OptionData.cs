@@ -1,9 +1,16 @@
 using UnityEngine;
 
-public enum Language { JP, EN, FR }
+public enum Language{ JP,EN }
 
-public class OptionData : MonoBehaviour
+[System.Serializable]
+public class LocalizedText
+{
+    public Language language;
+    [TextArea] public string text;
+}
+
+public class OptionData : SingletonMonoBehaviour<OptionData>
 {
     
-    [SerializeField] Language language = Language.JP;
+    public Language Language = Language.JP;
 }

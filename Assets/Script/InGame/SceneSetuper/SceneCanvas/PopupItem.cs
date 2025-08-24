@@ -22,18 +22,16 @@ public class PopupItem : MonoBehaviour
     {
         this.target = target;
         this.talk = talk;
-        tmp.text = talk.text;
+
+        string localizedText = talk.GetText(OptionData.Instance.Language);
+        tmp.text = localizedText;
+
         tmp.fontSize = (talk.fontSize > 0) ? talk.fontSize : defaultFontSize;
         tmp.font = talk.fontAsset ?? defaultFontAsset;
 
         // TMP の推奨サイズを取得
         Vector2 preferredSize = tmp.GetPreferredValues(tmp.text);
         tmp.rectTransform.sizeDelta = preferredSize;
-
-        //// デバッグ用
-        //lineCount = tmp.textInfo.lineCount;
-        //width = preferredSize.x;
-        //height = preferredSize.y;
 
         // 背景をテキストよりちょい大きめに（余白 20px とか）
         Vector2 padding = new Vector2(20, 20);
