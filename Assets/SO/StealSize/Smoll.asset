@@ -13,5 +13,10 @@ MonoBehaviour:
   m_Name: Smoll
   m_EditorClassIdentifier: 
   size: 0
-  displayName: "\u3061\u3087\u3073\u3063\u3068"
-  medianRate: 0.01
+  localizedTexts:
+  - language: 0
+    text: "\u3061\u3087\u3073\u3063\u3068"
+  - language: 1
+    text: Little
+  medianRate: 0.05
+  id: 0

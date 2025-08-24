@@ -1,10 +1,27 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+public enum Language { JP, EN }
 
+[System.Serializable]
+public class LocalizedText
+{
+    public Language language;
+    [TextArea] public string text;
+
+    public LocalizedText(Language lang, string txt)
+    {
+        language = lang;
+        text = txt;
+    }
+}
 public static class LocalizedHelper
 {
     public static string GetText(this List<LocalizedText> localizedTexts, Language lang)
     {
+        if (localizedTexts == null || localizedTexts.Count == 0)
+            return "No Data";
+
         var entry = localizedTexts.FirstOrDefault(l => l.language == lang);
         if (entry != null && !string.IsNullOrEmpty(entry.text))
             return entry.text;

@@ -508,6 +508,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NodeName: 
   nextNode: {fileID: 2099801788}
+  continueLabel:
+  - language: 0
+    text: "\u7D9A\u3051\u308B (\u6B8B\u308A{0}\u56DE)"
+  - language: 1
+    text: Continue ({0} left)
+  stopLabel:
+  - language: 0
+    text: "\u3084\u3081\u308B"
+  - language: 1
+    text: Stop
+  resultFormat:
+  - language: 0
+    text: "{0}\u5186\u76D7\u3093\u3060\uFF01"
+  - language: 1
+    text: I stole {0} yen !
 --- !u!1 &568627272
 GameObject:
   m_ObjectHideFlags: 0

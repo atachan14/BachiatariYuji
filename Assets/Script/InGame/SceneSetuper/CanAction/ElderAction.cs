@@ -4,7 +4,7 @@ public class ElderAction : CanAction
 {
     public override void ChooseNode()
     {
-        switch (GameData.Instance.DayEvil)
+        switch (GameData.Instance.TotalEvil)
         {
             case <100:
                 currentNode = GetNode("99");
@@ -12,6 +12,9 @@ public class ElderAction : CanAction
 
             case <1000:
                 currentNode = GetNode("999");
+                break;
+            case < 10000:
+                currentNode = GetNode("9999");
                 break;
         }
     }

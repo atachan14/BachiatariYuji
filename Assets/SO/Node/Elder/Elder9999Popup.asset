@@ -9,14 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ae9701c2f82f1d47b62800d01a171b5, type: 3}
-  m_Name: Midium
+  m_Script: {fileID: 11500000, guid: 3da47618c2e8cc64d8a34a7407daa911, type: 3}
+  m_Name: Elder9999Popup
   m_EditorClassIdentifier: 
-  size: 1
-  localizedTexts:
-  - language: 0
-    text: "\u3075\u3064\u3046\u304F\u3089\u3044"
-  - language: 1
-    text: Midium
-  medianRate: 0.15
-  id: 0
+  nodeName: 
+  localizedTexts: []
+  fontSize: 0
+  fontAsset: {fileID: 0}
+  yOffset: 1
+  lifeTime: 2

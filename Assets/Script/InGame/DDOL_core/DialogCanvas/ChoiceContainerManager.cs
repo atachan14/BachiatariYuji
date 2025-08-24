@@ -14,6 +14,8 @@ public class ChoiceData
     public float fontSize = 50f;
     public TMP_FontAsset fontAsset;
     public BaseNode nextNode;
+
+    public int id;
 }
 
 public class ChoiceContainerManager : SingletonMonoBehaviour<ChoiceContainerManager>

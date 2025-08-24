@@ -13,5 +13,10 @@ MonoBehaviour:
   m_Name: Large
   m_EditorClassIdentifier: 
   size: 2
-  displayName: "\u305F\u3063\u3077\u308A"
-  medianRate: 0.1
+  localizedTexts:
+  - language: 0
+    text: "\u305F\u3063\u3077\u308A"
+  - language: 1
+    text: Many
+  medianRate: 0.3
+  id: 0
