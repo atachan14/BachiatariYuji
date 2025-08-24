@@ -5,7 +5,7 @@ public class YujiDoActioner : MonoBehaviour
 {
     [SerializeField] private Transform yujiTransform;      // YujiTopDown / YujiSideScroll の Transform
     [SerializeField] private YujiFacingBase yujiFacing;    // YTDFacing / YSSFacing をセット
-    [SerializeField] private float forwardOffset = 1.0f;   // 前方への距離
+    [SerializeField] private float forwardOffset = 0.5f;   // 前方への距離
 
     private List<CanAction> canActionInRange = new List<CanAction>();
 

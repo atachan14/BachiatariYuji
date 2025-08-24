@@ -22,6 +22,11 @@ public class ChoiceContainerManager : SingletonMonoBehaviour<ChoiceContainerMana
     [SerializeField] private GameObject choiceRowPrefab; // ChoiceRow Prefab
     [SerializeField] private GameObject choiceOptionPrefab; // ChoiceOption Prefab
 
+    [Header("Default Font")]
+    [SerializeField] private TMP_FontAsset defaultFontAsset;
+
+
+
     private List<GameObject> choiceRows = new List<GameObject>();
     private ChoiceData _selectedChoice; // フィールドで保持
     private int currentRow = 0;
@@ -34,9 +39,10 @@ public class ChoiceContainerManager : SingletonMonoBehaviour<ChoiceContainerMana
 
         //レイアウト調整用
         LayoutRebuilder.ForceRebuildLayoutImmediate(choiceContainer.GetComponent<RectTransform>());
-        LayoutRebuilder.ForceRebuildLayoutImmediate(choiceContainer.GetComponent<RectTransform>());
+        yield return null;
         LayoutRebuilder.ForceRebuildLayoutImmediate(choiceContainer.GetComponent<RectTransform>());
         yield return new WaitForSeconds(0.5f);
+        
 
         ResetCursor();
 
@@ -88,8 +94,7 @@ public class ChoiceContainerManager : SingletonMonoBehaviour<ChoiceContainerMana
         {
             label.text = data.text;
             label.fontSize = data.fontSize;
-            if (data.fontAsset != null)
-                label.font = data.fontAsset;
+            label.font = data.fontAsset ?? defaultFontAsset;
         }
 
         // カーソルは最初の子の Image にしておく

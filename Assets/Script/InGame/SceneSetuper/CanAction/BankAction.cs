@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BankAction : CanAction
 {
-    protected override void ChooseNode()
+    public override void ChooseNode()
     {
         switch (GameData.Instance.DayTime)
         {

@@ -1,7 +1,38 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+[System.Serializable]
+public class TalkData
+{
+    public string text;
+    public TMP_FontAsset fontAsset;
+    public float fontSize;
+    public int maxVisibleLines;
+    public float charDelay;
+    public bool canFastForward;
 
+    // SO から生成するコンストラクタ
+    public TalkData(TalkSO so)
+    {
+        text = so.text;
+        fontAsset = so.fontAsset;
+        fontSize = so.fontSize;
+        maxVisibleLines = so.maxVisibleLines;
+        charDelay = so.charDelay;
+        canFastForward = so.canFastForward;
+    }
+
+    // 文字列だけで作る場合のコンストラクタ
+    public TalkData(string t, TMP_FontAsset font = null, float size = 50f, int lines = 3, float delay = 0.05f, bool fastForward = true)
+    {
+        text = t;
+        fontAsset = font;
+        fontSize = size;
+        maxVisibleLines = lines;
+        charDelay = delay;
+        canFastForward = fastForward;
+    }
+}
 public class DialogTextManager : SingletonMonoBehaviour<DialogTextManager>
 {
 
@@ -12,21 +43,28 @@ public class DialogTextManager : SingletonMonoBehaviour<DialogTextManager>
 
     private bool isFastForward;
 
-    public IEnumerator PlayTextRoutine(TalkSO so)
+    public IEnumerator PlayTextRoutine(TalkData data)
     {
-        tmp.font = so.fontAsset ?? defaultFontAsset;
-        tmp.fontSize = so.fontSize;
+        tmp.font = data.fontAsset ?? defaultFontAsset;
+        tmp.fontSize = data.fontSize;
         tmp.text = "";
         isFastForward = false;
 
-        foreach (char c in so.text)
+        foreach (char c in data.text)
         {
-            yield return AppendCharWithScroll(c, so.maxVisibleLines);
-
-            // 文字ごとのディレイ
-            yield return WaitForCharDelay(so.charDelay, so.canFastForward);
+            yield return AppendCharWithScroll(c, data.maxVisibleLines);
+            yield return WaitForCharDelay(data.charDelay, data.canFastForward);
         }
+    }
 
+    // 既存のSO用オーバーロード
+    public IEnumerator PlayTextRoutine(TalkSO so)
+    {
+        return PlayTextRoutine(new TalkData(so));
+    }
+    public IEnumerator PlayTextRoutine(string text)
+    {
+        return PlayTextRoutine(new TalkData(text));
     }
 
 
@@ -93,5 +131,14 @@ public class DialogTextManager : SingletonMonoBehaviour<DialogTextManager>
         string rest = t.Substring(cutStart + cutLen);
         tmp.text = rest.TrimStart('\n', '\r');
     }
+
+    public void ResetText()
+    {
+        tmp.text = "";
+        tmp.ForceMeshUpdate();
+        nextCursor.SetActive(false);
+        isFastForward = false;
+    }
+
 
 }

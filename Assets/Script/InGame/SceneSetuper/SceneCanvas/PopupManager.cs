@@ -7,6 +7,6 @@ public class PopupManager : SingletonMonoBehaviour<PopupManager>
     public void ShowPopup( PopupSO talk, Transform target)
     {
         var popup = Instantiate(popupPrefab, transform);
-        popup.GetComponent<PopupUI>().Init(target, talk);
+        popup.GetComponent<PopupItem>().Init(target, talk);
     }
 }

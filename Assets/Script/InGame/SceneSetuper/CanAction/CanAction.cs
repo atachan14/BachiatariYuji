@@ -10,7 +10,7 @@ public  class CanAction : MonoBehaviour
     {
         ChooseNode();
     }
-    protected virtual void ChooseNode()
+    public virtual void ChooseNode()
     {
         currentNode = nodes[0];
     }
@@ -20,7 +20,12 @@ public  class CanAction : MonoBehaviour
     }
     protected BaseNode GetNode(string nodeName)
     {
-        return nodes.FirstOrDefault(n => n.NodeName == nodeName);
+        var node = nodes.FirstOrDefault(n => n.NodeName == nodeName);
+        if (node == null)
+        {
+            Debug.LogWarning($"GetNode: ƒm[ƒh '{nodeName}' ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½I");
+        }
+        return node;
     }
 
 }

@@ -8,8 +8,8 @@ public class GameData : SingletonMonoBehaviour<GameData>
 {
     [field: SerializeField] private int day;
     [field: SerializeField] private DayTime dayTime;
-    [field: SerializeField] public int bank;
-    [field: SerializeField] public int cash;
+    [field: SerializeField] private int bank;
+    [field: SerializeField] private int cash;
     [field: SerializeField] private int dayEvil;
     [field: SerializeField] private int totalEvil;
 
@@ -38,9 +38,9 @@ public class GameData : SingletonMonoBehaviour<GameData>
         get => dayTime;
         set
         {
-            DayTime old = dayTime;
             dayTime = value;
-            DayWindowManager.Instance.ChangeDayTime(); // enumÇ»ÇÃÇ≈íºê⁄çXêVÇ≈OK
+            DayWindowManager.Instance.ChangeDayTime();
+            GlobalLightController.Instance.SetDayTime(dayTime);
         }
     }
 
