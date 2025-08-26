@@ -739,7 +739,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7306841767759976125, guid: dd290483119b3264f9a352476b046419, type: 3}
       propertyPath: targetScene
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7306841767759976125, guid: dd290483119b3264f9a352476b046419, type: 3}
       propertyPath: targetDoorName

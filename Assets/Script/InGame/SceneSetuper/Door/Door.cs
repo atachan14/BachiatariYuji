@@ -8,6 +8,7 @@ public enum SceneName
     House2F,
     Town,
     Forest,
+    ForestTopDown,
     Shrine
 }
 

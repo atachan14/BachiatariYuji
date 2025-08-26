@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: Elder9999Popup
   m_EditorClassIdentifier: 
   nodeName: 
-  localizedTexts: []
+  localizedTexts:
+  - language: 0
+    text: "\u4E16\u754C\u306E\u7834\u6EC5\u304C\u8FD1\u3044\u30FB\u30FB\u30FB"
+  - language: 1
+    text: The end of the world is near...
   fontSize: 0
   fontAsset: {fileID: 0}
   yOffset: 1

@@ -1,11 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static UnityEngine.EventSystems.StandaloneInputModule;
 
-public class SceneSetuper : MonoBehaviour
+public class SceneSetuper : SingletonMonoBehaviour<SceneSetuper>
 {
-    public static SceneSetuper Instance { get; private set; }
     [SerializeField] private SceneViewMode viewMode;
     [SerializeField] private CameraMode cameraMode;
     [SerializeField] private float cameraSize = 5f;
@@ -13,10 +11,6 @@ public class SceneSetuper : MonoBehaviour
     [Header("ÉVÅ[Éìì‡ÇÃDooràÍóó")]
     public List<Door> doorList = new List<Door>();
 
-    private void Awake()
-    {
-        Instance = this;
-    }
 
     protected virtual void Start()
     {
