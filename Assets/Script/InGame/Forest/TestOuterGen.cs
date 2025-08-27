@@ -1,46 +1,53 @@
-ï»¿using UnityEngine;
+using UnityEngine;
+
+public class TestOuterGen : MonoBehaviour
+{
+/*
 public class ForestOuterGen : SingletonMonoBehaviour<ForestOuterGen>
 {
-    [Header("ç”Ÿæˆã‚µã‚¤ã‚ºåŸºæº–")]
+    [Header("¶¬ƒTƒCƒYŠî€")]
     [SerializeField] int baseTotalSize = 50;
     [SerializeField] float dayCoef = 0.05f;
     [SerializeField] float evilCoef = 0.0001f;
     [SerializeField] int minDimension = 6;
 
-    [Header("ã‚µã‚¤ã‚ºæŒ¯ã‚Œå¹…ï¼ˆæ­£è¦åˆ†å¸ƒï¼‰")]
-    [SerializeField, Range(0.01f, 1f)] float jitterStdDev = 0.25f; // ç·ãƒã‚¹æ•°ã®æºã‚Œ
-    [SerializeField, Range(0.01f, 1f)] float ratioStdDev = 0.25f; // ç¸¦æ¨ªæ¯”ã®æºã‚Œ
+    [Header("ƒTƒCƒYU‚ê•i³‹K•ª•zj")]
+    [SerializeField, Range(0.01f, 1f)] float jitterStdDev = 0.25f; // ‘ƒ}ƒX”‚Ì—h‚ê
+    [SerializeField, Range(0.01f, 1f)] float ratioStdDev = 0.25f; // c‰¡”ä‚Ì—h‚ê
 
-    [Header("ãƒ©ãƒ³ãƒ€ãƒ åˆ¶å¾¡")]
+    
 
-    [Header("é…ç½®ã‚¹ã‚±ãƒ¼ãƒ« / ãƒ‰ã‚¢ä½™ç™½")]
-    [SerializeField] float cellSize = 1f;
-    [SerializeField, Min(0)] int doorEdgeMargin = 1; // è§’ã‹ã‚‰ã©ã‚Œã ã‘é›¢ã™ã‹
+    [Header("”z’uƒXƒP[ƒ‹ / ƒhƒA—]”’")]
+    [SerializeField, Min(0)] int doorEdgeMargin = 1; // Šp‚©‚ç‚Ç‚ê‚¾‚¯—£‚·‚©
+
+    [Header("Prefab")]
+    [SerializeField] GameObject outerWallPrefab;
+    [SerializeField] Transform outerWallsParent;
+
 
     int width, height;
 
     public void Generate()
     {
-        // --- â‘  ã‚·ãƒ¼ãƒ‰åˆæœŸåŒ– ---
+        // --- ‡@ ƒV[ƒh‰Šú‰» ---
         int useSeed = GameData.Instance.DaySeed;
         Random.InitState(useSeed);
 
-        // TODO: å®Ÿé‹ç”¨ã§ã¯ GameData.Instance.Day / TotalEvil ã‚’æ¸¡ã™
+        // TODO: À‰^—p‚Å‚Í GameData.Instance.Day / TotalEvil ‚ğ“n‚·
         ComputeSize(1, 0f, out width, out height);
 
-        // --- â‘¡ çµæœã‚’ Manager ã«ä¿å­˜ ---
+        // --- ‡A Œ‹‰Ê‚ğ Manager ‚É•Û‘¶ ---
         ForestGenManager.Instance.Width = width;
         ForestGenManager.Instance.Height = height;
-        ForestGenManager.Instance.CellSize = cellSize;
 
-        ClearChildren(ForestGenManager.Instance.outerWallsParent);
+        ClearChildren(outerWallsParent);
         BuildOuterWalls();
         ConfigurationDoor();
 
         Debug.Log($"[ForestOuterGen] size = {width} x {height}, seed={useSeed}");
     }
 
-    // ===== ã‚µã‚¤ã‚ºæ±ºå®š =====
+    // ===== ƒTƒCƒYŒˆ’è =====
     void ComputeSize(int day, float totalEvil, out int w, out int h)
     {
         float dayMul = 1f + (day - 1) * dayCoef;
@@ -48,12 +55,12 @@ public class ForestOuterGen : SingletonMonoBehaviour<ForestOuterGen>
 
         int baseTotal = Mathf.RoundToInt(baseTotalSize * dayMul * evilMul);
 
-        // ç·ã‚µã‚¤ã‚ºï¼šä¸‹é™ã®ã¿ä¿è¨¼ã€‚ä¸Šã¯æ­£è¦åˆ†å¸ƒã®å‡ºç›®ã—ã ã„ã§ç„¡é™ã€‚
-        float jitterFactor = SampleNormal(1f, jitterStdDev); // Clampã—ãªã„
+        // ‘ƒTƒCƒYF‰ºŒÀ‚Ì‚İ•ÛØBã‚Í³‹K•ª•z‚Ìo–Ú‚µ‚¾‚¢‚Å–³ŒÀB
+        float jitterFactor = SampleNormal(1f, jitterStdDev); // Clamp‚µ‚È‚¢
         int total = Mathf.RoundToInt(baseTotal * jitterFactor);
         if (total < minDimension * 2) total = minDimension * 2;
 
-        // ç¸¦æ¨ªæ¯”ï¼š0..1ã«åã‚ã‚‹
+        // c‰¡”äF0..1‚Éû‚ß‚é
         float t = Mathf.Clamp01(SampleNormal(0.5f, ratioStdDev));
         w = Mathf.RoundToInt(total * t);
         h = total - w;
@@ -71,7 +78,7 @@ public class ForestOuterGen : SingletonMonoBehaviour<ForestOuterGen>
         return mean + stdDev * z;
     }
 
-    // ===== Start/Goalé…ç½® =====
+    // ===== Start/Goal”z’u =====
     void ConfigurationDoor()
     {
         Vector2Int startCell = PickStartOnBottom();
@@ -83,23 +90,23 @@ public class ForestOuterGen : SingletonMonoBehaviour<ForestOuterGen>
         RemoveWallAt(startPos);
         RemoveWallAt(goalPos);
 
-        // --- Manager ã«ä¿å­˜ ---
+        // --- Manager ‚É•Û‘¶ ---
         if (ForestGenManager.Instance.StartDoor != null) ForestGenManager.Instance.StartDoor.position = startPos;
         if (ForestGenManager.Instance.GoalDoor != null) ForestGenManager.Instance.GoalDoor.position = goalPos;
 
         Debug.Log($"[ForestOuterGen] start={startCell}, goal={goalCell}");
     }
 
-    // ä¸‹è¾º(y=0)å›ºå®šã€xã¯è§’ã‚’é¿ã‘ã¦ãƒ©ãƒ³ãƒ€ãƒ 
+    // ‰º•Ó(y=0)ŒÅ’èAx‚ÍŠp‚ğ”ğ‚¯‚Äƒ‰ƒ“ƒ_ƒ€
     Vector2Int PickStartOnBottom()
     {
         int minX = Mathf.Max(1, doorEdgeMargin);
-        int maxXEx = Mathf.Max(minX + 1, width - doorEdgeMargin); // æ’ä»–çš„ä¸Šé™
+        int maxXEx = Mathf.Max(minX + 1, width - doorEdgeMargin); // ”r‘¼“IãŒÀ
         int sx = Random.Range(minX, maxXEx);
         return new Vector2Int(sx, 0);
     }
 
-    // ä¸Šè¾º(y=height-1)ã®â€œåå¯¾å´ãƒãƒ¼ãƒ•â€ã‹ã‚‰xã‚’é¸ã¶ï¼ˆè§’ã¯ä½™ç™½ã§å›é¿ï¼‰
+    // ã•Ó(y=height-1)‚Ìg”½‘Î‘¤ƒn[ƒth‚©‚çx‚ğ‘I‚ÔiŠp‚Í—]”’‚Å‰ñ”ğj
     Vector2Int PickGoalOnTopDiagonal(Vector2Int start)
     {
         int topY = height - 1;
@@ -109,18 +116,18 @@ public class ForestOuterGen : SingletonMonoBehaviour<ForestOuterGen>
         int minX, maxXEx;
         if (startOnLeft)
         {
-            // ã‚¹ã‚¿ãƒ¼ãƒˆãŒå·¦åŠåˆ† â†’ ã‚´ãƒ¼ãƒ«ã¯å³åŠåˆ†
+            // ƒXƒ^[ƒg‚ª¶”¼•ª ¨ ƒS[ƒ‹‚Í‰E”¼•ª
             minX = Mathf.Max(midX, doorEdgeMargin);
             maxXEx = Mathf.Max(minX + 1, width - doorEdgeMargin);
         }
         else
         {
-            // ã‚¹ã‚¿ãƒ¼ãƒˆãŒå³åŠåˆ† â†’ ã‚´ãƒ¼ãƒ«ã¯å·¦åŠåˆ†
+            // ƒXƒ^[ƒg‚ª‰E”¼•ª ¨ ƒS[ƒ‹‚Í¶”¼•ª
             minX = Mathf.Max(doorEdgeMargin, 0);
             maxXEx = Mathf.Max(minX + 1, midX);
         }
 
-        // å¿µã®ãŸã‚ã‚¬ãƒ¼ãƒ‰ï¼ˆæ¥µç«¯ã«å°ã•ã„å¹…ã®ã¨ãï¼‰
+        // ”O‚Ì‚½‚ßƒK[ƒhi‹É’[‚É¬‚³‚¢•‚Ì‚Æ‚«j
         if (minX >= maxXEx)
         {
             minX = Mathf.Clamp(midX, doorEdgeMargin, width - doorEdgeMargin - 1);
@@ -131,7 +138,7 @@ public class ForestOuterGen : SingletonMonoBehaviour<ForestOuterGen>
         return new Vector2Int(gx, topY);
     }
 
-    // ===== ãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£ =====
+    // ===== ƒ†[ƒeƒBƒŠƒeƒB =====
     void ClearChildren(Transform t)
     {
         if (t == null) return;
@@ -156,22 +163,22 @@ public class ForestOuterGen : SingletonMonoBehaviour<ForestOuterGen>
         }
     }
     
-    Vector3 ToWorld(int x, int y) => new Vector3(x * cellSize, y * cellSize, 0f);
+    Vector3 ToWorld(int x, int y) => new Vector3(x , y, 0f);
 
     void SpawnWall(int x, int y)
     {
-        if (ForestGenManager.Instance.wallPrefab == null || ForestGenManager.Instance.outerWallsParent == null) return;
+        if (outerWallPrefab == null || outerWallsParent == null) return;
         var pos = ToWorld(x, y);
-        var go = Instantiate(ForestGenManager.Instance.wallPrefab, pos, Quaternion.identity, ForestGenManager.Instance.outerWallsParent);
+        var go = Instantiate(outerWallPrefab, pos, Quaternion.identity, outerWallsParent);
         go.name = $"Wall_{x}_{y}";
     }
 
     void RemoveWallAt(Vector3 pos)
     {
-        if (ForestGenManager.Instance.outerWallsParent == null) return;
-        for (int i = ForestGenManager.Instance.outerWallsParent.childCount - 1; i >= 0; i--)
+        if (outerWallsParent == null) return;
+        for (int i = outerWallsParent.childCount - 1; i >= 0; i--)
         {
-            var child = ForestGenManager.Instance.outerWallsParent.GetChild(i);
+            var child = outerWallsParent.GetChild(i);
             if (Vector3.Distance(child.position, pos) < 0.1f)
             {
                 if (Application.isPlaying) Destroy(child.gameObject);
@@ -179,4 +186,6 @@ public class ForestOuterGen : SingletonMonoBehaviour<ForestOuterGen>
             }
         }
     }
+}
+*/
 }

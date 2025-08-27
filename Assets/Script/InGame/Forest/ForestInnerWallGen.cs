@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ForestWallGen : SingletonMonoBehaviour<ForestWallGen>
+public class ForestInnerWallGen : SingletonMonoBehaviour<ForestInnerWallGen>
 {
     [Header("PrefabƒŠƒXƒg")]
     [SerializeField] List<GameObject> wallPrefabs = new List<GameObject>();
@@ -20,7 +20,7 @@ public class ForestWallGen : SingletonMonoBehaviour<ForestWallGen>
 
         // ---- FloorŽüˆÍ‚É•K‚¸Wall ----
         HashSet<Vector2Int> sumFloor = new ();
-        sumFloor.UnionWith(manager.FloorCoords);
+        sumFloor.UnionWith(manager.MainFloorCoords);
         sumFloor.UnionWith(manager.BranchCoords);
 
         Vector2Int[] dirs = { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
@@ -29,10 +29,10 @@ public class ForestWallGen : SingletonMonoBehaviour<ForestWallGen>
             foreach (var d in dirs)
             {
                 var pos = f + d;
-                if (manager.FloorCoords.Contains(pos)) continue;
+                if (manager.MainFloorCoords.Contains(pos)) continue;
                 if (manager.BranchCoords.Contains(pos)) continue;
                 if (manager.GimmickCoords.Contains(pos)) continue;
-                if (manager.WallCoords.Contains(pos)) continue;
+                if (manager.InnerWallCoords.Contains(pos)) continue;
 
                 PlaceWall(pos, rng);
             }
@@ -43,7 +43,7 @@ public class ForestWallGen : SingletonMonoBehaviour<ForestWallGen>
         int minX = int.MaxValue, maxX = int.MinValue;
         int minY = int.MaxValue, maxY = int.MinValue;
 
-        foreach (var pos in manager.FloorCoords)
+        foreach (var pos in manager.MainFloorCoords)
         {
             minX = Mathf.Min(minX, pos.x);
             maxX = Mathf.Max(maxX, pos.x);
@@ -67,9 +67,9 @@ public class ForestWallGen : SingletonMonoBehaviour<ForestWallGen>
             {
                 var pos = new Vector2Int(x, y);
 
-                if (manager.FloorCoords.Contains(pos)) continue;
+                if (manager.MainFloorCoords.Contains(pos)) continue;
                 if (manager.GimmickCoords.Contains(pos)) continue;
-                if (manager.WallCoords.Contains(pos)) continue;
+                if (manager.InnerWallCoords.Contains(pos)) continue;
 
                 if (rng.NextDouble() < extraWallChance)
                 {
@@ -88,6 +88,6 @@ public class ForestWallGen : SingletonMonoBehaviour<ForestWallGen>
         Instantiate(prefab, new Vector3(pos.x, pos.y, manager.wallZ),
             Quaternion.identity, wallParent);
 
-        manager.WallCoords.Add(pos);
+        manager.InnerWallCoords.Add(pos);
     }
 }

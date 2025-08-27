@@ -17,7 +17,7 @@ public class ForestGimmickGen : SingletonMonoBehaviour<ForestGimmickGen>
 
     public void Generate()
     {
-        var floorCoords = ForestGenManager.Instance.FloorCoords;
+        var floorCoords = ForestGenManager.Instance.MainFloorCoords;
         var rng = ForestGenManager.Instance.Rng;
 
         // 除外エリア計算
@@ -55,15 +55,12 @@ public class ForestGimmickGen : SingletonMonoBehaviour<ForestGimmickGen>
     private HashSet<Vector2Int> GetExclusionZone()
     {
         var zone = new HashSet<Vector2Int>();
-        var start = Vector2Int.RoundToInt((Vector2)ForestGenManager.Instance.StartDoor.position);
-        var goal = Vector2Int.RoundToInt((Vector2)ForestGenManager.Instance.GoalDoor.position);
 
         for (int dx = -exclusionRadius; dx <= exclusionRadius; dx++)
         {
             for (int dy = -exclusionRadius; dy <= exclusionRadius; dy++)
             {
-                zone.Add(start + new Vector2Int(dx, dy));
-                zone.Add(goal + new Vector2Int(dx, dy));
+              
             }
         }
         return zone;
