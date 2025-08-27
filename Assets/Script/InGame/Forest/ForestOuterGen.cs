@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-/*
 public class ForestOuterGen : SingletonMonoBehaviour<ForestOuterGen>
 {
     [Header("生成サイズ基準")]
@@ -13,7 +12,6 @@ public class ForestOuterGen : SingletonMonoBehaviour<ForestOuterGen>
     [SerializeField, Range(0.01f, 1f)] float ratioStdDev = 0.25f; // 縦横比の揺れ
 
     [Header("ランダム制御")]
-    [SerializeField] int seed = -1;  // -1ならランダム、指定で固定
 
     [Header("配置スケール / ドア余白")]
     [SerializeField] float cellSize = 1f;
@@ -24,7 +22,7 @@ public class ForestOuterGen : SingletonMonoBehaviour<ForestOuterGen>
     public void Generate()
     {
         // --- ① シード初期化 ---
-        int useSeed = (seed == -1) ? GameData.Instance.DaySeed : seed;
+        int useSeed = GameData.Instance.DaySeed;
         Random.InitState(useSeed);
 
         // TODO: 実運用では GameData.Instance.Day / TotalEvil を渡す
@@ -182,4 +180,3 @@ public class ForestOuterGen : SingletonMonoBehaviour<ForestOuterGen>
         }
     }
 }
-*/

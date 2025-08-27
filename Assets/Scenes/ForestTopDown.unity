@@ -268,7 +268,7 @@ Transform:
   m_GameObject: {fileID: 704192209}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: -0.1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -313,8 +313,6 @@ MonoBehaviour:
   turnChance: 0.4
   startStraight: 4
   goalStraight: 4
-  branchChance: 0.2
-  maxBranchLength: 40
   floorPrefab: {fileID: 7829789937574302296, guid: 00f6894e556342a4aae74e3ab7aa88be, type: 3}
   branchPrefab: {fileID: 8092505884192454772, guid: 561048c8f0039e54590acc38ef74e84f, type: 3}
   floorParent: {fileID: 407497585}
@@ -367,10 +365,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32614f261db23c74f87e7fc2b00d7452, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  branchTurnChance: 0.2
-  maxBranchLength: 20
-  minBranchLength: 5
-  intermediateRadius: 1
+  intermediateRadius: 3
+  maxIntermediateCount: 10
+  minAngleThreshold: 60
   branchPrefab: {fileID: 8092505884192454772, guid: 561048c8f0039e54590acc38ef74e84f, type: 3}
   branchParent: {fileID: 918154938}
 --- !u!1 &800574630

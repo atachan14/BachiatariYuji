@@ -14,9 +14,6 @@ public class ForestFloorGen : SingletonMonoBehaviour<ForestFloorGen>
     [SerializeField] int startStraight = 3;
     [SerializeField] int goalStraight = 3;
 
-    [Header("枝生成パラメータ")]
-    [SerializeField, Range(0f, 1f)] float branchChance = 0.2f;
-    [SerializeField] int maxBranchLength = 4;
 
     [Header("生成オブジェクト")]
     public GameObject floorPrefab;

@@ -4,6 +4,9 @@ using UnityEngine;
 public class ForestGenManager : SingletonMonoBehaviour<ForestGenManager>
 {
     [Header("‹¤—Lî•ñ")]
+
+
+
     [field: SerializeField] public Transform StartDoor { get; set; }
     [field: SerializeField] public Transform GoalDoor { get; set; }
     [field: SerializeField] public Transform SpawnPos { get; set; }
