@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ForestStartGen : SingletonMonoBehaviour<ForestStartGen>
 {
-    [field: SerializeField] public Transform StartDoor { get; private set; }
+    [SerializeField]Transform startDoor;
 
     [Header("生成パラメータ")]
     [SerializeField] private int startStraight = 4;
@@ -25,6 +25,6 @@ public class ForestStartGen : SingletonMonoBehaviour<ForestStartGen>
         }
 
         // 最後に置いたPrefabの上にDoorを配置
-        StartDoor.position = new Vector3(lastPlaced.x, lastPlaced.y, manager.doorZ);
+        startDoor.position = new Vector3(lastPlaced.x, lastPlaced.y, manager.doorZ);
     }
 }

@@ -427,9 +427,6 @@ MonoBehaviour:
   maxIntermediateRadius: 5
   minIntermediateRadius: 1
   branchTurnChance: 0.2
-  branchPrefab: {fileID: 8092505884192454772, guid: 561048c8f0039e54590acc38ef74e84f, type: 3}
-  intermediatePointPrefab: {fileID: 5833033237700967621, guid: f410a4437a56aa04cad989003f23dc5a, type: 3}
-  branchParent: {fileID: 918154938}
 --- !u!114 &704192217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -454,8 +451,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45a786b01b547d74bb81d606f930586b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <GoalDoor>k__BackingField: {fileID: 0}
-  <SpawnPos>k__BackingField: {fileID: 0}
+  candidatesNum: 3
+  goalStraight: 3
+  goalDoor: {fileID: 1625561359}
 --- !u!114 &704192219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -468,7 +466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8653d2bc641d203428e8b2237167d53b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <StartDoor>k__BackingField: {fileID: 1682350642}
+  startDoor: {fileID: 1682350642}
   startStraight: 4
 --- !u!1 &800574630
 GameObject:

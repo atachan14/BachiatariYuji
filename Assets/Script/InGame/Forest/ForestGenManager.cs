@@ -66,10 +66,10 @@ public class ForestGenManager : SingletonMonoBehaviour<ForestGenManager>
         ForestStartGen.Instance.Generate();
         ForestFloorGen.Instance.Generate();
         ForestBranchGen.Instance.Generate();
-        //ForestGoalGen.Instance.Generate();
-        //ForestGimmickGen.Instance.Generate();
-        //ForestInnerWallGen.Instance.Generate();
-        //ForestOuterWallGen.Instance.Generate();
+        ForestGoalGen.Instance.Generate();
+        ForestGimmickGen.Instance.Generate();
+        ForestInnerWallGen.Instance.Generate();
+        ForestOuterWallGen.Instance.Generate();
     }
 
     #region Register

@@ -30,7 +30,6 @@ public class ForestFloorGen : SingletonMonoBehaviour<ForestFloorGen>
 
         CalculatePathLength();
         GenerateMainPath();
-        PlaceFloors();
     }
 
     // =============================
@@ -50,43 +49,28 @@ public class ForestFloorGen : SingletonMonoBehaviour<ForestFloorGen>
         Vector2Int currentPos = startPos;
         Vector2Int dir = Vector2Int.up;
 
-        manager.MainFloorCoords.Add(currentPos);
+        manager.Register(currentPos,TileType.MainFloor);
 
-        for (int i = 0; i < pathLength; i++)
+        while (manager.MainFloorCoords.Count < pathLength)
         {
             if (manager.Rng.NextDouble() < turnChance)
                 dir = manager.TurnDirection(dir);
 
             Vector2Int nextPos = currentPos + dir;
 
-            // y < 0 ‚Ü‚½‚ÍŠù‚É’Ê‚Á‚½ƒ}ƒX‚Í‹ÖŽ~
-            if (nextPos.y < 0 || manager.MainFloorCoords.Contains(nextPos))
-            {
+            // y<0‚Í‰ñ”ð
+            if (nextPos.y < 0)
                 dir = manager.TurnDirection(dir);
-                nextPos = currentPos + dir;
 
-                if (nextPos.y < 0 || manager.MainFloorCoords.Contains(nextPos))
-                {
-                    nextPos = currentPos - dir;
-                    if (nextPos.y < 0) break;
-                }
-            }
+            currentPos += dir;
 
-            currentPos = nextPos;
-            manager.MainFloorCoords.Add(currentPos);
+            // “o˜^Ï‚Ý‚Å‚à currentPos ‚Íi‚ß‚é
+            if (!manager.MainFloorCoords.Contains(currentPos))
+                manager.Register(currentPos, TileType.MainFloor);
         }
     }
 
-    // =============================
-    // Floor”z’u
-    // =============================
-    private void PlaceFloors()
-    {
-        foreach (var pos in manager.MainFloorCoords)
-        {
-            manager.Register(pos,TileType.MainFloor);
-        }
-    }
+   
 
     
 }
