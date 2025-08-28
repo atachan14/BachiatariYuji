@@ -11,12 +11,6 @@ public class ForestFloorGen : SingletonMonoBehaviour<ForestFloorGen>
     [Header("クネクネ生成パラメータ")]
     [SerializeField, Range(0f, 1f)] float turnChance = 0.4f;
 
-    [Header("生成オブジェクト")]
-    [SerializeField] GameObject floorPrefab;
-
-    [Header("生成先トランスフォーム")]
-    [SerializeField] Transform floorParent;
-
     private int pathLength;
     private Vector2Int startPos;
 

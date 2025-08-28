@@ -7,8 +7,9 @@ public enum TileType
     MainFloor,
     Branch,
     GoalStraight,
-    WallGimmick,
-    InnerGimmick,
+    FloorOmen,
+    WallOmen,
+    OuterOmen,
     InnerWall,
     OuterWall
 }
@@ -24,7 +25,7 @@ public class ForestGenManager : SingletonMonoBehaviour<ForestGenManager>
     public HashSet<Vector2Int> MainFloorCoords { get; private set; } = new();
     public HashSet<Vector2Int> BranchCoords { get; private set; } = new();
     public HashSet<Vector2Int> GoalStraightCoords { get; private set; } = new();
-    public HashSet<Vector2Int> GimmickCoords { get; private set; } = new();
+    public HashSet<Vector2Int> OmenCoords { get; private set; } = new();
     public HashSet<Vector2Int> InnerWallCoords { get; private set; } = new();
     public HashSet<Vector2Int> OuterWallCoords { get; private set; } = new();
 
@@ -44,8 +45,9 @@ public class ForestGenManager : SingletonMonoBehaviour<ForestGenManager>
     public List<GameObject> mainFloorPrefab;
     public List<GameObject> branchPrefab;
     public List<GameObject> goalStraightPrefab;
-    public List<GameObject> wallGimmickPrefab;
-    public List<GameObject> floorGimmickPrefab;
+    public List<GameObject> floorOmenPrefab;
+    public List<GameObject> wallOmenPrefab;
+    public List<GameObject> outerOmenPrefab;
     public List<GameObject> innerWallPrefab;
     public List<GameObject> outerWallPrefab;
 
@@ -53,8 +55,9 @@ public class ForestGenManager : SingletonMonoBehaviour<ForestGenManager>
     public Transform mainFloorParent;
     public Transform branchParent;
     public Transform goalStraightParent;
-    public Transform wallGimmickParent;
-    public Transform floorGimmickParent;
+    public Transform floorOmenParent;
+    public Transform wallOmenParent;
+    public Transform outerOmenParent;
     public Transform innerWallParent;
     public Transform outerWallParent;
     #endregion
@@ -67,8 +70,8 @@ public class ForestGenManager : SingletonMonoBehaviour<ForestGenManager>
         ForestFloorGen.Instance.Generate();
         ForestBranchGen.Instance.Generate();
         ForestGoalGen.Instance.Generate();
-        ForestGimmickGen.Instance.Generate();
         ForestInnerWallGen.Instance.Generate();
+        ForestOmenGen.Instance.Generate();
         ForestOuterWallGen.Instance.Generate();
     }
 
@@ -81,8 +84,9 @@ public class ForestGenManager : SingletonMonoBehaviour<ForestGenManager>
             case TileType.MainFloor: RegisterFloor(pos); break;
             case TileType.Branch: RegisterBranch(pos); break;
             case TileType.GoalStraight: RegisterGoal(pos); break;
-            case TileType.WallGimmick: RegisterWallGimmick(pos); break;
-            case TileType.InnerGimmick: RegisterFloorGimmick(pos); break;
+            case TileType.WallOmen: RegisterWallOmen(pos); break;
+            case TileType.FloorOmen: RegisterFloorOmen(pos); break;
+            case TileType.OuterOmen: RegisterOuterOmen(pos); break;
             case TileType.InnerWall: RegisterInnerWall(pos); break;
             case TileType.OuterWall: RegisterOuterWall(pos); break;
             default: Debug.LogWarning($"–¢‘Î‰ž‚ÌTileType: {type}"); break;
@@ -133,22 +137,29 @@ public class ForestGenManager : SingletonMonoBehaviour<ForestGenManager>
         Instantiate(prefab, new Vector3(pos.x, pos.y, floorZ), Quaternion.identity, goalStraightParent);
     }
 
-    private void RegisterWallGimmick(Vector2Int pos)
+    private void RegisterWallOmen(Vector2Int pos)
     {
-        var prefab = PickWeightedGimmick(wallGimmickPrefab);
-        GimmickCoords.Add(pos);
+        var prefab = OmenWeightedPick(wallOmenPrefab);
+        OmenCoords.Add(pos);
         AllOccupiedCoords.Add(pos);
-        Instantiate(prefab, new Vector3(pos.x, pos.y, wallZ), Quaternion.identity, wallGimmickParent);
+        Instantiate(prefab, new Vector3(pos.x, pos.y, wallZ), Quaternion.identity, wallOmenParent);
     }
 
-    private void RegisterFloorGimmick(Vector2Int pos)
+    private void RegisterFloorOmen(Vector2Int pos)
     {
-        var prefab = PickWeightedGimmick(floorGimmickPrefab);
-        GimmickCoords.Add(pos);
+        var prefab = OmenWeightedPick(floorOmenPrefab);
+        OmenCoords.Add(pos);
         AllOccupiedCoords.Add(pos);
-        Instantiate(prefab, new Vector3(pos.x, pos.y, floorGimmickZ), Quaternion.identity, floorGimmickParent);
+        Instantiate(prefab, new Vector3(pos.x, pos.y, floorGimmickZ), Quaternion.identity, floorOmenParent);
     }
 
+    void RegisterOuterOmen(Vector2Int pos)
+    {
+        var prefab = OmenWeightedPick(outerOmenPrefab);
+        OmenCoords.Add(pos);
+        AllOccupiedCoords.Add(pos);
+        Instantiate(prefab, new Vector3(pos.x, pos.y, wallZ), Quaternion.identity, outerOmenParent);
+    }
     private void RegisterInnerWall(Vector2Int pos)
     {
         var prefab = RandomPick(innerWallPrefab);
@@ -185,7 +196,7 @@ public class ForestGenManager : SingletonMonoBehaviour<ForestGenManager>
         return prefabs[Rng.Next(prefabs.Count)];
     }
 
-    private GameObject PickWeightedGimmick(List<GameObject> prefabs)
+    private GameObject OmenWeightedPick(List<GameObject> prefabs)
     {
         if (prefabs == null || prefabs.Count == 0) return null;
 
@@ -195,7 +206,7 @@ public class ForestGenManager : SingletonMonoBehaviour<ForestGenManager>
 
         foreach (var prefab in prefabs)
         {
-            var gimmick = prefab.GetComponent<ForestGimmick>();
+            var gimmick = prefab.GetComponent<ForestOmen>();
             if (gimmick == null || gimmick.so == null) { weights.Add(0f); continue; }
 
             var so = gimmick.so;

@@ -264,16 +264,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1045284935}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &584890172 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 193435317738141027, guid: 42c16b7f24e167541881837ed4edd5d2, type: 3}
-  m_PrefabInstance: {fileID: 2038444579}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &688435869 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3641279368039322407, guid: 42c16b7f24e167541881837ed4edd5d2, type: 3}
-  m_PrefabInstance: {fileID: 2038444579}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &704192209
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,15 +315,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302db6a1cd21d764f8fa0766361e978a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpawnChance: 0.01
-  exclusionRadius: 2
-  wallGimmickPrefabs:
-  - {fileID: 3175886579169125528, guid: 941e5f70339ac8c4a98077d716e84aa3, type: 3}
-  - {fileID: 7737092251752973319, guid: a9fe21b545417854daf6cf463b0f78ce, type: 3}
-  floorGimmickPrefabs:
-  - {fileID: 149946680128583912, guid: 5e23e6880f084ef4ab9a111823b76e5e, type: 3}
-  wallGimmickParent: {fileID: 688435869}
-  floorGimmickParent: {fileID: 584890172}
+  baseFloorSpawnChance: 0.05
+  baseWallSpawnChance: 0.05
+  baseWallOutSpawnChance: 0.01
 --- !u!114 &704192213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,28 +353,32 @@ MonoBehaviour:
   floorGimmickZ: 0.9
   wallZ: 0
   startStraightPrefab:
-  - {fileID: 8092505884192454772, guid: 561048c8f0039e54590acc38ef74e84f, type: 3}
+  - {fileID: 7829789937574302296, guid: 00f6894e556342a4aae74e3ab7aa88be, type: 3}
   mainFloorPrefab:
   - {fileID: 7829789937574302296, guid: 00f6894e556342a4aae74e3ab7aa88be, type: 3}
   branchPrefab:
-  - {fileID: 8092505884192454772, guid: 561048c8f0039e54590acc38ef74e84f, type: 3}
+  - {fileID: 7829789937574302296, guid: 00f6894e556342a4aae74e3ab7aa88be, type: 3}
   goalStraightPrefab:
-  - {fileID: 8092505884192454772, guid: 561048c8f0039e54590acc38ef74e84f, type: 3}
-  wallGimmickPrefab:
+  - {fileID: 7829789937574302296, guid: 00f6894e556342a4aae74e3ab7aa88be, type: 3}
+  wallOmenPrefab:
   - {fileID: 3175886579169125528, guid: 941e5f70339ac8c4a98077d716e84aa3, type: 3}
-  floorGimmickPrefab:
+  floorOmenPrefab:
   - {fileID: 7737092251752973319, guid: a9fe21b545417854daf6cf463b0f78ce, type: 3}
+  outerOmenPrefab:
+  - {fileID: 7397553242257193832, guid: 023982e48a11611478f5f7e4bba887b9, type: 3}
   innerWallPrefab:
   - {fileID: 3097226206137374983, guid: e9f2aa59054978e4d9b30559b77b9e82, type: 3}
   - {fileID: 3558056853361686293, guid: 01699e149d55bb54dbf22df57aeb41e7, type: 3}
+  - {fileID: 2143413622594857761, guid: bc349b537d3714147bafe457d533aef0, type: 3}
   outerWallPrefab:
   - {fileID: 2143413622594857761, guid: bc349b537d3714147bafe457d533aef0, type: 3}
   startStraightParent: {fileID: 229979293}
   mainFloorParent: {fileID: 407497585}
   branchParent: {fileID: 918154938}
   goalStraightParent: {fileID: 1495962394}
-  wallGimmickParent: {fileID: 688435869}
-  floorGimmickParent: {fileID: 584890172}
+  wallOmenParent: {fileID: 0}
+  floorOmenParent: {fileID: 0}
+  outerOmenParent: {fileID: 0}
   innerWallParent: {fileID: 800574631}
   outerWallParent: {fileID: 159800819}
 --- !u!114 &704192215
@@ -405,13 +393,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ee3cbaf5ec2c624a8acc7195edf0c08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallPrefabs:
-  - {fileID: 2143413622594857761, guid: bc349b537d3714147bafe457d533aef0, type: 3}
-  - {fileID: 3097226206137374983, guid: e9f2aa59054978e4d9b30559b77b9e82, type: 3}
-  - {fileID: 3558056853361686293, guid: 01699e149d55bb54dbf22df57aeb41e7, type: 3}
-  wallParent: {fileID: 800574631}
-  extraWallChance: 0.05
-  margin: 5
 --- !u!114 &704192216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -568,6 +549,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f37529912d337b4e8090454eb13e0cc, type: 3}
+--- !u!4 &878766224 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4958713576716847536, guid: 42c16b7f24e167541881837ed4edd5d2, type: 3}
+  m_PrefabInstance: {fileID: 2038444579}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &918154937
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,6 +658,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52ed7cffd19e16048baac5f9ad31d4ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1835906845
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1835906846}
+  m_Layer: 0
+  m_Name: OuterOmen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1835906846
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835906845}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 878766224}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2038444579
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -682,7 +699,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7910540359220633, guid: 42c16b7f24e167541881837ed4edd5d2, type: 3}
       propertyPath: m_Name
-      value: FloorGimmick
+      value: FloorOmen
       objectReference: {fileID: 0}
     - target: {fileID: 898592966896787169, guid: 42c16b7f24e167541881837ed4edd5d2, type: 3}
       propertyPath: m_Name
@@ -734,7 +751,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5155481430561723146, guid: 42c16b7f24e167541881837ed4edd5d2, type: 3}
       propertyPath: m_Name
-      value: WallGimmick
+      value: WallOmen
       objectReference: {fileID: 0}
     - target: {fileID: 6932675577131544133, guid: 42c16b7f24e167541881837ed4edd5d2, type: 3}
       propertyPath: cameraMode
@@ -766,6 +783,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7238215703132053957, guid: 42c16b7f24e167541881837ed4edd5d2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1625561359}
+    - targetCorrespondingSourceObject: {fileID: 4958713576716847536, guid: 42c16b7f24e167541881837ed4edd5d2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1835906846}
     - targetCorrespondingSourceObject: {fileID: 1947960909177074063, guid: 42c16b7f24e167541881837ed4edd5d2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 800574631}

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ForestGimmickSO", menuName = "Scriptable Objects/ForestGimmickSO")]
-public class ForestGimmickSO : ScriptableObject
+public class ForestOmenSO : ScriptableObject
 {
     public string gimmickName;
 
