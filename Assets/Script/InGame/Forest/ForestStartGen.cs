@@ -3,33 +3,24 @@ using UnityEngine;
 public class ForestStartGen : SingletonMonoBehaviour<ForestStartGen>
 {
     [field: SerializeField] public Transform StartDoor { get; private set; }
-    [field: SerializeField] public GameObject startStraightPrefab { get; private set; }
-    [SerializeField] private Transform startParent;
 
     [Header("生成パラメータ")]
-    [SerializeField] private int startStraight = 3;
+    [SerializeField] private int startStraight = 4;
 
     public void Generate()
     {
         var manager = ForestGenManager.Instance;
-        manager.StartStraightCoords.Clear();
 
         Vector2Int zero = Vector2Int.zero;
         Vector2Int current = zero;
-        Vector2Int lastPlaced = zero;  // ←最後に置いたPrefabの座標を保持
+        Vector2Int lastPlaced = zero;
 
         for (int i = 0; i < startStraight; i++)
         {
-            manager.StartStraightCoords.Add(current);
+            // ManagerのRegisterを使う
+            manager.Register(current, TileType.StartStraight);
 
-            Instantiate(
-                startStraightPrefab,
-                new Vector3(current.x, current.y, manager.floorZ),
-                Quaternion.identity,
-                startParent
-            );
-
-            lastPlaced = current;  // ここで保持
+            lastPlaced = current;
             current += Vector2Int.down;
         }
 

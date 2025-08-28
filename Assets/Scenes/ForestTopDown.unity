@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &159800819 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3882722573299041697, guid: 42c16b7f24e167541881837ed4edd5d2, type: 3}
+  m_PrefabInstance: {fileID: 2038444579}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &229979292
 GameObject:
   m_ObjectHideFlags: 0
@@ -363,6 +368,31 @@ MonoBehaviour:
   floorZ: 1
   floorGimmickZ: 0.9
   wallZ: 0
+  startStraightPrefab:
+  - {fileID: 8092505884192454772, guid: 561048c8f0039e54590acc38ef74e84f, type: 3}
+  mainFloorPrefab:
+  - {fileID: 7829789937574302296, guid: 00f6894e556342a4aae74e3ab7aa88be, type: 3}
+  branchPrefab:
+  - {fileID: 8092505884192454772, guid: 561048c8f0039e54590acc38ef74e84f, type: 3}
+  goalStraightPrefab:
+  - {fileID: 8092505884192454772, guid: 561048c8f0039e54590acc38ef74e84f, type: 3}
+  wallGimmickPrefab:
+  - {fileID: 3175886579169125528, guid: 941e5f70339ac8c4a98077d716e84aa3, type: 3}
+  floorGimmickPrefab:
+  - {fileID: 7737092251752973319, guid: a9fe21b545417854daf6cf463b0f78ce, type: 3}
+  innerWallPrefab:
+  - {fileID: 3097226206137374983, guid: e9f2aa59054978e4d9b30559b77b9e82, type: 3}
+  - {fileID: 3558056853361686293, guid: 01699e149d55bb54dbf22df57aeb41e7, type: 3}
+  outerWallPrefab:
+  - {fileID: 2143413622594857761, guid: bc349b537d3714147bafe457d533aef0, type: 3}
+  startStraightParent: {fileID: 229979293}
+  mainFloorParent: {fileID: 407497585}
+  branchParent: {fileID: 918154938}
+  goalStraightParent: {fileID: 1495962394}
+  wallGimmickParent: {fileID: 688435869}
+  floorGimmickParent: {fileID: 584890172}
+  innerWallParent: {fileID: 800574631}
+  outerWallParent: {fileID: 159800819}
 --- !u!114 &704192215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,8 +469,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <StartDoor>k__BackingField: {fileID: 1682350642}
-  <startStraightPrefab>k__BackingField: {fileID: 8092505884192454772, guid: 561048c8f0039e54590acc38ef74e84f, type: 3}
-  startParent: {fileID: 229979293}
   startStraight: 4
 --- !u!1 &800574630
 GameObject:

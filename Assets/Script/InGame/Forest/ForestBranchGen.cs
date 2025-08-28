@@ -5,21 +5,22 @@ using UnityEngine;
 public class ForestBranchGen : SingletonMonoBehaviour<ForestBranchGen>
 {
     [Header("中継地点パラメータ")]
-    [SerializeField] int maxIntermediateRadius = 2;
-    [SerializeField] int minIntermediateRadius = 2;
-    [SerializeField, Range(0f, 1f)] float branchTurnChance = 0.2f;
+    [SerializeField] private int maxIntermediateRadius = 2;
+    [SerializeField] private int minIntermediateRadius = 2;
+    [SerializeField, Range(0f, 1f)] private float branchTurnChance = 0.2f;
 
-    [Header("Prefabs")]
-    [SerializeField] GameObject branchPrefab;
-    [SerializeField] GameObject intermediatePointPrefab;
-
-    [Header("生成先トランスフォーム")]
-    [SerializeField] Transform branchParent;
 
     private RectInt mapArea;
     private List<Vector2Int> candidates;
-    ForestGenManager manager ;
-    System.Random rng;
+
+    private ForestGenManager manager;
+    private System.Random rng;
+
+    /// <summary>
+    /// デバッグ用
+    /// </summary>
+
+    List<Vector2Int> intermediate = new();
 
     public void Generate()
     {
@@ -37,7 +38,6 @@ public class ForestBranchGen : SingletonMonoBehaviour<ForestBranchGen>
             while (true)
             {
                 candidates = FindIntermediateCandidates(currentRadius);
-
                 if (candidates.Count == 0) break;
 
                 Shuffle(candidates);
@@ -47,25 +47,20 @@ public class ForestBranchGen : SingletonMonoBehaviour<ForestBranchGen>
                     if (TryIntermediatePoint(candidate))
                     {
                         generatedAny = true;
-                        break; // 1つ生成したら候補更新のために break
+                        break; // 1つ生成したら候補更新のため break
                     }
                 }
+
+                // すべて試して生成できなければ内側ループ終了
+                 if (!generatedAny) break; // これで内側ループ終了
             }
 
             if (!generatedAny)
-            {
-                // この半径ではもう生成できない → 半径を1下げる
-                currentRadius--;
-            }
-            else
-            {
-                // 生成できた場合は同じ半径で続行
-            }
+                currentRadius--; // 半径を下げて再挑戦
         }
 
-        Debug.Log("中継地点生成 完了！");
+        Debug.Log("Branch生成 完了！");
     }
-
 
     private RectInt CalculateMapArea(HashSet<Vector2Int> allCoords)
     {
@@ -78,18 +73,17 @@ public class ForestBranchGen : SingletonMonoBehaviour<ForestBranchGen>
         return new RectInt(minX, 0, maxX - minX + 1, maxY + 1);
     }
 
-    private List<Vector2Int> FindIntermediateCandidates(int currentRadius)
+    private List<Vector2Int> FindIntermediateCandidates(int radius)
     {
-        var manager = ForestGenManager.Instance;
         var list = new List<Vector2Int>();
 
-        foreach (var x in Enumerable.Range(mapArea.xMin, mapArea.width))
-            foreach (var y in Enumerable.Range(mapArea.yMin, mapArea.height))
+        for (int x = mapArea.xMin; x < mapArea.xMax; x++)
+            for (int y = mapArea.yMin; y < mapArea.yMax; y++)
             {
                 var pos = new Vector2Int(x, y);
-                if (manager.AllOccupiedCoords.Contains(pos)) continue;
+                if (manager.FloorAndBranchCoords.Contains(pos)) continue;
 
-                if (IsAreaEmpty(pos, currentRadius))
+                if (IsAreaEmpty(pos, radius))
                     list.Add(pos);
             }
 
@@ -98,14 +92,10 @@ public class ForestBranchGen : SingletonMonoBehaviour<ForestBranchGen>
 
     private bool IsAreaEmpty(Vector2Int pos, int radius)
     {
-        var manager = ForestGenManager.Instance;
-
         for (int dx = -radius; dx <= radius; dx++)
             for (int dy = -radius; dy <= radius; dy++)
-            {
-                if (manager.AllOccupiedCoords.Contains(pos + new Vector2Int(dx, dy)))
+                if (manager.FloorAndBranchCoords.Contains(pos + new Vector2Int(dx, dy)))
                     return false;
-            }
 
         return true;
     }
@@ -119,12 +109,10 @@ public class ForestBranchGen : SingletonMonoBehaviour<ForestBranchGen>
         }
     }
 
-    // 中継地点生成
     private bool TryIntermediatePoint(Vector2Int candidate)
     {
-        // 1歩目を上下左右からランダムで決定
-        var dirs = new[] { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
-        dirs = dirs.OrderBy(_ => rng.Next()).ToArray();
+        var dirs = new[] { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right }
+                   .OrderBy(_ => rng.Next()).ToArray();
 
         foreach (var firstDir in dirs)
         {
@@ -132,9 +120,15 @@ public class ForestBranchGen : SingletonMonoBehaviour<ForestBranchGen>
             {
                 if (firstDir == secondDir) continue;
 
-                if (TryGenerateTwoBranches(candidate, firstDir, secondDir, rng))
+                // 1マス目の座標を計算して被っていたらスキップ
+                Vector2Int firstStep = candidate + firstDir;
+                Vector2Int secondStep = candidate + secondDir;
+                if (firstStep == secondStep) continue;
+
+                if (TryGenerateTwoBranches(candidate, firstDir, secondDir))
                 {
-                    RegisterIntermediatePoint(candidate);
+                    manager.Register(candidate, TileType.Branch);
+                    intermediate.Add(candidate);
                     return true;
                 }
             }
@@ -143,65 +137,72 @@ public class ForestBranchGen : SingletonMonoBehaviour<ForestBranchGen>
         return false;
     }
 
-    private bool TryGenerateTwoBranches(Vector2Int candidate, Vector2Int dirA, Vector2Int dirB, System.Random rng)
+    private bool TryGenerateTwoBranches(Vector2Int candidate, Vector2Int dirA, Vector2Int dirB)
     {
+        Vector2Int firstStepA = candidate + dirA;
+        Vector2Int firstStepB = candidate + dirB;
 
-        bool aConnected = SimulateBranch(candidate, dirA, rng, out var pathA);
-        bool bConnected = SimulateBranch(candidate, dirB, rng, out var pathB);
+        // 1マス目が被ったら失敗
+        if (firstStepA == firstStepB) return false;
 
-        if (!aConnected || !bConnected)
-            return false;
+        // 最初の1マス目を先に登録して path に追加
+        List<Vector2Int> pathA = new List<Vector2Int> { firstStepA };
+        List<Vector2Int> pathB = new List<Vector2Int> { firstStepB };
 
-        // 成功したら両方登録
-        RegisterPath(pathA);
-        RegisterPath(pathB);
+        bool aConnected = SimulateBranch(firstStepA, dirA, out var restA);
+        bool bConnected = SimulateBranch(firstStepB, dirB, out var restB);
+
+        if (!aConnected || !bConnected) return false;
+
+        pathA.AddRange(restA);
+        pathB.AddRange(restB);
+
+        foreach (var p in pathA.Concat(pathB))
+            manager.Register(p, TileType.Branch);
 
         return true;
     }
 
-    private bool SimulateBranch(Vector2Int start, Vector2Int dir, System.Random rng, out List<Vector2Int> path)
+
+    private bool SimulateBranch(Vector2Int start, Vector2Int dir, out List<Vector2Int> path)
     {
         path = new List<Vector2Int>();
-        var manager = ForestGenManager.Instance;
-
         Vector2Int pos = start;
-        bool connected = false;
+        List<Vector2Int> tempPath = new List<Vector2Int>();
 
         while (mapArea.Contains(pos))
         {
-            // 曲がる前に隣接Floor/Branchがあれば接続
-            if (CheckAdjacent(pos, out Vector2Int adjacent))
+            // 隣接チェックで接続完了
+            if (CheckAdjacent(pos, out _))
             {
-                // 既存Floor/Branchに接続 → ここでは追加しない
-                connected = true;
-                break;
+                path = tempPath;
+                return true;
             }
-            // クネクネ
-            if (rng.NextDouble() < branchTurnChance)
-                dir = TurnDirection(dir, rng);
 
+            // ランダム方向変更
+            if (rng.NextDouble() < branchTurnChance)
+                dir = manager.TurnDirection(dir);
+
+            // 1マス進む
             pos += dir;
 
-            if (manager.AllOccupiedCoords.Contains(pos))
-            {
-                connected = true;
-                break;
-            }
-
-            path.Add(pos);
+            // Pathに追加（隣接前なので安全）
+            tempPath.Add(pos);
         }
 
-        return connected;
+        // 到達できなかった場合は失敗
+        path.Clear();
+        return false;
     }
+
 
     private bool CheckAdjacent(Vector2Int pos, out Vector2Int adjacent)
     {
-        var manager = ForestGenManager.Instance;
         var dirs = new[] { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
         foreach (var d in dirs)
         {
             var check = pos + d;
-            if (manager.AllOccupiedCoords.Contains(check))
+            if (manager.FloorAndBranchCoords.Contains(check))
             {
                 adjacent = check;
                 return true;
@@ -212,34 +213,28 @@ public class ForestBranchGen : SingletonMonoBehaviour<ForestBranchGen>
         return false;
     }
 
-    private void RegisterIntermediatePoint(Vector2Int pos)
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
     {
-        var manager = ForestGenManager.Instance;
-        manager.BranchCoords.Add(pos);
+        if (manager == null) return;
 
-        if (intermediatePointPrefab != null)
-            Instantiate(intermediatePointPrefab, new Vector3(pos.x, pos.y, manager.floorZ),
-                        Quaternion.identity, branchParent);
-    }
-
-    private void RegisterPath(List<Vector2Int> path)
-    {
-        var manager = ForestGenManager.Instance;
-        foreach (var p in path)
+        // 候補座標を青で表示
+        if (candidates != null)
         {
-            manager.BranchCoords.Add(p);
+            Gizmos.color = Color.blue;
+            foreach (var c in candidates)
+            {
+                Gizmos.DrawSphere(new Vector3(c.x, c.y, 0), 0.2f);
+            }
+        }
 
-            if (branchPrefab != null)
-                Instantiate(branchPrefab, new Vector3(p.x, p.y, manager.floorZ),
-                            Quaternion.identity, branchParent);
+        // 採用された中継地点を赤で表示
+
+        Gizmos.color = Color.red;
+        foreach (var p in intermediate)
+        {
+            Gizmos.DrawCube(new Vector3(p.x, p.y, 0), Vector3.one * 0.3f);
         }
     }
-
-    private Vector2Int TurnDirection(Vector2Int currentDir, System.Random rng)
-    {
-        if (currentDir == Vector2Int.up || currentDir == Vector2Int.down)
-            return rng.NextDouble() < 0.5 ? Vector2Int.left : Vector2Int.right;
-        else
-            return rng.NextDouble() < 0.5 ? Vector2Int.up : Vector2Int.down;
-    }
+#endif
 }

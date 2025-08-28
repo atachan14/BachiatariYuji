@@ -10,19 +10,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3097226206137374983, guid: e9f2aa59054978e4d9b30559b77b9e82, type: 3}
       propertyPath: m_Name
-      value: Wall Variant
+      value: Wall3
       objectReference: {fileID: 0}
     - target: {fileID: 3417459957116323038, guid: e9f2aa59054978e4d9b30559b77b9e82, type: 3}
       propertyPath: m_Color.b
-      value: 0.13679248
+      value: 0.010145942
       objectReference: {fileID: 0}
     - target: {fileID: 3417459957116323038, guid: e9f2aa59054978e4d9b30559b77b9e82, type: 3}
       propertyPath: m_Color.g
-      value: 0.76019615
+      value: 0.7169812
       objectReference: {fileID: 0}
     - target: {fileID: 3417459957116323038, guid: e9f2aa59054978e4d9b30559b77b9e82, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.19820829
       objectReference: {fileID: 0}
     - target: {fileID: 5834964650174717771, guid: e9f2aa59054978e4d9b30559b77b9e82, type: 3}
       propertyPath: m_LocalPosition.x

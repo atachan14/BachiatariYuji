@@ -9,7 +9,7 @@ public class ForestFloorGen : SingletonMonoBehaviour<ForestFloorGen>
     [SerializeField] int baseDistance = 200;
 
     [Header("クネクネ生成パラメータ")]
-    [SerializeField, Range(0f, 1f)] float turnChance = 0.1f;
+    [SerializeField, Range(0f, 1f)] float turnChance = 0.4f;
 
     [Header("生成オブジェクト")]
     [SerializeField] GameObject floorPrefab;
@@ -20,10 +20,11 @@ public class ForestFloorGen : SingletonMonoBehaviour<ForestFloorGen>
     private int pathLength;
     private Vector2Int startPos;
 
+    ForestGenManager manager;
+
     public void Generate()
     {
-        var manager = ForestGenManager.Instance;
-        manager.MainFloorCoords.Clear();
+        manager = ForestGenManager.Instance;
 
         startPos = Vector2Int.zero;
 
@@ -46,7 +47,6 @@ public class ForestFloorGen : SingletonMonoBehaviour<ForestFloorGen>
 
     private void GenerateMainPath()
     {
-        var manager = ForestGenManager.Instance;
         Vector2Int currentPos = startPos;
         Vector2Int dir = Vector2Int.up;
 
@@ -55,14 +55,14 @@ public class ForestFloorGen : SingletonMonoBehaviour<ForestFloorGen>
         for (int i = 0; i < pathLength; i++)
         {
             if (manager.Rng.NextDouble() < turnChance)
-                dir = TurnDirection(dir);
+                dir = manager.TurnDirection(dir);
 
             Vector2Int nextPos = currentPos + dir;
 
             // y < 0 または既に通ったマスは禁止
             if (nextPos.y < 0 || manager.MainFloorCoords.Contains(nextPos))
             {
-                dir = TurnDirection(dir);
+                dir = manager.TurnDirection(dir);
                 nextPos = currentPos + dir;
 
                 if (nextPos.y < 0 || manager.MainFloorCoords.Contains(nextPos))
@@ -82,27 +82,11 @@ public class ForestFloorGen : SingletonMonoBehaviour<ForestFloorGen>
     // =============================
     private void PlaceFloors()
     {
-        var manager = ForestGenManager.Instance;
         foreach (var pos in manager.MainFloorCoords)
         {
-            Object.Instantiate(
-                floorPrefab,
-                new Vector3(pos.x, pos.y, manager.floorZ),
-                Quaternion.identity,
-                floorParent
-            );
+            manager.Register(pos,TileType.MainFloor);
         }
     }
 
-    // =============================
-    // ユーティリティ
-    // =============================
-    private Vector2Int TurnDirection(Vector2Int currentDir)
-    {
-        var rng = ForestGenManager.Instance.Rng;
-        if (currentDir == Vector2Int.up || currentDir == Vector2Int.down)
-            return rng.NextDouble() < 0.5 ? Vector2Int.left : Vector2Int.right;
-        else
-            return rng.NextDouble() < 0.5 ? Vector2Int.up : Vector2Int.down;
-    }
+    
 }
