@@ -264,6 +264,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1045284935}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &584890172 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 193435317738141027, guid: 42c16b7f24e167541881837ed4edd5d2, type: 3}
+  m_PrefabInstance: {fileID: 2038444579}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &688435869 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3641279368039322407, guid: 42c16b7f24e167541881837ed4edd5d2, type: 3}
+  m_PrefabInstance: {fileID: 2038444579}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &704192209
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,9 +325,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302db6a1cd21d764f8fa0766361e978a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseFloorSpawnChance: 0.05
-  baseWallSpawnChance: 0.05
-  baseWallOutSpawnChance: 0.01
+  floorSpawnChance: 0.05
+  wallSpawnChance: 0.05
+  beyondInLandSpawnChance: 0.8
+  beyondSpawnChance: 0.05
 --- !u!114 &704192213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,8 +345,6 @@ MonoBehaviour:
   totalEvilRatio: 0.0001
   baseDistance: 150
   turnChance: 0.4
-  floorPrefab: {fileID: 7829789937574302296, guid: 00f6894e556342a4aae74e3ab7aa88be, type: 3}
-  floorParent: {fileID: 407497585}
 --- !u!114 &704192214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,33 +361,32 @@ MonoBehaviour:
   floorZ: 1
   floorGimmickZ: 0.9
   wallZ: 0
-  startStraightPrefab:
+  startStraightPrefabs:
   - {fileID: 7829789937574302296, guid: 00f6894e556342a4aae74e3ab7aa88be, type: 3}
-  mainFloorPrefab:
+  mainFloorPrefabs:
   - {fileID: 7829789937574302296, guid: 00f6894e556342a4aae74e3ab7aa88be, type: 3}
-  branchPrefab:
+  branchPrefabs:
   - {fileID: 7829789937574302296, guid: 00f6894e556342a4aae74e3ab7aa88be, type: 3}
-  goalStraightPrefab:
+  goalStraightPrefabs:
   - {fileID: 7829789937574302296, guid: 00f6894e556342a4aae74e3ab7aa88be, type: 3}
-  wallOmenPrefab:
-  - {fileID: 3175886579169125528, guid: 941e5f70339ac8c4a98077d716e84aa3, type: 3}
-  floorOmenPrefab:
-  - {fileID: 7737092251752973319, guid: a9fe21b545417854daf6cf463b0f78ce, type: 3}
-  outerOmenPrefab:
-  - {fileID: 7397553242257193832, guid: 023982e48a11611478f5f7e4bba887b9, type: 3}
-  innerWallPrefab:
-  - {fileID: 3097226206137374983, guid: e9f2aa59054978e4d9b30559b77b9e82, type: 3}
+  floorOmenPrefabs:
+  - {fileID: 8155318210489121484, guid: 9d639c9a3347b2c48b8e1dfbb777aeca, type: 3}
+  wallOmenPrefabs:
+  - {fileID: 8354823121469967120, guid: 90601db9b4b24024595af6505fb19703, type: 3}
+  beyondOmenPrefabs:
+  - {fileID: 5999820388021327091, guid: 626953cd44aaf8c4fa8d6679d4db1880, type: 3}
+  innerWallPrefabs:
   - {fileID: 3558056853361686293, guid: 01699e149d55bb54dbf22df57aeb41e7, type: 3}
-  - {fileID: 2143413622594857761, guid: bc349b537d3714147bafe457d533aef0, type: 3}
-  outerWallPrefab:
-  - {fileID: 2143413622594857761, guid: bc349b537d3714147bafe457d533aef0, type: 3}
+  - {fileID: 3097226206137374983, guid: e9f2aa59054978e4d9b30559b77b9e82, type: 3}
+  outerWallPrefabs:
+  - {fileID: 2314971046025819866, guid: be7aefc86e79b1b44a1925465eb03609, type: 3}
   startStraightParent: {fileID: 229979293}
   mainFloorParent: {fileID: 407497585}
   branchParent: {fileID: 918154938}
   goalStraightParent: {fileID: 1495962394}
-  wallOmenParent: {fileID: 0}
-  floorOmenParent: {fileID: 0}
-  outerOmenParent: {fileID: 0}
+  floorOmenParent: {fileID: 584890172}
+  wallOmenParent: {fileID: 688435869}
+  beyondOmenParent: {fileID: 1835906846}
   innerWallParent: {fileID: 800574631}
   outerWallParent: {fileID: 159800819}
 --- !u!114 &704192215
@@ -668,7 +676,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1835906846}
   m_Layer: 0
-  m_Name: OuterOmen
+  m_Name: BeyondOmen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
