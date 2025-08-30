@@ -4,8 +4,7 @@ using UnityEngine;
 public class ForestFloorGen : SingletonMonoBehaviour<ForestFloorGen>
 {
     [Header("Distance生成パラメータ")]
-    [SerializeField] float dayRatio = 0.05f;
-    [SerializeField] float totalEvilRatio = 0.0001f;
+    [SerializeField] float dayRatio = 0.04f;
     [SerializeField] int baseDistance = 200;
 
     [Header("クネクネ生成パラメータ")]
@@ -33,8 +32,7 @@ public class ForestFloorGen : SingletonMonoBehaviour<ForestFloorGen>
     {
         pathLength = Mathf.RoundToInt(
             baseDistance +
-            GameData.Instance.Day * dayRatio +
-            GameData.Instance.TotalEvil * totalEvilRatio
+            GameData.Instance.Day * dayRatio 
         );
     }
 

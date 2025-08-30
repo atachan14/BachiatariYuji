@@ -340,7 +340,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dayRatio: 0.05
-  totalEvilRatio: 0.0001
   baseDistance: 150
   turnChance: 0.4
 --- !u!114 &704192214
@@ -729,6 +728,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 878766224}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1840126570 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3660718017112511507, guid: 42c16b7f24e167541881837ed4edd5d2, type: 3}
+  m_PrefabInstance: {fileID: 2038444579}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1840126572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1840126570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ab16bb6fd7bf12468d5e143d869020b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2038444579
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -745,9 +761,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneSetuper
       objectReference: {fileID: 0}
+    - target: {fileID: 2242372172444860884, guid: 42c16b7f24e167541881837ed4edd5d2, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3660718017112511507, guid: 42c16b7f24e167541881837ed4edd5d2, type: 3}
       propertyPath: m_Name
-      value: Gimmick
+      value: Omen
       objectReference: {fileID: 0}
     - target: {fileID: 4905181737519030254, guid: 42c16b7f24e167541881837ed4edd5d2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -852,6 +872,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 898592966896787169, guid: 42c16b7f24e167541881837ed4edd5d2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2038444581}
+    - targetCorrespondingSourceObject: {fileID: 3660718017112511507, guid: 42c16b7f24e167541881837ed4edd5d2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1840126572}
   m_SourcePrefab: {fileID: 100100000, guid: 42c16b7f24e167541881837ed4edd5d2, type: 3}
 --- !u!1 &2038444580 stripped
 GameObject:

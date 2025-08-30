@@ -62,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2314971046025819866, guid: be7aefc86e79b1b44a1925465eb03609, type: 3}
       propertyPath: m_Name
-      value: beehiveOmen
+      value: BeehiveOmen
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -92,7 +92,7 @@ PrefabInstance:
     - target: {fileID: 4842074604295458646, guid: 38277bd13b9a0e14da1a6a2788df1ffc, type: 3}
       propertyPath: destiny
       value: 
-      objectReference: {fileID: 11400000, guid: 0c56ca6b059050842b5b19c33ebecc49, type: 2}
+      objectReference: {fileID: 11400000, guid: ab2cd44708be8a54f946a0ac05baed20, type: 2}
     - target: {fileID: 4842074604295458646, guid: 38277bd13b9a0e14da1a6a2788df1ffc, type: 3}
       propertyPath: omenDestiny
       value: 

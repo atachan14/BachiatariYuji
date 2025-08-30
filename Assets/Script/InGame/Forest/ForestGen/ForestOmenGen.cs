@@ -55,18 +55,18 @@ public class ForestOmenGen : SingletonMonoBehaviour<ForestOmenGen>
                 continue;
             }
 
-            switch (omenComponent.destiny.destinyType)
+            switch (omenComponent.destiny.omenType)
             {
-                case DestinyType.NoneOmen:
+                case OmenType.NoneOmen:
                     SpawnNone(picked);
                     break;
-                case DestinyType.FloorOmen:
+                case OmenType.FloorOmen:
                     SpawnFloorOmen(picked);
                     break;
-                case DestinyType.WallOmen:
+                case OmenType.WallOmen:
                     SpawnWallOmen(picked);
                     break;
-                case DestinyType.BeyondOmen:
+                case OmenType.BeyondOmen:
                     SpawnBeyondOmen(picked);
                     break;
             }

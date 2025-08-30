@@ -264,7 +264,7 @@ public class ForestGenManager : SingletonMonoBehaviour<ForestGenManager>
             if (omen == null || omen.destiny == null) { weights.Add(0f); continue; }
 
             var so = omen.destiny;
-            float diff = day - so.peakDay;
+            float diff = day - so.peak;
             float gauss = Mathf.Exp(-(diff * diff) / (2f * so.sigma * so.sigma));
             float weight = so.baseWeight + so.rarity * gauss;
             weights.Add(weight);

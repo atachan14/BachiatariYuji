@@ -15,7 +15,7 @@ PrefabInstance:
     - target: {fileID: 4842074604295458646, guid: 38277bd13b9a0e14da1a6a2788df1ffc, type: 3}
       propertyPath: destiny
       value: 
-      objectReference: {fileID: 11400000, guid: 9f4cba1eb356be74f952401b2e4f294d, type: 2}
+      objectReference: {fileID: 11400000, guid: 25a38fe086bf01345af11e8a94796468, type: 2}
     - target: {fileID: 4842074604295458646, guid: 38277bd13b9a0e14da1a6a2788df1ffc, type: 3}
       propertyPath: omenDestiny
       value: 

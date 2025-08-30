@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f618408b7cf683c4e8947d04859f9d19, type: 3}
-  m_Name: DogBarkDestiny
+  m_Script: {fileID: 11500000, guid: 3a34dd580da88df40b8cbb0c2beda061, type: 3}
+  m_Name: DogDestiny
   m_EditorClassIdentifier: 
-  DestinyType: 0
-  preferredLevel: 0
-  sigma: 0
-  rarity: 0
-  baseWeight: 0
+  peak: 80
+  sigma: 100
+  rarity: 0.3
+  baseWeight: 0.1
+  omenType: 3

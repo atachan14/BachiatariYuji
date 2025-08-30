@@ -3,6 +3,14 @@ using UnityEngine;
 
 public class Omen : MonoBehaviour
 {
-    public DestinySO destiny;
+    public OmenDestinySO destiny;
     [SerializeField] List<Punish> punish;
+
+    public void SelectPunish()
+    {
+        foreach(Punish p in punish)
+        {
+
+        }
+    }
 }
