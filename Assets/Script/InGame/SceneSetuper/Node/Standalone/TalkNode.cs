@@ -17,7 +17,6 @@ public class TalkNode : BaseNode
 
     IEnumerator PlayNodeRoutine()
     {
-        Debug.Log(so);
         DialogWindowManager.Instance.EnterDialogMode();
         yield return StartCoroutine(DialogTextManager.Instance.PlayTextRoutine(so));
         yield return StartCoroutine(DialogTextManager.Instance.WaitNextPress());

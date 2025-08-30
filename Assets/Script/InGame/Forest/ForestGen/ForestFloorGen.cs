@@ -13,11 +13,11 @@ public class ForestFloorGen : SingletonMonoBehaviour<ForestFloorGen>
     private int pathLength;
     private Vector2Int startPos;
 
-    ForestGenManager manager;
+    ForestManager manager;
 
     public void Generate()
     {
-        manager = ForestGenManager.Instance;
+        manager = ForestManager.Instance;
 
         startPos = Vector2Int.zero;
 

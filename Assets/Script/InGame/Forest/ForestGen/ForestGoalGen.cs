@@ -6,14 +6,14 @@ public class ForestGoalGen : SingletonMonoBehaviour<ForestGoalGen>
 {
     [SerializeField] private int candidatesNum = 3;
     [SerializeField] private int goalStraight = 3;
-    [SerializeField] public Transform goalDoor;
+    public Transform goalDoor;
 
-    private ForestGenManager manager;
+    private ForestManager manager;
     private System.Random rng;
 
     public void Generate()
     {
-        manager = ForestGenManager.Instance;
+        manager = ForestManager.Instance;
         rng = manager.Rng;
 
         // 0. エリア判定
@@ -39,7 +39,6 @@ public class ForestGoalGen : SingletonMonoBehaviour<ForestGoalGen>
         // 6. ゴールドア設置
         goalDoor.position=new Vector3(finalPos.x,finalPos.y,manager.doorZ);
 
-        Debug.Log($"Goal生成完了！基準座標:{posA} → GoalDoor:{finalPos} (エリア:{goalArea})");
     }
 
     private int DetermineGoalArea()

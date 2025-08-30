@@ -6,7 +6,7 @@ public class ForestInnerWallGen : SingletonMonoBehaviour<ForestInnerWallGen>
 {
     public void Generate()
     {
-        var manager = ForestGenManager.Instance;
+        var manager = ForestManager.Instance;
         var rng = manager.Rng;
 
         // ---- Walkable‚ÌŽüˆÍ‚É•K‚¸Wall ----

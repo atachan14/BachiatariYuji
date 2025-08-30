@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ForestOuterWallGen : SingletonMonoBehaviour<ForestOuterWallGen>
 {
-    ForestGenManager manager;
+    ForestManager manager;
 
     public void Generate()
     {
-        manager = ForestGenManager.Instance;
+        manager = ForestManager.Instance;
 
         // “à—¤‚ÌŒŠ‚ð–„‚ß‚é
         HoleWallGen();

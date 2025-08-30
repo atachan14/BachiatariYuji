@@ -9,7 +9,7 @@ public class ForestStartGen : SingletonMonoBehaviour<ForestStartGen>
 
     public void Generate()
     {
-        var manager = ForestGenManager.Instance;
+        var manager = ForestManager.Instance;
 
         Vector2Int zero = Vector2Int.zero;
         Vector2Int current = zero;

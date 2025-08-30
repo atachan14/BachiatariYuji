@@ -19,7 +19,7 @@ public enum TileType
 
 }
 
-public class ForestGenManager : SingletonMonoBehaviour<ForestGenManager>
+public class ForestManager : SingletonMonoBehaviour<ForestManager>
 {
     #region Field
     [Header("共有情報")]
@@ -39,6 +39,10 @@ public class ForestGenManager : SingletonMonoBehaviour<ForestGenManager>
     // 差分更新型
     public HashSet<Vector2Int> NotStraightCoords { get; private set; } = new();
     public HashSet<Vector2Int> AllOccupiedCoords { get; private set; } = new();
+
+    // 最後に設定するやつ。
+    public HashSet<Vector2Int> FloorAndBranchCoords { get; private set; } = new();
+
 
     [Header("Z管理")]
     public float doorZ = 0;
@@ -85,6 +89,13 @@ public class ForestGenManager : SingletonMonoBehaviour<ForestGenManager>
         ForestInnerWallGen.Instance.Generate();
         ForestOuterWallGen.Instance.Generate();
         ForestOmenGen.Instance.Generate();
+        SetupField();
+    }
+
+    void SetupField()
+    {
+        FloorAndBranchCoords.UnionWith(MainFloorCoords);
+        FloorAndBranchCoords.UnionWith(BranchCoords);
     }
 
     #region Register
@@ -194,30 +205,7 @@ public class ForestGenManager : SingletonMonoBehaviour<ForestGenManager>
         Instantiate(prefab, new Vector3(pos.x, pos.y, wallZ), Quaternion.identity, edgeWallParent);
     }
 
-    public void ReplaceAndRegister(Vector2Int pos, GameObject prefab, TileType type)
-    {
-        // 座標にあるオブジェクトを探してDestroy
-        var worldPos = new Vector3(pos.x, pos.y, 0);
-        var hits = Physics2D.OverlapPointAll(worldPos); // Colliderがある場合
-        foreach (var hit in hits)
-            GameObject.Destroy(hit.gameObject);
 
-        // 座標登録から消す
-        AllOccupiedCoords.Remove(pos);
-        switch (type)
-        {
-            case TileType.FloorOmen:
-                MainFloorCoords.Remove(pos);
-                break;
-            case TileType.WallOmen:
-                SoftWallCoords.Remove(pos);
-                break;
-            case TileType.BeyondOmen:
-                EdgeWallCoords.Remove(pos);
-                break;
-        }
-
-    }
 
 
     #endregion
@@ -247,7 +235,7 @@ public class ForestGenManager : SingletonMonoBehaviour<ForestGenManager>
     #region Pick
     private GameObject RandomPick(List<GameObject> prefabs)
     {
-        if (prefabs == null || prefabs.Count == 0) return prefabs[prefabs.Count - 1];
+        if (prefabs == null || prefabs.Count == 0) return prefabs[^1];
         return prefabs[Rng.Next(prefabs.Count)];
     }
 
@@ -256,7 +244,7 @@ public class ForestGenManager : SingletonMonoBehaviour<ForestGenManager>
 
         float day = GameData.Instance.Day;
         float totalWeight = 0f;
-        List<float> weights = new List<float>();
+        List<float> weights = new();
 
         foreach (var prefab in prefabs)
         {
@@ -271,7 +259,7 @@ public class ForestGenManager : SingletonMonoBehaviour<ForestGenManager>
             totalWeight += weight;
         }
 
-        if (totalWeight <= 0f) return prefabs[prefabs.Count - 1];
+        if (totalWeight <= 0f) return prefabs[^1];
 
         float pick = (float)(Rng.NextDouble() * totalWeight);
         float accum = 0f;
@@ -282,7 +270,7 @@ public class ForestGenManager : SingletonMonoBehaviour<ForestGenManager>
             if (pick <= accum) return prefabs[i];
         }
 
-        return prefabs[prefabs.Count - 1];
+        return prefabs[^1];
     }
     #endregion
 

@@ -1,16 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+public enum LayerName
+{
+    SmallAnimal,MiddleAnimal,LargeAnimal
+}
 public class Omen : MonoBehaviour
 {
     public OmenDestinySO destiny;
-    [SerializeField] List<Punish> punish;
+    [SerializeField] List<GameObject> punishes;
+
 
     public void SelectPunish()
     {
-        foreach(Punish p in punish)
-        {
-
-        }
+        var selectedPunish = OmenManager.Instance.PunishDestinyPick(punishes);
+        selectedPunish.SetActive(true);
     }
+
+  
 }

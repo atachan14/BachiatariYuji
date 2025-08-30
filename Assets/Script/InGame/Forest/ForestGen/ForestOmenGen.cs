@@ -16,7 +16,7 @@ public class ForestOmenGen : SingletonMonoBehaviour<ForestOmenGen>
 
     public void Generate()
     {
-        var manager = ForestGenManager.Instance;
+        var manager = ForestManager.Instance;
 
         // まず全Occupiedをコピーして候補生成
         eligibleCoords = new HashSet<Vector2Int>(manager.AllOccupiedCoords);
@@ -99,7 +99,7 @@ public class ForestOmenGen : SingletonMonoBehaviour<ForestOmenGen>
             return;
         }
 
-        var manager = ForestGenManager.Instance;
+        var manager = ForestManager.Instance;
         var pos = candidateSet.ElementAt(manager.Rng.Next(candidateSet.Count));
 
         // 既存Prefab削除
@@ -139,21 +139,21 @@ public class ForestOmenGen : SingletonMonoBehaviour<ForestOmenGen>
     private void SpawnFloorOmen(GameObject omen)
     {
         Debug.Log($"[OmenGen] Foor: {omen.name}");
-        var manager = ForestGenManager.Instance;
+        var manager = ForestManager.Instance;
         SpawnOmen(omen, floorCandidates, manager.floorOmenParent, manager.MainFloorCoords, manager.OmenCoords, manager.floorZ);
     }
 
     private void SpawnWallOmen(GameObject omen)
     {
         Debug.Log($"[OmenGen] Wall: {omen.name}");
-        var manager = ForestGenManager.Instance;
+        var manager = ForestManager.Instance;
         SpawnOmen(omen, wallCandidates, manager.wallOmenParent, manager.SoftWallCoords, manager.OmenCoords, manager.wallZ);
     }
 
     private void SpawnBeyondOmen(GameObject omen)
     {
         Debug.Log($"[OmenGen] Beyond: {omen.name}");
-        var manager = ForestGenManager.Instance;
+        var manager = ForestManager.Instance;
         HashSet<Vector2Int> pickSet;
 
         // holeCandidatesがある場合は80%で優先
@@ -168,7 +168,7 @@ public class ForestOmenGen : SingletonMonoBehaviour<ForestOmenGen>
 
         // Hole + Edgeのどちらかから選択
         var oldSet = new HashSet<Vector2Int>(holeCandidates.Union(edgeCandidates));
-        SpawnOmen(omen, pickSet, manager.floorOmenParent, oldSet, manager.OmenCoords, manager.wallZ);
+        SpawnOmen(omen, pickSet, manager.beyondOmenParent, oldSet, manager.OmenCoords, manager.wallZ);
     }
 
     #endregion

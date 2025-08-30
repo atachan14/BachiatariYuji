@@ -13,7 +13,7 @@ public class ForestBranchGen : SingletonMonoBehaviour<ForestBranchGen>
     private RectInt mapArea;
     private List<Vector2Int> candidates;
 
-    private ForestGenManager manager;
+    private ForestManager manager;
     private System.Random rng;
 
     /// <summary>
@@ -24,7 +24,7 @@ public class ForestBranchGen : SingletonMonoBehaviour<ForestBranchGen>
 
     public void Generate()
     {
-        manager = ForestGenManager.Instance;
+        manager = ForestManager.Instance;
         rng = manager.Rng;
 
         mapArea = CalculateMapArea(manager.MainFloorCoords);
