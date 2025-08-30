@@ -288,9 +288,9 @@ GameObject:
   - component: {fileID: 704192213}
   - component: {fileID: 704192216}
   - component: {fileID: 704192218}
-  - component: {fileID: 704192212}
   - component: {fileID: 704192215}
   - component: {fileID: 704192217}
+  - component: {fileID: 704192212}
   m_Layer: 0
   m_Name: ForestGen
   m_TagString: Untagged
@@ -325,10 +325,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302db6a1cd21d764f8fa0766361e978a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floorSpawnChance: 0.05
-  wallSpawnChance: 0.05
-  beyondInLandSpawnChance: 0.8
-  beyondSpawnChance: 0.05
+  aroundRadius: 2
+  gizmoColor: {r: 0, g: 1, b: 1, a: 1}
 --- !u!114 &704192213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,26 +367,29 @@ MonoBehaviour:
   - {fileID: 7829789937574302296, guid: 00f6894e556342a4aae74e3ab7aa88be, type: 3}
   goalStraightPrefabs:
   - {fileID: 7829789937574302296, guid: 00f6894e556342a4aae74e3ab7aa88be, type: 3}
+  innerWallPrefabs:
+  - {fileID: 3558056853361686293, guid: 01699e149d55bb54dbf22df57aeb41e7, type: 3}
+  - {fileID: 3097226206137374983, guid: e9f2aa59054978e4d9b30559b77b9e82, type: 3}
+  outerWallPrefabs:
+  - {fileID: 2314971046025819866, guid: be7aefc86e79b1b44a1925465eb03609, type: 3}
+  NoneOmenPrefabs:
+  - {fileID: 7356954007566443547, guid: c70e99fbd2f25064cb929cb77fc5d77c, type: 3}
   floorOmenPrefabs:
   - {fileID: 8155318210489121484, guid: 9d639c9a3347b2c48b8e1dfbb777aeca, type: 3}
   wallOmenPrefabs:
   - {fileID: 8354823121469967120, guid: 90601db9b4b24024595af6505fb19703, type: 3}
   beyondOmenPrefabs:
   - {fileID: 5999820388021327091, guid: 626953cd44aaf8c4fa8d6679d4db1880, type: 3}
-  innerWallPrefabs:
-  - {fileID: 3558056853361686293, guid: 01699e149d55bb54dbf22df57aeb41e7, type: 3}
-  - {fileID: 3097226206137374983, guid: e9f2aa59054978e4d9b30559b77b9e82, type: 3}
-  outerWallPrefabs:
-  - {fileID: 2314971046025819866, guid: be7aefc86e79b1b44a1925465eb03609, type: 3}
   startStraightParent: {fileID: 229979293}
   mainFloorParent: {fileID: 407497585}
   branchParent: {fileID: 918154938}
   goalStraightParent: {fileID: 1495962394}
+  innerWallParent: {fileID: 800574631}
+  holeWallParent: {fileID: 1503379494}
+  edgeWallParent: {fileID: 159800819}
   floorOmenParent: {fileID: 584890172}
   wallOmenParent: {fileID: 688435869}
   beyondOmenParent: {fileID: 1835906846}
-  innerWallParent: {fileID: 800574631}
-  outerWallParent: {fileID: 159800819}
 --- !u!114 &704192215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -467,7 +468,7 @@ GameObject:
   m_Component:
   - component: {fileID: 800574631}
   m_Layer: 0
-  m_Name: Wall
+  m_Name: InnerWalls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -634,6 +635,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1045284935}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1503379493
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1503379494}
+  m_Layer: 0
+  m_Name: HoleWalls
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1503379494
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503379493}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1446987095}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1625561357 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7306841767759976125, guid: dd290483119b3264f9a352476b046419, type: 3}
@@ -761,6 +793,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WallOmen
       objectReference: {fileID: 0}
+    - target: {fileID: 5888321814849618983, guid: 42c16b7f24e167541881837ed4edd5d2, type: 3}
+      propertyPath: m_Name
+      value: EdgeWalls
+      objectReference: {fileID: 0}
     - target: {fileID: 6932675577131544133, guid: 42c16b7f24e167541881837ed4edd5d2, type: 3}
       propertyPath: cameraMode
       value: 1
@@ -795,8 +831,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1835906846}
     - targetCorrespondingSourceObject: {fileID: 1947960909177074063, guid: 42c16b7f24e167541881837ed4edd5d2, type: 3}
-      insertIndex: -1
+      insertIndex: 0
       addedObject: {fileID: 800574631}
+    - targetCorrespondingSourceObject: {fileID: 1947960909177074063, guid: 42c16b7f24e167541881837ed4edd5d2, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 1503379494}
     - targetCorrespondingSourceObject: {fileID: 7072293474114183835, guid: 42c16b7f24e167541881837ed4edd5d2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 229979293}

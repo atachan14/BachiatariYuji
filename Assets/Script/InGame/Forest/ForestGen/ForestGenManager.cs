@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public enum TileType
 {
@@ -7,11 +8,15 @@ public enum TileType
     MainFloor,
     Branch,
     GoalStraight,
+
+    SoftWall,
+    HoleWall,
+    EdgeWall,
+
     FloorOmen,
     WallOmen,
-    BeyondOmen,
-    InnerWall,
-    OuterWall
+    BeyondOmen
+
 }
 
 public class ForestGenManager : SingletonMonoBehaviour<ForestGenManager>
@@ -26,9 +31,10 @@ public class ForestGenManager : SingletonMonoBehaviour<ForestGenManager>
     public HashSet<Vector2Int> MainFloorCoords { get; private set; } = new();
     public HashSet<Vector2Int> BranchCoords { get; private set; } = new();
     public HashSet<Vector2Int> GoalStraightCoords { get; private set; } = new();
+    public HashSet<Vector2Int> SoftWallCoords { get; private set; } = new();
+    public HashSet<Vector2Int> HoleWallCoords { get; private set; } = new();
+    public HashSet<Vector2Int> EdgeWallCoords { get; private set; } = new();
     public HashSet<Vector2Int> OmenCoords { get; private set; } = new();
-    public HashSet<Vector2Int> InnerWallCoords { get; private set; } = new();
-    public HashSet<Vector2Int> OuterWallCoords { get; private set; } = new();
 
     // 差分更新型
     public HashSet<Vector2Int> NotStraightCoords { get; private set; } = new();
@@ -45,21 +51,27 @@ public class ForestGenManager : SingletonMonoBehaviour<ForestGenManager>
     public List<GameObject> mainFloorPrefabs;
     public List<GameObject> branchPrefabs;
     public List<GameObject> goalStraightPrefabs;
+
+    public List<GameObject> innerWallPrefabs;
+    public List<GameObject> outerWallPrefabs;
+
+    public List<GameObject> NoneOmenPrefabs;
     public List<GameObject> floorOmenPrefabs;
     public List<GameObject> wallOmenPrefabs;
     public List<GameObject> beyondOmenPrefabs;
-    public List<GameObject> innerWallPrefabs;
-    public List<GameObject> outerWallPrefabs;
 
     public Transform startStraightParent;
     public Transform mainFloorParent;
     public Transform branchParent;
     public Transform goalStraightParent;
+
+    public Transform innerWallParent;
+    public Transform holeWallParent;
+    public Transform edgeWallParent;
+
     public Transform floorOmenParent;
     public Transform wallOmenParent;
     public Transform beyondOmenParent;
-    public Transform innerWallParent;
-    public Transform outerWallParent;
     #endregion
 
     public void Generate()
@@ -71,8 +83,8 @@ public class ForestGenManager : SingletonMonoBehaviour<ForestGenManager>
         ForestBranchGen.Instance.Generate();
         ForestGoalGen.Instance.Generate();
         ForestInnerWallGen.Instance.Generate();
-        ForestOmenGen.Instance.Generate();
         ForestOuterWallGen.Instance.Generate();
+        ForestOmenGen.Instance.Generate();
     }
 
     #region Register
@@ -84,11 +96,15 @@ public class ForestGenManager : SingletonMonoBehaviour<ForestGenManager>
             case TileType.MainFloor: RegisterFloor(pos); break;
             case TileType.Branch: RegisterBranch(pos); break;
             case TileType.GoalStraight: RegisterGoal(pos); break;
+
+            case TileType.SoftWall: RegisterSoftWall(pos); break;
+            case TileType.HoleWall: RegisterHoleWall(pos); break;
+            case TileType.EdgeWall: RegisterEdgeWall(pos); break;
+
             case TileType.WallOmen: RegisterWallOmen(pos); break;
             case TileType.FloorOmen: RegisterFloorOmen(pos); break;
             case TileType.BeyondOmen: RegisterBeyondOmen(pos); break;
-            case TileType.InnerWall: RegisterInnerWall(pos); break;
-            case TileType.OuterWall: RegisterOuterWall(pos); break;
+
             default: Debug.LogWarning($"未対応のTileType: {type}"); break;
         }
     }
@@ -132,10 +148,10 @@ public class ForestGenManager : SingletonMonoBehaviour<ForestGenManager>
         AllOccupiedCoords.Add(pos);
         Instantiate(prefab, new Vector3(pos.x, pos.y, floorZ), Quaternion.identity, goalStraightParent);
     }
-    private void RegisterInnerWall(Vector2Int pos)
+    private void RegisterSoftWall(Vector2Int pos)
     {
         var prefab = RandomPick(innerWallPrefabs);
-        InnerWallCoords.Add(pos);
+        SoftWallCoords.Add(pos);
         NotStraightCoords.Add(pos);
         AllOccupiedCoords.Add(pos);
         Instantiate(prefab, new Vector3(pos.x, pos.y, wallZ), Quaternion.identity, innerWallParent);
@@ -143,14 +159,14 @@ public class ForestGenManager : SingletonMonoBehaviour<ForestGenManager>
 
     private void RegisterFloorOmen(Vector2Int pos)
     {
-        var prefab = OmenWeightedPick(floorOmenPrefabs);
+        var prefab = OmenDestinyPick(floorOmenPrefabs);
         OmenCoords.Add(pos);
         AllOccupiedCoords.Add(pos);
         Instantiate(prefab, new Vector3(pos.x, pos.y, floorGimmickZ), Quaternion.identity, floorOmenParent);
     }
     private void RegisterWallOmen(Vector2Int pos)
     {
-        var prefab = OmenWeightedPick(wallOmenPrefabs);
+        var prefab = OmenDestinyPick(wallOmenPrefabs);
         OmenCoords.Add(pos);
         AllOccupiedCoords.Add(pos);
         Instantiate(prefab, new Vector3(pos.x, pos.y, wallZ), Quaternion.identity, wallOmenParent);
@@ -158,18 +174,51 @@ public class ForestGenManager : SingletonMonoBehaviour<ForestGenManager>
 
     void RegisterBeyondOmen(Vector2Int pos)
     {
-        var prefab = OmenWeightedPick(beyondOmenPrefabs);
+        var prefab = OmenDestinyPick(beyondOmenPrefabs);
         OmenCoords.Add(pos);
         AllOccupiedCoords.Add(pos);
         Instantiate(prefab, new Vector3(pos.x, pos.y, wallZ), Quaternion.identity, beyondOmenParent);
     }
-    private void RegisterOuterWall(Vector2Int pos)
+    private void RegisterHoleWall(Vector2Int pos)
     {
         var prefab = RandomPick(outerWallPrefabs);
-        OuterWallCoords.Add(pos);
+        HoleWallCoords.Add(pos);
         AllOccupiedCoords.Add(pos);
-        Instantiate(prefab, new Vector3(pos.x, pos.y, wallZ), Quaternion.identity, outerWallParent);
+        Instantiate(prefab, new Vector3(pos.x, pos.y, wallZ), Quaternion.identity, holeWallParent);
     }
+    private void RegisterEdgeWall(Vector2Int pos)
+    {
+        var prefab = RandomPick(outerWallPrefabs);
+        EdgeWallCoords.Add(pos);
+        AllOccupiedCoords.Add(pos);
+        Instantiate(prefab, new Vector3(pos.x, pos.y, wallZ), Quaternion.identity, edgeWallParent);
+    }
+
+    public void ReplaceAndRegister(Vector2Int pos, GameObject prefab, TileType type)
+    {
+        // 座標にあるオブジェクトを探してDestroy
+        var worldPos = new Vector3(pos.x, pos.y, 0);
+        var hits = Physics2D.OverlapPointAll(worldPos); // Colliderがある場合
+        foreach (var hit in hits)
+            GameObject.Destroy(hit.gameObject);
+
+        // 座標登録から消す
+        AllOccupiedCoords.Remove(pos);
+        switch (type)
+        {
+            case TileType.FloorOmen:
+                MainFloorCoords.Remove(pos);
+                break;
+            case TileType.WallOmen:
+                SoftWallCoords.Remove(pos);
+                break;
+            case TileType.BeyondOmen:
+                EdgeWallCoords.Remove(pos);
+                break;
+        }
+
+    }
+
 
     #endregion
 
@@ -185,6 +234,7 @@ public class ForestGenManager : SingletonMonoBehaviour<ForestGenManager>
     public List<GameObject> GetAllOmen()
     {
         var allOmen = new List<GameObject>();
+        allOmen.AddRange(NoneOmenPrefabs);
         allOmen.AddRange(floorOmenPrefabs);
         allOmen.AddRange(wallOmenPrefabs);
         allOmen.AddRange(beyondOmenPrefabs);
@@ -201,20 +251,20 @@ public class ForestGenManager : SingletonMonoBehaviour<ForestGenManager>
         return prefabs[Rng.Next(prefabs.Count)];
     }
 
-    private GameObject OmenWeightedPick(List<GameObject> prefabs)
+    public GameObject OmenDestinyPick(List<GameObject> prefabs)
     {
 
-        float totalEvil = GameData.Instance.TotalEvil;
+        float day = GameData.Instance.Day;
         float totalWeight = 0f;
         List<float> weights = new List<float>();
 
         foreach (var prefab in prefabs)
         {
             var omen = prefab.GetComponentInChildren<Omen>();
-            if (omen == null || omen.omenDestiny == null) { weights.Add(0f); continue; }
+            if (omen == null || omen.destiny == null) { weights.Add(0f); continue; }
 
-            var so = omen.omenDestiny;
-            float diff = totalEvil - so.preferredLevel;
+            var so = omen.destiny;
+            float diff = day - so.peakDay;
             float gauss = Mathf.Exp(-(diff * diff) / (2f * so.sigma * so.sigma));
             float weight = so.baseWeight + so.rarity * gauss;
             weights.Add(weight);

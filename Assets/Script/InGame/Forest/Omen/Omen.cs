@@ -3,6 +3,6 @@ using UnityEngine;
 
 public class Omen : MonoBehaviour
 {
-    public DestinySO omenDestiny;
+    public DestinySO destiny;
     [SerializeField] List<Punish> punish;
 }

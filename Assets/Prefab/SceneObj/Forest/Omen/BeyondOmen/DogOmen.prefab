@@ -148,6 +148,10 @@ PrefabInstance:
       value: Omen
       objectReference: {fileID: 0}
     - target: {fileID: 4842074604295458646, guid: 38277bd13b9a0e14da1a6a2788df1ffc, type: 3}
+      propertyPath: destiny
+      value: 
+      objectReference: {fileID: 11400000, guid: 7cb32fea8392b55409226a86b1a1e0e0, type: 2}
+    - target: {fileID: 4842074604295458646, guid: 38277bd13b9a0e14da1a6a2788df1ffc, type: 3}
       propertyPath: omenDestiny
       value: 
       objectReference: {fileID: 11400000, guid: 7cb32fea8392b55409226a86b1a1e0e0, type: 2}

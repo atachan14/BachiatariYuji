@@ -22,7 +22,7 @@ public class ForestInnerWallGen : SingletonMonoBehaviour<ForestInnerWallGen>
                 if (manager.AllOccupiedCoords.Contains(pos)) continue;
 
                 // Register経由でInnerWallを配置
-                manager.Register(pos, TileType.InnerWall);
+                manager.Register(pos, TileType.SoftWall);
             }
         }
     }

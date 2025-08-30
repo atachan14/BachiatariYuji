@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ForestStartGen : SingletonMonoBehaviour<ForestStartGen>
 {
-    [SerializeField]Transform startDoor;
+    [SerializeField] public Transform startDoor;
 
     [Header("¶¬ƒpƒ‰ƒ[ƒ^")]
     [SerializeField] private int startStraight = 4;

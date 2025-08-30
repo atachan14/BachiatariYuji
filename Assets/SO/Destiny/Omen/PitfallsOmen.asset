@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f618408b7cf683c4e8947d04859f9d19, type: 3}
   m_Name: PitfallsOmen
   m_EditorClassIdentifier: 
-  DestinyType: 0
-  preferredLevel: 20000
-  sigma: 15000
-  rarity: 0.5
+  destinyType: 1
+  peakDay: 100
+  sigma: 200
+  rarity: 0.2
   baseWeight: 0.1

@@ -6,7 +6,7 @@ public class ForestGoalGen : SingletonMonoBehaviour<ForestGoalGen>
 {
     [SerializeField] private int candidatesNum = 3;
     [SerializeField] private int goalStraight = 3;
-    [SerializeField] private Transform goalDoor;
+    [SerializeField] public Transform goalDoor;
 
     private ForestGenManager manager;
     private System.Random rng;

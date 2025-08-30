@@ -1,117 +1,183 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class ForestOmenGen : SingletonMonoBehaviour<ForestOmenGen>
 {
-    [Header("¶¬ƒpƒ‰ƒ[ƒ^")]
-    [SerializeField, Range(0f, 1f)] private float floorSpawnChance = 0.05f; // °ã
-    [SerializeField, Range(0f, 1f)] private float wallSpawnChance = 0.05f;  // •Ç—p
-    [SerializeField, Range(0f, 1f)] private float beyondInLandSpawnChance = 0.8f;  // •ÇŠO—p
-    [SerializeField, Range(0f, 1f)] private float beyondSpawnChance = 0.05f;  // •ÇŠO—p
+    [Header("è¨­å®š")]
+    public int aroundRadius = 2;
+    public Color gizmoColor = Color.cyan;
 
-
-    private ForestGenManager manager;
-    private System.Random rng;
+    private HashSet<Vector2Int> eligibleCoords = new();
+    private HashSet<Vector2Int> floorCandidates;
+    private HashSet<Vector2Int> wallCandidates;
+    private HashSet<Vector2Int> holeCandidates;
+    private HashSet<Vector2Int> edgeCandidates;
 
     public void Generate()
     {
-        manager = ForestGenManager.Instance;
-        rng = manager.Rng;
+        var manager = ForestGenManager.Instance;
 
-        // --- InnerGimmick: °ãiFloor + Branchj ---
-        foreach (var pos in manager.NotStraightCoords)
+        // ã¾ãšå…¨Occupiedã‚’ã‚³ãƒ”ãƒ¼ã—ã¦å€™è£œç”Ÿæˆ
+        eligibleCoords = new HashSet<Vector2Int>(manager.AllOccupiedCoords);
+
+        // Start/Goalå‘¨å›²ã‚’æ’é™¤
+        Vector2Int startDoorPos = Vector2Int.RoundToInt(ForestStartGen.Instance.startDoor.position);
+        Vector2Int goalDoorPos = Vector2Int.RoundToInt(ForestGoalGen.Instance.goalDoor.position);
+        eligibleCoords.ExceptWith(GetAround(startDoorPos, aroundRadius));
+        eligibleCoords.ExceptWith(GetAround(goalDoorPos, aroundRadius));
+
+        // åº§æ¨™ã‚»ãƒƒãƒˆã”ã¨ã®å€™è£œ
+        floorCandidates = new HashSet<Vector2Int>(manager.MainFloorCoords.Intersect(eligibleCoords));
+        wallCandidates = new HashSet<Vector2Int>(manager.SoftWallCoords.Intersect(eligibleCoords));
+        holeCandidates = new HashSet<Vector2Int>(manager.HoleWallCoords.Intersect(eligibleCoords));
+        edgeCandidates = new HashSet<Vector2Int>(manager.EdgeWallCoords.Intersect(eligibleCoords));
+
+        // æŠ½é¸å›æ•°ã¯å…¨å€™è£œæ•°
+        int drawCount = eligibleCoords.Count;
+        Debug.Log($"[OmenGen] æŠ½é¸å›æ•°: {drawCount}");
+
+        var allOmens = manager.GetAllOmen();
+
+        for (int i = 0; i < drawCount; i++)
         {
-            if (RollSpawn(rng, floorSpawnChance))
+            var picked = manager.OmenDestinyPick(allOmens);
+            if (picked == null)
             {
-                manager.Register(pos, TileType.FloorOmen);
+                Debug.LogWarning("[OmenGen] picked ãŒ null");
+                continue;
+            }
+
+            var omenComponent = picked.GetComponentInChildren<Omen>();
+            if (omenComponent == null)
+            {
+                Debug.LogWarning($"[OmenGen] {picked.name} ã« Omen ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãŒãªã„");
+                continue;
+            }
+
+            switch (omenComponent.destiny.destinyType)
+            {
+                case DestinyType.NoneOmen:
+                    SpawnNone(picked);
+                    break;
+                case DestinyType.FloorOmen:
+                    SpawnFloorOmen(picked);
+                    break;
+                case DestinyType.WallOmen:
+                    SpawnWallOmen(picked);
+                    break;
+                case DestinyType.BeyondOmen:
+                    SpawnBeyondOmen(picked);
+                    break;
             }
         }
-
-        // --- WallGimmick: InnerWall‚Æ·‚µ‘Ö‚¦
-        foreach (var pos in manager.InnerWallCoords.ToList()) // ToList()‚ÅƒRƒs[‚µ‚Ä—ñ‹“’†‚Ì•ÏX‚ğ–h‚®
-        {
-            if (RollSpawn(rng, wallSpawnChance))
-            {
-                // eTransform‚Ì’†‚©‚çŠY“–À•W‚ÌPrefab‚ğ’T‚µ‚Äíœ
-                foreach (Transform child in manager.innerWallParent)
-                {
-                    if (Vector2Int.RoundToInt(child.position) == pos)
-                    {
-                        Destroy(child.gameObject);
-                        break; // ˆê‚ÂŒ©‚Â‚¯‚½‚çOK
-                    }
-                }
-                // HashSet‚©‚çíœ
-                manager.InnerWallCoords.Remove(pos);
-                // ·‚µ‘Ö‚¦“o˜^
-                manager.Register(pos, TileType.WallOmen);
-            }
-        }
-
-
-        // --- WallOutGimmick: InnerWall‚É—×Ú‚µ‚Ä‚é‹ó‚«ƒ}ƒX ---
-        var wallCandidates = GetBeyondCandidates();
-        foreach (var pos in wallCandidates)
-        {
-            if (IsInland(pos, manager.AllOccupiedCoords))
-            {
-                if (RollSpawn(rng, beyondInLandSpawnChance))
-                {
-                    manager.Register(pos, TileType.BeyondOmen);
-                }
-            }
-            else
-            {
-                if (RollSpawn(rng, beyondSpawnChance))
-                {
-                    manager.Register(pos, TileType.BeyondOmen);
-                }
-            }
-        }
-
     }
 
-    private HashSet<Vector2Int> GetBeyondCandidates()
+    #region å…±é€šãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£
+
+    private IEnumerable<Vector2Int> GetAround(Vector2Int center, int radius)
+    {
+        for (int dx = -radius; dx <= radius; dx++)
+            for (int dy = -radius; dy <= radius; dy++)
+                if (dx != 0 || dy != 0)
+                    yield return new Vector2Int(center.x + dx, center.y + dy);
+    }
+
+    public HashSet<Vector2Int> GetAround(IEnumerable<Vector2Int> coords, int radius)
     {
         var result = new HashSet<Vector2Int>();
-        Vector2Int[] dirs = { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
-
-        foreach (var f in manager.AllOccupiedCoords)
-        {
-            foreach (var d in dirs)
-            {
-                var c = f + d;
-                if (!manager.AllOccupiedCoords.Contains(c))
-                    result.Add(c);
-            }
-        }
+        foreach (var pos in coords)
+            result.UnionWith(GetAround(pos, radius));
         return result;
     }
 
-    private bool IsInland(Vector2Int pos, HashSet<Vector2Int> allOccupied)
+    private void SpawnOmen(GameObject omen, HashSet<Vector2Int> candidateSet, Transform parent, HashSet<Vector2Int> oldCategory, HashSet<Vector2Int> newCategory, float zPos)
     {
-        bool left = false, right = false, up = false, down = false;
-
-        foreach (var cell in allOccupied)
+        if (candidateSet == null || candidateSet.Count == 0)
         {
-            if (cell.x < pos.x && cell.y == pos.y) left = true;
-            if (cell.x > pos.x && cell.y == pos.y) right = true;
-            if (cell.y < pos.y && cell.x == pos.x) down = true;
-            if (cell.y > pos.y && cell.x == pos.x) up = true;
-
-            // ‘S•”‘µ‚Á‚½‚ç‘¦return‚Å‘ŠúI—¹‚Å‚«‚é
-            if (left && right && up && down) return true;
+            Debug.LogWarning($"[OmenGen] {omen.name} ã®å€™è£œãŒç©ºã§ã™");
+            return;
         }
 
-        return left && right && up && down;
+        var manager = ForestGenManager.Instance;
+        var pos = candidateSet.ElementAt(manager.Rng.Next(candidateSet.Count));
+
+        // æ—¢å­˜Prefabå‰Šé™¤
+        Transform oldObj = null;
+        foreach (Transform child in parent)
+        {
+            if (Vector2Int.RoundToInt(child.position) == pos)
+            {
+                oldObj = child;
+                break;
+            }
+        }
+        if (oldObj != null) Destroy(oldObj.gameObject);
+
+        // æ–°ã—ã„Omenç”Ÿæˆ
+        Instantiate(omen, new Vector3(pos.x, pos.y, zPos), Quaternion.identity, parent);
+
+        // Coordsæ›´æ–°
+        oldCategory.Remove(pos);
+        newCategory.Add(pos);
+
+        // âœ… ç”Ÿæˆæ¸ˆã¿ã¯å€™è£œã‹ã‚‰å‰Šé™¤
+        candidateSet.Remove(pos);
     }
 
 
-    private bool RollSpawn(System.Random rng, float baseChance)
+    #endregion
+
+    #region å„ç¨®Spawn
+
+    private void SpawnNone(GameObject omen)
     {
-        float evilFactor = 1f + GameData.Instance.TotalEvil / 10000f;
-        float chance = baseChance * evilFactor;
-        return rng.NextDouble() < chance;
+        Debug.Log($"[OmenGen] None: {omen.name}");
+        // ä½•ã‚‚ã—ãªã„
+    }
+
+    private void SpawnFloorOmen(GameObject omen)
+    {
+        Debug.Log($"[OmenGen] Foor: {omen.name}");
+        var manager = ForestGenManager.Instance;
+        SpawnOmen(omen, floorCandidates, manager.floorOmenParent, manager.MainFloorCoords, manager.OmenCoords, manager.floorZ);
+    }
+
+    private void SpawnWallOmen(GameObject omen)
+    {
+        Debug.Log($"[OmenGen] Wall: {omen.name}");
+        var manager = ForestGenManager.Instance;
+        SpawnOmen(omen, wallCandidates, manager.wallOmenParent, manager.SoftWallCoords, manager.OmenCoords, manager.wallZ);
+    }
+
+    private void SpawnBeyondOmen(GameObject omen)
+    {
+        Debug.Log($"[OmenGen] Beyond: {omen.name}");
+        var manager = ForestGenManager.Instance;
+        HashSet<Vector2Int> pickSet;
+
+        // holeCandidatesãŒã‚ã‚‹å ´åˆã¯80%ã§å„ªå…ˆ
+        if (holeCandidates != null && holeCandidates.Count > 0 && manager.Rng.NextDouble() < 0.8)
+        {
+            pickSet = holeCandidates;
+        }
+        else
+        {
+            pickSet = edgeCandidates;
+        }
+
+        // Hole + Edgeã®ã©ã¡ã‚‰ã‹ã‹ã‚‰é¸æŠ
+        var oldSet = new HashSet<Vector2Int>(holeCandidates.Union(edgeCandidates));
+        SpawnOmen(omen, pickSet, manager.floorOmenParent, oldSet, manager.OmenCoords, manager.wallZ);
+    }
+
+    #endregion
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = gizmoColor;
+        if (eligibleCoords == null) return;
+        foreach (var pos in eligibleCoords)
+            Gizmos.DrawSphere(new Vector3(pos.x, pos.y, 0), 0.1f);
     }
 }
