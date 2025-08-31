@@ -500,6 +500,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DDOL_core
       objectReference: {fileID: 0}
+    - target: {fileID: 4122434437835004187, guid: 5f37529912d337b4e8090454eb13e0cc, type: 3}
+      propertyPath: SigmaRatio
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4716452080552778966, guid: 5f37529912d337b4e8090454eb13e0cc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -552,7 +556,8 @@ PrefabInstance:
       propertyPath: daySeed
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7831763028874599963, guid: 5f37529912d337b4e8090454eb13e0cc, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

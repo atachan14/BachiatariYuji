@@ -25,7 +25,7 @@ public class GoToNode : BaseNode
         while ((yuji.transform.position - target.position).sqrMagnitude > 0.01f)
         {
             yuji.transform.position = Vector3.MoveTowards(
-                yuji.transform.position, target.position, YujiParams.Instance.MoveSpeed * moveSpeedRatio * Time.deltaTime);
+                yuji.transform.position, target.position, YujiState.Instance.MoveSpeed * moveSpeedRatio * Time.deltaTime);
             yield return null;
         }
 

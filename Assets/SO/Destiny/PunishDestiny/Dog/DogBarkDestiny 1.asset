@@ -15,4 +15,4 @@ MonoBehaviour:
   peak: 100
   sigma: 50
   rarity: 200
-  baseWeight: 0
+  baseWeight: 1000

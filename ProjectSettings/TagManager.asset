@@ -19,13 +19,13 @@ TagManager:
   - NPC
   - CanAction
   - DoAction
-  - SmallAnimal
+  - YujiSearcher
+  - SmallUnit
+  - MiddleUnit
+  - LargeUnit
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - EffectField
   - 
   - 
   - 

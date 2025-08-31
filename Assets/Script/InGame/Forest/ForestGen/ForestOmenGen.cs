@@ -91,7 +91,7 @@ public class ForestOmenGen : SingletonMonoBehaviour<ForestOmenGen>
         return result;
     }
 
-    private void SpawnOmen(GameObject omen, HashSet<Vector2Int> candidateSet, Transform parent, HashSet<Vector2Int> oldCategory, HashSet<Vector2Int> newCategory, float zPos)
+    private void SpawnOmen(GameObject omen, HashSet<Vector2Int> candidateSet, Transform oldParent,Transform parent, HashSet<Vector2Int> oldCategory, HashSet<Vector2Int> newCategory, float zPos)
     {
         if (candidateSet == null || candidateSet.Count == 0)
         {
@@ -104,7 +104,7 @@ public class ForestOmenGen : SingletonMonoBehaviour<ForestOmenGen>
 
         // 既存Prefab削除
         Transform oldObj = null;
-        foreach (Transform child in parent)
+        foreach (Transform child in oldParent)
         {
             if (Vector2Int.RoundToInt(child.position) == pos)
             {
@@ -140,14 +140,14 @@ public class ForestOmenGen : SingletonMonoBehaviour<ForestOmenGen>
     {
         Debug.Log($"[OmenGen] Foor: {omen.name}");
         var manager = ForestManager.Instance;
-        SpawnOmen(omen, floorCandidates, manager.floorOmenParent, manager.MainFloorCoords, manager.OmenCoords, manager.floorZ);
+        SpawnOmen(omen, floorCandidates, manager.mainFloorParent,manager.floorOmenParent, manager.MainFloorCoords, manager.OmenCoords, manager.floorZ);
     }
 
     private void SpawnWallOmen(GameObject omen)
     {
         Debug.Log($"[OmenGen] Wall: {omen.name}");
         var manager = ForestManager.Instance;
-        SpawnOmen(omen, wallCandidates, manager.wallOmenParent, manager.SoftWallCoords, manager.OmenCoords, manager.wallZ);
+        SpawnOmen(omen, wallCandidates, manager.innerWallParent,manager.wallOmenParent, manager.SoftWallCoords, manager.OmenCoords, manager.wallZ);
     }
 
     private void SpawnBeyondOmen(GameObject omen)
@@ -155,20 +155,23 @@ public class ForestOmenGen : SingletonMonoBehaviour<ForestOmenGen>
         Debug.Log($"[OmenGen] Beyond: {omen.name}");
         var manager = ForestManager.Instance;
         HashSet<Vector2Int> pickSet;
+        Transform oldParent;
 
         // holeCandidatesがある場合は80%で優先
         if (holeCandidates != null && holeCandidates.Count > 0 && manager.Rng.NextDouble() < 0.8)
         {
             pickSet = holeCandidates;
+            oldParent = manager.holeWallParent;
         }
         else
         {
             pickSet = edgeCandidates;
+            oldParent = manager.edgeWallParent;
         }
 
         // Hole + Edgeのどちらかから選択
         var oldSet = new HashSet<Vector2Int>(holeCandidates.Union(edgeCandidates));
-        SpawnOmen(omen, pickSet, manager.beyondOmenParent, oldSet, manager.OmenCoords, manager.wallZ);
+        SpawnOmen(omen, pickSet, oldParent,manager.beyondOmenParent, oldSet, manager.OmenCoords, manager.wallZ);
     }
 
     #endregion

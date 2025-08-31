@@ -8,7 +8,7 @@ public class YTDMove : SingletonMonoBehaviour<YTDMove>
     private void Update()
     {
         Vector2 dir = InputReceiver.Instance.MoveAxis; // éŒÇﬂï‚ê≥çœÇ›
-        float speed = YujiParams.Instance.MoveSpeed ;
+        float speed = YujiState.Instance.MoveSpeed ;
         parentTransform.position += (Vector3)dir * speed * Time.deltaTime;
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DogBark : Punish
+public class DogBarkPunish : Punish
 {
     [SerializeField] DogJumpOut jumpOut;
     bool isBarked = false;

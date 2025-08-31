@@ -42,6 +42,7 @@ public class ForestManager : SingletonMonoBehaviour<ForestManager>
 
     // ç≈å„Ç…ê›íËÇ∑ÇÈÇ‚Ç¬ÅB
     public HashSet<Vector2Int> FloorAndBranchCoords { get; private set; } = new();
+    public HashSet<Vector2Int> WalkableCoords { get; private set; } = new();
 
 
     [Header("Zä«óù")]
@@ -96,6 +97,9 @@ public class ForestManager : SingletonMonoBehaviour<ForestManager>
     {
         FloorAndBranchCoords.UnionWith(MainFloorCoords);
         FloorAndBranchCoords.UnionWith(BranchCoords);
+        WalkableCoords.UnionWith(FloorAndBranchCoords);
+        WalkableCoords.UnionWith(StartStraightCoords);
+        WalkableCoords.UnionWith(GoalStraightCoords);
     }
 
     #region Register

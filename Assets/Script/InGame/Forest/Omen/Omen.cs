@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum LayerName
 {
-    SmallAnimal,MiddleAnimal,LargeAnimal
+    SmallUnit,MiddleUnit,LargeUnit,EffectField
 }
 public class Omen : MonoBehaviour
 {
@@ -13,6 +13,7 @@ public class Omen : MonoBehaviour
     public void SelectPunish()
     {
         var selectedPunish = OmenManager.Instance.PunishDestinyPick(punishes);
+        if (selectedPunish != null)
         selectedPunish.SetActive(true);
     }
 

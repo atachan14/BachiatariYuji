@@ -8,7 +8,7 @@ public class DogJumpOut : MonoBehaviour
 
     public IEnumerator Exe(float jumpRange)
     {
-        dogParent.gameObject.layer = LayerMask.NameToLayer(LayerName.SmallAnimal.ToString());
+        dogParent.gameObject.layer = LayerMask.NameToLayer(LayerName.SmallUnit.ToString());
         // 現在位置とYujiの位置
         Vector2Int dogPos = Vector2Int.RoundToInt(dogParent.position);
         Vector2 yujiPos = Yuji.Instance.transform.position;
@@ -32,7 +32,7 @@ public class DogJumpOut : MonoBehaviour
         // ビョンっとジャンプ
         Vector3 targetPos = new(target.x, target.y, dogParent.position.z);
         yield return StartCoroutine(JumpTo(targetPos));
-        dogParent.gameObject.layer = LayerMask.NameToLayer(LayerName.MiddleAnimal.ToString());
+        dogParent.gameObject.layer = LayerMask.NameToLayer(LayerName.MiddleUnit.ToString());
     }
 
     // ビョンっとジャンプ移動
