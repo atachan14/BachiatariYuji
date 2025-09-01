@@ -10,7 +10,7 @@ public class YSSMove : MonoBehaviour
 
     [SerializeField] private Rigidbody2D rb;
     private InputReceiver input;
-    private YujiParams yujiParams;
+    private YujiState yujiState;
 
     private bool isGrounded;
     private bool isCrouching;
@@ -18,7 +18,7 @@ public class YSSMove : MonoBehaviour
     private void Awake()
     {
         input = InputReceiver.Instance;
-        yujiParams = YujiParams.Instance;
+        yujiState = YujiState.Instance;
     }
 
     private void Update()
@@ -45,7 +45,7 @@ public class YSSMove : MonoBehaviour
     {
         float moveX = input.MoveAxisX; 
         Vector2 velocity = rb.linearVelocity;
-        velocity.x = moveX * yujiParams.MoveSpeed;
+        velocity.x = moveX * yujiState.MoveSpeed;
         rb.linearVelocity = velocity;
 
        
@@ -53,11 +53,11 @@ public class YSSMove : MonoBehaviour
 
     private void HandleJump()
     {
-        if (isGrounded && Input.GetKeyDown(KeyCode.W))
-        {
-            float jumpForce = yujiParams.JumpForce; // YujiParamsに追加して使う
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-        }
+        //if (isGrounded && Input.GetKeyDown(KeyCode.W))
+        //{
+        //    float jumpForce = yujiState.JumpForce; // YujiParamsに追加して使う
+        //    rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+        //}
     }
 
     private void HandleCrouch()

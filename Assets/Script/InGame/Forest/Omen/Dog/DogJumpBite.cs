@@ -6,8 +6,8 @@ public class DogJumpBite : MonoBehaviour
     [SerializeField] DogChase chase;
     [SerializeField] BoxCollider2D col;
     [SerializeField] float biteDuration = 1f;       // 噛みつき時間
-    [SerializeField] float damageInterval = 0.2f;   // ダメージ間隔
-    [SerializeField] int damagePerTick = 1;         // ダメージ量
+    [SerializeField] float damageInterval = 0.25f;   // ダメージ間隔
+    [SerializeField] int damagePerTick = 10;         // ダメージ量
 
     public void Exe()
     {
@@ -65,8 +65,7 @@ public class DogJumpBite : MonoBehaviour
                 // 一定間隔でダメージ処理
                 if (damageTimer <= 0f)
                 {
-                    Debug.Log("Bite damage!");
-                    // Yuji.Damage(damagePerTick); ← 実装予定
+                    YujiParams.Instance.TakeDamage(damagePerTick);
                     damageTimer = damageInterval;
                 }
 

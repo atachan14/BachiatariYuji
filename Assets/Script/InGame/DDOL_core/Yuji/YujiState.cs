@@ -1,12 +1,12 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class YujiState : SingletonMonoBehaviour<YujiState>
 {
     [field: SerializeField] public float MoveSpeed { get; private set; }
     [field: SerializeField] public float MaxHelth { get; private set; }
-    [field: SerializeField] public float Helth { get; private set; }
     [field: SerializeField] public float FixDef { get; private set; }
     [field: SerializeField] public float PerDef { get; private set; }
     [field: SerializeField] public float CcDef { get; private set; }
@@ -50,10 +50,6 @@ public class YujiState : SingletonMonoBehaviour<YujiState>
                         MoveSpeed *= (1 - e.value);
                         break;
 
-                    case EffectType.MaxHP:
-                        MaxHelth += e.value;
-                        if (Helth > MaxHelth) Helth = MaxHelth;
-                        break;
 
                     case EffectType.FixDef:
                         FixDef += e.value;
@@ -78,4 +74,6 @@ public class YujiState : SingletonMonoBehaviour<YujiState>
     {
         //TimeEffectŽÀ‘•‚Ü‚Å•ú’u
     }
+
+    
 }

@@ -10,11 +10,12 @@ public class YujiParams : SingletonMonoBehaviour<YujiParams>
 {
     [Header("‹¤’Ê")]
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float maxHP = 200;
+    [SerializeField] private float maxHelth = 200;
+    [SerializeField] private float helth = 200;
     [SerializeField] private float fixDef;
     [SerializeField] private float perDef;
     [SerializeField] private float ccDef;
-    [SerializeField] private float vision;
+    [SerializeField] private float vision = 5;
 
     [Header("TopDown")]
 
@@ -29,21 +30,32 @@ public class YujiParams : SingletonMonoBehaviour<YujiParams>
     public float SigmaRatio = 0.3f;
     public float StealOpenPower = 30;
 
+    private void Start()
+    {
+        TakeDamage(0);
+    }
+
     public float MoveSpeed
     {
         get => moveSpeed;
         set => moveSpeed = Mathf.Max(0, value);
     }
 
-    public float JumpForce
-    {
-        get => jumpForce;
-        set => jumpForce = Mathf.Max(0, value);
-    }
     public float MaxHelth
     {
-        get => maxHP;
-        set => maxHP = Mathf.Max(0, value);
+        get => maxHelth;
+        set => maxHelth = Mathf.Max(0, value);
+    }
+    public float Helth
+    {
+        get => helth;
+        set 
+        {
+            float old = helth;
+            helth = Mathf.Max(0, value);
+            HelthWindow.Instance.valueChangeAnimator.ChangeValue((int)old, (int)Helth);
+
+        }
     }
 
     public float FixDef
@@ -68,5 +80,27 @@ public class YujiParams : SingletonMonoBehaviour<YujiParams>
     {
         get => vision;
         set => vision = Mathf.Max(0, value);
+    }
+
+    public float JumpForce
+    {
+        get => jumpForce;
+        set => jumpForce = Mathf.Max(0, value);
+    }
+
+    public void TakeDamage(float damage)
+    {
+        int old = (int)Helth;
+        float finalDamage = damage * (100 / 100 + PerDef) - FixDef;
+
+        if (finalDamage > 0)
+        {
+            Helth -= finalDamage;
+        }
+        
+        if ((int)Helth <= 0)
+        {
+            Debug.Log("Game Over");
+        }
     }
 }

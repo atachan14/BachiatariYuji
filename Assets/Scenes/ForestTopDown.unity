@@ -369,6 +369,7 @@ MonoBehaviour:
   innerWallPrefabs:
   - {fileID: 391223923227471266, guid: c5f46835b005f2845a81f46ad362d1c7, type: 3}
   - {fileID: 512037188014636555, guid: 5bcc83845c3f093409f001cc2e67b29f, type: 3}
+  - {fileID: 7978297693226493020, guid: ce0f79b245bcc83459622f106ffc97de, type: 3}
   outerWallPrefabs:
   - {fileID: 7978297693226493020, guid: ce0f79b245bcc83459622f106ffc97de, type: 3}
   NoneOmenPrefabs:
@@ -807,7 +808,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 056204f447ba28144bdd95eafc79dfd4, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.98836124, g: 1, b: 0.6933962, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

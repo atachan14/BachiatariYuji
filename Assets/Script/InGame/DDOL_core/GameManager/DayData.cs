@@ -12,6 +12,12 @@ public class DayData : SingletonMonoBehaviour<DayData>
     public static event Action OnDayTimeChanged;
     public static event Action OnCashChanged;
 
+    private void Start()
+    {
+        DayTime = dayTime;
+        Cash = cash;
+    }
+
     public DayTime DayTime
     {
         get => dayTime;

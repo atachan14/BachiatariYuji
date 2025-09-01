@@ -135,7 +135,7 @@ public class ForestManager : SingletonMonoBehaviour<ForestManager>
         var prefab = RandomPick(startStraightPrefabs);
         StartStraightCoords.Add(pos);
         AllOccupiedCoords.Add(pos);
-        Instantiate(prefab, new Vector3(pos.x, pos.y, floorZ), Quaternion.identity, startStraightParent);
+        //Instantiate(prefab, new Vector3(pos.x, pos.y, floorZ), Quaternion.identity, startStraightParent);
     }
 
     private void RegisterFloor(Vector2Int pos)
@@ -144,7 +144,7 @@ public class ForestManager : SingletonMonoBehaviour<ForestManager>
         MainFloorCoords.Add(pos);
         NotStraightCoords.Add(pos);
         AllOccupiedCoords.Add(pos);
-        Instantiate(prefab, new Vector3(pos.x, pos.y, floorZ), Quaternion.identity, mainFloorParent);
+        //Instantiate(prefab, new Vector3(pos.x, pos.y, floorZ), Quaternion.identity, mainFloorParent);
     }
 
     private void RegisterBranch(Vector2Int pos)
@@ -153,7 +153,7 @@ public class ForestManager : SingletonMonoBehaviour<ForestManager>
         BranchCoords.Add(pos);
         NotStraightCoords.Add(pos);
         AllOccupiedCoords.Add(pos);
-        Instantiate(prefab, new Vector3(pos.x, pos.y, floorZ), Quaternion.identity, branchParent);
+        //Instantiate(prefab, new Vector3(pos.x, pos.y, floorZ), Quaternion.identity, branchParent);
     }
 
     private void RegisterGoal(Vector2Int pos)
@@ -161,7 +161,7 @@ public class ForestManager : SingletonMonoBehaviour<ForestManager>
         var prefab = RandomPick(goalStraightPrefabs);
         GoalStraightCoords.Add(pos);
         AllOccupiedCoords.Add(pos);
-        Instantiate(prefab, new Vector3(pos.x, pos.y, floorZ), Quaternion.identity, goalStraightParent);
+        //Instantiate(prefab, new Vector3(pos.x, pos.y, floorZ), Quaternion.identity, goalStraightParent);
     }
     private void RegisterSoftWall(Vector2Int pos)
     {
