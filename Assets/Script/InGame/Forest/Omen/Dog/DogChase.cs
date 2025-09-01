@@ -3,21 +3,37 @@ using UnityEngine;
 
 public class DogChase : MonoBehaviour
 {
-    public float moveSpeed = 3f;
     [SerializeField] float findPathCD = 0.5f;
+    [SerializeField] DogJumpBite jumpBite;
+
+    public float moveSpeed = 3f;
+    public float biteCD = 1f;
+
 
     Transform yuji;
     List<Vector2Int> path = new();
     int currentIndex = 0;
     float pathTimer;
+    float biteTimer;
+    public bool isBiting;
 
     public void Exe()
     {
         if (yuji == null) yuji = Yuji.Instance.transform;
         pathTimer -= Time.deltaTime;
 
+        if (isBiting) return;
+        biteTimer -= Time.deltaTime;
+
         Vector2 dir = (yuji.position - transform.position).normalized;
         float dist = Vector2.Distance(transform.position, yuji.position);
+
+        if (biteTimer <= 0f && dist < moveSpeed / 2)
+        {
+            jumpBite.Exe();
+            biteTimer = biteCD;
+            return;
+        }
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, dist, LayerMask.GetMask("Wall", "Yuji"));
         if (hit.collider != null)
@@ -46,7 +62,7 @@ public class DogChase : MonoBehaviour
 
     void PathChase()
     {
-       
+
         if (pathTimer <= 0f)
         {
             var newPath = FindPath(

@@ -541,13 +541,16 @@ PrefabInstance:
       addedObject: {fileID: 4296266975395023909}
     - targetCorrespondingSourceObject: {fileID: 796567324157819265, guid: 8d672a5b6b3ea9d4a968526a375f8afe, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1636519343049369541}
+    - targetCorrespondingSourceObject: {fileID: 796567324157819265, guid: 8d672a5b6b3ea9d4a968526a375f8afe, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 463400860241872384}
     - targetCorrespondingSourceObject: {fileID: 796567324157819265, guid: 8d672a5b6b3ea9d4a968526a375f8afe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3523986375345036760}
     - targetCorrespondingSourceObject: {fileID: 796567324157819265, guid: 8d672a5b6b3ea9d4a968526a375f8afe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1636519343049369541}
+      addedObject: {fileID: 4452073110090452535}
     - targetCorrespondingSourceObject: {fileID: 7148357425509435524, guid: 8d672a5b6b3ea9d4a968526a375f8afe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3564266408625959774}
@@ -668,33 +671,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &463400860241872384
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5999820388021327091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d9b52c96f89f4343a56abacb95ec13c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dogParent: {fileID: 5419556295114716890}
---- !u!114 &3523986375345036760
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5999820388021327091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d01f530301d2b8468c9ac3200dc8cb8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 3
-  findPathCD: 3
 --- !u!50 &1636519343049369541
 Rigidbody2D:
   serializedVersion: 5
@@ -722,3 +698,49 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &463400860241872384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5999820388021327091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d9b52c96f89f4343a56abacb95ec13c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dogParent: {fileID: 5419556295114716890}
+--- !u!114 &3523986375345036760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5999820388021327091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d01f530301d2b8468c9ac3200dc8cb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  findPathCD: 3
+  jumpBite: {fileID: 4452073110090452535}
+  moveSpeed: 3
+  biteCD: 1
+  isBiting: 0
+--- !u!114 &4452073110090452535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5999820388021327091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 378b5e1633e89a845a521e1aff846803, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chase: {fileID: 3523986375345036760}
+  biteDuration: 1
+  damageInterval: 0.2
+  damagePerTick: 1
