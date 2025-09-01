@@ -754,7 +754,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   findPathCD: 3
   jumpBite: {fileID: 4452073110090452535}
-  moveSpeed: 3
+  moveSpeed: 2
   biteCD: 1
   isBiting: 0
 --- !u!114 &4452073110090452535

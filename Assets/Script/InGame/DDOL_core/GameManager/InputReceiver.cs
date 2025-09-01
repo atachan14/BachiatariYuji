@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Windows;
 using Input = UnityEngine.Input;
 
@@ -10,19 +11,32 @@ public class InputReceiver : SingletonMonoBehaviour<InputReceiver>
 {
     private InputMode Mode;
 
-
+    [Header("TopDown")]
     public Vector2 MoveAxis { get; private set; }
     public bool Action { get; private set; }
 
+    [Header("SideScroll")]
     public float MoveAxisX { get; private set; }
     public bool JumpPressed { get; private set; }
     public bool CrouchHeld { get; private set; }
 
+    [Header("Dialog")]
     public bool Confirm { get; set; }
     public bool Up { get; set; }
     public bool Down { get; set; }
     public bool Left { get; set; }
     public bool Right { get; set; }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += RefreshMode;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= RefreshMode;
+    }
+
 
     public void SwitchMode(InputMode newMode)
     {
@@ -30,6 +44,15 @@ public class InputReceiver : SingletonMonoBehaviour<InputReceiver>
         ResetInputs();
     }
 
+    public void RefreshMode()
+    {
+        SwitchMode(SceneData.Instance.GetInputMode());
+    }
+
+    public void RefreshMode(Scene s, LoadSceneMode m)
+    {
+        SwitchMode(SceneData.Instance.GetInputMode());
+    }
 
     void ResetInputs()
     {
@@ -54,7 +77,7 @@ public class InputReceiver : SingletonMonoBehaviour<InputReceiver>
                 SideScrollInput();
                 break;
             case InputMode.Dialog:
-                TalkInput();
+                DialogInput();
                 break;
         }
     }
@@ -75,7 +98,7 @@ public class InputReceiver : SingletonMonoBehaviour<InputReceiver>
         CrouchHeld = Input.GetKey(KeyCode.S);
     }
 
-    void TalkInput()
+    void DialogInput()
     {
         Confirm = Input.GetKeyDown(KeyCode.E);
         Up = Input.GetKeyDown(KeyCode.W);

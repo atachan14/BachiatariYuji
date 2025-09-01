@@ -72,7 +72,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 796567324157819265, guid: 8d672a5b6b3ea9d4a968526a375f8afe, type: 3}
       propertyPath: m_Name
-      value: Beehive Variant
+      value: Beehive
       objectReference: {fileID: 0}
     - target: {fileID: 796567324157819265, guid: 8d672a5b6b3ea9d4a968526a375f8afe, type: 3}
       propertyPath: m_Layer
@@ -155,6 +155,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Omen
       objectReference: {fileID: 0}
+    - target: {fileID: 4842074604295458646, guid: 38277bd13b9a0e14da1a6a2788df1ffc, type: 3}
+      propertyPath: destiny
+      value: 
+      objectReference: {fileID: 11400000, guid: ab2cd44708be8a54f946a0ac05baed20, type: 2}
     - target: {fileID: 5287006965274230581, guid: 38277bd13b9a0e14da1a6a2788df1ffc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

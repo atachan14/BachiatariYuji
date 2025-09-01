@@ -13,8 +13,7 @@ public class SaisenStealNode : BaseNode
     [SerializeField] private List<LocalizedText> resultFormat;
 
     private YujiParams yujiParams;
-    private List<string> partialResults = new List<string>();
-    private Language CurrentLang => OptionData.Instance.Language;
+    private List<string> partialResults = new();
 
     public override void PlayNode()
     {
@@ -26,7 +25,7 @@ public class SaisenStealNode : BaseNode
     {
         yujiParams = YujiParams.Instance;
         int streak = 0;
-        List<int> results = new List<int>();
+        List<int> results = new();
         partialResults.Clear();
 
         DialogWindowManager.Instance.EnterDialogMode();
@@ -67,7 +66,7 @@ public class SaisenStealNode : BaseNode
 
         DialogWindowManager.Instance.ExitDialogMode();
 
-        GameData.Instance.DayTime = DayTime.Night;
+        DayData.Instance.DayTime = DayTime.Night;
         nextNode?.PlayNode();
     }
 
@@ -99,17 +98,17 @@ public class SaisenStealNode : BaseNode
     {
         return new ChoiceData[]
         {
-            new ChoiceData()
+            new()
             {
                 localizedTexts = new List<LocalizedText>
                 {
-                    new LocalizedText(Language.JP, string.Format(continueLabel.GetText(Language.JP), remain)),
-                    new LocalizedText(Language.EN, string.Format(continueLabel.GetText(Language.EN), remain))
+                    new(Language.JP, string.Format(continueLabel.GetText(Language.JP), remain)),
+                    new(Language.EN, string.Format(continueLabel.GetText(Language.EN), remain))
                 },
                 id = 0,
                 rowIndex = 0
             },
-            new ChoiceData()
+            new()
             {
                 localizedTexts = stopLabel,
                 id = -1, // í‚é~óp
@@ -124,14 +123,14 @@ public class SaisenStealNode : BaseNode
         string breakdown = string.Join(" + ", results);
         total = results.Sum();
 
-        string format = resultFormat.GetText(CurrentLang);
+        string format = resultFormat.GetText(OptionData.Instance.Language);
         string resultText = string.Format(format, breakdown);
 
         yield return DialogTextManager.Instance.PlayTextRoutine(resultText);
         yield return DialogTextManager.Instance.WaitNextPress();
 
-        GameData.Instance.Cash += total;
-        GameData.Instance.DayEvil += total;
+        DayData.Instance.Cash += total;
+        DayData.Instance.DayEvil += total;
         GameData.Instance.TotalEvil += total;
     }
 

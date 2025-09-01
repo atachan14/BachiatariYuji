@@ -1155,6 +1155,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1096481328}
     - target: {fileID: 6932675577131544133, guid: 42c16b7f24e167541881837ed4edd5d2, type: 3}
+      propertyPath: isOutDoor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6932675577131544133, guid: 42c16b7f24e167541881837ed4edd5d2, type: 3}
       propertyPath: cameraMode
       value: 1
       objectReference: {fileID: 0}
@@ -1174,6 +1178,18 @@ PrefabInstance:
       propertyPath: 'doorList.Array.data[1]'
       value: 
       objectReference: {fileID: 1790863171}
+    - target: {fileID: 6932675577131544133, guid: 42c16b7f24e167541881837ed4edd5d2, type: 3}
+      propertyPath: <IsOutDoor>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6932675577131544133, guid: 42c16b7f24e167541881837ed4edd5d2, type: 3}
+      propertyPath: <CameraMode>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6932675577131544133, guid: 42c16b7f24e167541881837ed4edd5d2, type: 3}
+      propertyPath: <CameraSize>k__BackingField
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

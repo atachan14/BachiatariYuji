@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: NoneDestiny
   m_EditorClassIdentifier: 
   peak: 0
-  sigma: 1000
-  rarity: 100
-  baseWeight: 0
+  sigma: 0
+  rarity: 0
+  baseWeight: 100
   omenType: 0

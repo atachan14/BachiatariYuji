@@ -4,7 +4,7 @@ public class BankAction : CanAction
 {
     public override void ChooseNode()
     {
-        switch (GameData.Instance.DayTime)
+        switch (DayData.Instance.DayTime)
         {
             case DayTime.Morning:
                 currentNode = GetNode("Morning");

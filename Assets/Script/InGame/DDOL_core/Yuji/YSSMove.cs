@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class YSSMove : MonoBehaviour
 {
     [Header("参照")]
@@ -9,7 +8,7 @@ public class YSSMove : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;   // 地面レイヤー
     [SerializeField] private float groundCheckRadius = 0.1f;
 
-    private Rigidbody2D rb;
+    [SerializeField] private Rigidbody2D rb;
     private InputReceiver input;
     private YujiParams yujiParams;
 
@@ -18,11 +17,8 @@ public class YSSMove : MonoBehaviour
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
         input = InputReceiver.Instance;
         yujiParams = YujiParams.Instance;
-
-   
     }
 
     private void Update()

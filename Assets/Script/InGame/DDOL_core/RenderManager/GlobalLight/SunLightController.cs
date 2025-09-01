@@ -1,7 +1,8 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-public class GlobalLightController : SingletonMonoBehaviour<GlobalLightController>
+public class SunLightController : SingletonMonoBehaviour<SunLightController>
 {
     [SerializeField] private Light2D globalLight;
 
@@ -31,11 +32,12 @@ public class GlobalLightController : SingletonMonoBehaviour<GlobalLightControlle
         currentCoroutine = StartCoroutine(ChangeLightCoroutine(targetIntensity, targetColor));
     }
 
-    private System.Collections.IEnumerator ChangeLightCoroutine(float targetIntensity, Color targetColor)
+    private IEnumerator ChangeLightCoroutine(float targetIntensity, Color targetColor)
     {
         float startIntensity = globalLight.intensity;
         Color startColor = globalLight.color;
         float elapsed = 0f;
+        bool hasRefreshed = false; // 半分で1回呼ぶフラグ
 
         while (elapsed < transitionDuration)
         {
@@ -45,11 +47,19 @@ public class GlobalLightController : SingletonMonoBehaviour<GlobalLightControlle
             globalLight.intensity = Mathf.Lerp(startIntensity, targetIntensity, t);
             globalLight.color = Color.Lerp(startColor, targetColor, t);
 
+            // 進行が半分以上になったら一度だけ呼ぶ
+            if (!hasRefreshed && t >= 0.5f)
+            {
+                YujiLight.Instance.RefreshLight();
+                hasRefreshed = true;
+            }
+
             yield return null;
         }
 
         globalLight.intensity = targetIntensity;
         globalLight.color = targetColor;
         currentCoroutine = null;
+
     }
 }

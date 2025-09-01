@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   peak: 50
   sigma: 100
-  rarity: 0.3
+  rarity: 1
   baseWeight: 0.1
   omenType: 2

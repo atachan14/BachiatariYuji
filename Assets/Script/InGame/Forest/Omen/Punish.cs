@@ -11,7 +11,7 @@ public class Punish : MonoBehaviour
 
     protected virtual void OnEnable()
     {
-        colRange += GameData.Instance.DayEvil / colEvilRatio;
+        colRange += DayData.Instance.DayEvil / colEvilRatio;
         col.radius = colRange / Mathf.Max(parent.localScale.x, parent.localScale.y);
     }
 }

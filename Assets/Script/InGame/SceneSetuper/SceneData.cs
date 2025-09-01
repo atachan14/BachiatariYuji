@@ -2,34 +2,31 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class SceneSetuper : SingletonMonoBehaviour<SceneSetuper>
+public class SceneData : SingletonMonoBehaviour<SceneData>
 {
-    [SerializeField] private SceneViewMode viewMode;
-    [SerializeField] private CameraMode cameraMode;
-    [SerializeField] private float cameraSize = 5f;
+    [field:SerializeField]public SceneViewMode SceneViewMode { get; set; }
+    [field: SerializeField] public CameraMode CameraMode { get; set; }
+    [field: SerializeField] public float CameraSize { get; set; } = 5f;
+    [field: SerializeField] public bool IsOutDoor { get; set; }
 
     [Header("ÉVÅ[Éìì‡ÇÃDooràÍóó")]
-    public List<Door> doorList = new List<Door>();
+    public List<Door> doorList = new();
 
 
     protected virtual void Start()
     {
-        InputReceiver.Instance.SwitchMode(GetInputMode());
-        Yuji.Instance.SwitchMode(viewMode);
-        CameraController.Instance.SwitchMode(cameraMode, cameraSize);
         SelectSpawnDoor();
     }
 
     public InputMode GetInputMode()
     {
-        switch (viewMode)
+        switch (SceneViewMode)
         {
             case SceneViewMode.TopDown: return InputMode.TopDown;
             case SceneViewMode.SideScroll: return InputMode.SideScroll;
             default: return InputMode.TopDown; // fallback
         }
     }
-
 
     public void SelectSpawnDoor()
     {

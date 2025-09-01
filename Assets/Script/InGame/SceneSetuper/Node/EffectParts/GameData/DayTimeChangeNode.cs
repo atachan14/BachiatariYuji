@@ -7,7 +7,7 @@ public class DayTimeChangeNode : BaseNode
 
     public override void PlayNode()
     {
-        GameData.Instance.DayTime = dayTime;
+        DayData.Instance.DayTime = dayTime;
 
         nextNode?.PlayNode();
     }

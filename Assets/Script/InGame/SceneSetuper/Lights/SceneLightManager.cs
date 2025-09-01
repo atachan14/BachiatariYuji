@@ -7,7 +7,7 @@ public class SceneLightManager : MonoBehaviour
 
     private void Start()
     {
-        ApplyDayTime(GameData.Instance.DayTime);
+        ApplyDayTime(DayData.Instance.DayTime);
     }
 
     public void ApplyDayTime(DayTime time)

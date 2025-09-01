@@ -1,4 +1,6 @@
 using UnityEngine;
+using static UnityEngine.LightProbeProxyVolume;
+using UnityEngine.SceneManagement;
 
 public enum CameraMode { Fixed, Follow, SideScroll }
 
@@ -8,7 +10,14 @@ public class CameraController : SingletonMonoBehaviour<CameraController>
     [SerializeField] private OriginCamera originCam;
     [SerializeField] private YujiCamera yujiCam;
     [SerializeField] private ForestCamera forestCam;
-
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += RefreshMode;
+    }
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= RefreshMode;
+    }
     protected override void Awake()
     {
         base.Awake();
@@ -39,5 +48,10 @@ public class CameraController : SingletonMonoBehaviour<CameraController>
                 break;
         }
         cam.orthographicSize = size;
+    }
+
+    void RefreshMode(Scene s,LoadSceneMode m)
+    {
+        SwitchMode(SceneData.Instance.CameraMode,SceneData.Instance.CameraSize);
     }
 }

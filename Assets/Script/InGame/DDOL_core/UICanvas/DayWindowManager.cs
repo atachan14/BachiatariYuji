@@ -19,7 +19,7 @@ public class DayWindowManager : SingletonMonoBehaviour<DayWindowManager>
 
     public void ChangeDayTime()
     {
-        switch (GameData.Instance.DayTime)
+        switch (DayData.Instance.DayTime)
         {
             case DayTime.Morning:
                 dayTimeImage.sprite = morningSprite;

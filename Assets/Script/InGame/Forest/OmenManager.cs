@@ -17,7 +17,7 @@ public class OmenManager : SingletonMonoBehaviour<OmenManager>
     {
         System.Random Rng = new(GameData.Instance.DaySeed);
 
-        float dayEvil = GameData.Instance.DayEvil;
+        float dayEvil = DayData.Instance.DayEvil;
         float totalWeight = 0f;
         List<float> weights = new();
 
