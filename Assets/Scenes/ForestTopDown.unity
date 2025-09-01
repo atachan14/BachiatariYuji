@@ -367,16 +367,16 @@ MonoBehaviour:
   goalStraightPrefabs:
   - {fileID: 7829789937574302296, guid: 00f6894e556342a4aae74e3ab7aa88be, type: 3}
   innerWallPrefabs:
-  - {fileID: 3558056853361686293, guid: 01699e149d55bb54dbf22df57aeb41e7, type: 3}
-  - {fileID: 3097226206137374983, guid: e9f2aa59054978e4d9b30559b77b9e82, type: 3}
+  - {fileID: 391223923227471266, guid: c5f46835b005f2845a81f46ad362d1c7, type: 3}
+  - {fileID: 512037188014636555, guid: 5bcc83845c3f093409f001cc2e67b29f, type: 3}
   outerWallPrefabs:
-  - {fileID: 2314971046025819866, guid: be7aefc86e79b1b44a1925465eb03609, type: 3}
+  - {fileID: 7978297693226493020, guid: ce0f79b245bcc83459622f106ffc97de, type: 3}
   NoneOmenPrefabs:
   - {fileID: 7356954007566443547, guid: c70e99fbd2f25064cb929cb77fc5d77c, type: 3}
   floorOmenPrefabs:
   - {fileID: 8155318210489121484, guid: 9d639c9a3347b2c48b8e1dfbb777aeca, type: 3}
   wallOmenPrefabs:
-  - {fileID: 8354823121469967120, guid: 90601db9b4b24024595af6505fb19703, type: 3}
+  - {fileID: 3530378175513955296, guid: 0f7f95d273c2b2e4a9b9287157c3da8a, type: 3}
   beyondOmenPrefabs:
   - {fileID: 5999820388021327091, guid: 626953cd44aaf8c4fa8d6679d4db1880, type: 3}
   startStraightParent: {fileID: 229979293}

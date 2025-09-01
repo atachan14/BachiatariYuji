@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2078540017135751182}
   - component: {fileID: 296373692672315337}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: GoToNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,4 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NodeName: 
   target: {fileID: 0}
+  moveSpeedRatio: 0
   nextNode: {fileID: 0}

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2343925161718712278}
   - component: {fileID: 1087050813533810760}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: StatusChangeNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}

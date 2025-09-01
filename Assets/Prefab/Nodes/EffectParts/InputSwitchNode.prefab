@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5826753387250270099}
   - component: {fileID: 7503404219628099325}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: InputSwitchNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}

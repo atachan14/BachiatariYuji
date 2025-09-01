@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2351999989485416085}
   - component: {fileID: 5615372904981404257}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: WaitNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}

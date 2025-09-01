@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 351165080073565122}
   - component: {fileID: 3099103643511562409}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: NextDayNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}

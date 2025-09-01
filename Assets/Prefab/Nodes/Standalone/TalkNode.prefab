@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 81466681504620474}
   - component: {fileID: 3712109963536054183}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: TalkNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,4 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f5385ffa85854845a74218d1429d4e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  talkData: {fileID: 0}
+  NodeName: 
+  so: {fileID: 0}
+  nextNode: {fileID: 0}

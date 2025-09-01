@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5776547646743904261}
   - component: {fileID: 3479010845639801461}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: PopupNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,4 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f336f4d0f92aaf04486d5f402338af04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  talks: []
+  NodeName: 
+  so: {fileID: 0}

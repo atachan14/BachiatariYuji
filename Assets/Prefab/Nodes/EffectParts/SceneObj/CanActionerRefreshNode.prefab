@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1794139069908692123}
   - component: {fileID: 3483243877123062262}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: CanActionerRefreshNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}

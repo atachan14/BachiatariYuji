@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7378327629004941036}
   - component: {fileID: 2492066632559934683}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: DepositNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,3 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NodeName: 
+  nextNode: {fileID: 0}
