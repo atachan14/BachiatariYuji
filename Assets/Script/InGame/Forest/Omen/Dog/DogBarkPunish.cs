@@ -11,17 +11,14 @@ public class DogBarkPunish : Punish
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (isBarked) return;
-        Debug.Log("barg start");
         StartCoroutine(BarkFlow());
     }
 
     IEnumerator BarkFlow()
     {
-
         yield return StartCoroutine(jumpOut.Exe(colRange));
         yield return StartCoroutine(Bark());
         isBarked = true;
-
     }
 
     IEnumerator Bark()

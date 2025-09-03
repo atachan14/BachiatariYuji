@@ -38,8 +38,8 @@ SceneRoot
     1. StatusUI（MoveSpeedや防御力なんかのパラメーターとCloseStatusButton）
     2. InventoryButton（装備とか）
 3. ActionUI（右下。ActionoButton有効時に有効Action（Talkとか）を表示）
-4. DayUI（左上。GameManagerのDay表示とDayTime表示）
-5. BankUI（DayUIの下。GamaManagaerのBank表示）
+4. DayUI（左上。GameDataのDay表示とDayTime表示）
+5. BankUI（DayUIの下。GamaDataのBank表示）
 6. OpenMenuButton（右上。）
     1. MenuUI（終了ボタンだけ？）
 
@@ -91,3 +91,4 @@ SceneRoot
     - PercentageDefense
     - Visibility
         - 森での視界の広さ
+

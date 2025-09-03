@@ -614,6 +614,9 @@ PrefabInstance:
       addedObject: {fileID: 749095908831851619}
     - targetCorrespondingSourceObject: {fileID: 796567324157819265, guid: 8d672a5b6b3ea9d4a968526a375f8afe, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1461071539425585684}
+    - targetCorrespondingSourceObject: {fileID: 796567324157819265, guid: 8d672a5b6b3ea9d4a968526a375f8afe, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 463400860241872384}
     - targetCorrespondingSourceObject: {fileID: 796567324157819265, guid: 8d672a5b6b3ea9d4a968526a375f8afe, type: 3}
       insertIndex: -1
@@ -727,6 +730,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1461071539425585684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5999820388021327091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cf6ebf04546bf34b8626979f198af0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  doubleMoveSpeedEvil: 5000
+  biteDamage: 5
+  doubleBiteDamageEvil: 3000
+  biteCd: 1
 --- !u!114 &463400860241872384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -752,10 +772,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d01f530301d2b8468c9ac3200dc8cb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  findPathCD: 3
+  para: {fileID: 1461071539425585684}
   jumpBite: {fileID: 4452073110090452535}
-  moveSpeed: 2
-  biteCD: 1
+  findPathCD: 3
   isBiting: 0
 --- !u!114 &4452073110090452535
 MonoBehaviour:
@@ -769,8 +788,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 378b5e1633e89a845a521e1aff846803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  para: {fileID: 1461071539425585684}
   chase: {fileID: 3523986375345036760}
   col: {fileID: 5735005706379228648}
   biteDuration: 1
   damageInterval: 0.2
-  damagePerTick: 1

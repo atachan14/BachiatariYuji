@@ -3,12 +3,9 @@ using UnityEngine;
 
 public class DogChase : MonoBehaviour
 {
-    [SerializeField] float findPathCD = 0.5f;
+    [SerializeField] DogParams para;
     [SerializeField] DogJumpBite jumpBite;
-
-    public float moveSpeed = 3f;
-    public float biteCD = 1f;
-
+    [SerializeField] float findPathCD = 0.5f;
 
     Transform yuji;
     List<Vector2Int> path = new();
@@ -28,20 +25,20 @@ public class DogChase : MonoBehaviour
         Vector2 dir = (yuji.position - transform.position).normalized;
         float dist = Vector2.Distance(transform.position, yuji.position);
 
-        if (biteTimer <= 0f && dist < moveSpeed / 2)
+        if (biteTimer <= 0f && dist < para.moveSpeed / 2)
         {
             jumpBite.Exe();
-            biteTimer = biteCD;
+            biteTimer = para.biteCd;
             return;
         }
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, dist, LayerMask.GetMask("Wall", "Yuji"));
         if (hit.collider != null)
         {
-            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Yuji"))
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer(LayerName.Yuji.ToString()))
             {
                 // Yujiに直接視界あり → そのまま追いかけ
-                transform.position = Vector2.MoveTowards(transform.position, yuji.position, moveSpeed * Time.deltaTime);
+                transform.position = Vector2.MoveTowards(transform.position, yuji.position, para.moveSpeed * Time.deltaTime);
                 path.Clear();
                 pathTimer = 0;
             }
@@ -54,7 +51,7 @@ public class DogChase : MonoBehaviour
         else
         {
             // 視界に何も障害がない場合も直接追跡
-            transform.position = Vector2.MoveTowards(transform.position, yuji.position, moveSpeed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, yuji.position, para.moveSpeed * Time.deltaTime);
         }
 
 
@@ -90,11 +87,13 @@ public class DogChase : MonoBehaviour
 
     List<Vector2Int> FindPath(Vector2Int start, Vector2Int goal, HashSet<Vector2Int> walkable)
     {
-        Queue<Vector2Int> frontier = new Queue<Vector2Int>();
+        Queue<Vector2Int> frontier = new();
         frontier.Enqueue(start);
 
-        Dictionary<Vector2Int, Vector2Int> cameFrom = new Dictionary<Vector2Int, Vector2Int>();
-        cameFrom[start] = start;
+        Dictionary<Vector2Int, Vector2Int> cameFrom = new()
+        {
+            [start] = start
+        };
 
         Vector2Int[] directions = {
         Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right
@@ -124,7 +123,7 @@ public class DogChase : MonoBehaviour
             return null;
 
         // ゴールからスタートに戻りながらパスを復元
-        List<Vector2Int> path = new List<Vector2Int>();
+        List<Vector2Int> path = new();
         var cur = goal;
         while (cur != start)
         {
@@ -148,7 +147,7 @@ public class DogChase : MonoBehaviour
         transform.position = Vector2.MoveTowards(
             currentPos,
             targetPos,
-            moveSpeed * Time.deltaTime
+            para.moveSpeed * Time.deltaTime
         );
 
         // 近づいたら次のノードへ

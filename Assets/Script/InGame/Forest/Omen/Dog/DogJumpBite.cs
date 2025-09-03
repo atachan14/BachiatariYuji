@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class DogJumpBite : MonoBehaviour
 {
+    [SerializeField] DogParams para;
     [SerializeField] DogChase chase;
     [SerializeField] BoxCollider2D col;
     [SerializeField] float biteDuration = 1f;       // 噛みつき時間
     [SerializeField] float damageInterval = 0.25f;   // ダメージ間隔
-    [SerializeField] int damagePerTick = 10;         // ダメージ量
 
     public void Exe()
     {
@@ -31,7 +31,7 @@ public class DogJumpBite : MonoBehaviour
             transform.position = Vector2.MoveTowards(
                 transform.position,
                 lockTarget,
-                chase.moveSpeed * 2f * Time.deltaTime
+                para.moveSpeed * 2f * Time.deltaTime
             );
 
             // Yujiに触れた瞬間にヒット判定
@@ -65,7 +65,8 @@ public class DogJumpBite : MonoBehaviour
                 // 一定間隔でダメージ処理
                 if (damageTimer <= 0f)
                 {
-                    YujiParams.Instance.TakeDamage(damagePerTick);
+
+                    YujiParams.Instance.TakeDamage((int)para.biteDamage);
                     damageTimer = damageInterval;
                 }
 

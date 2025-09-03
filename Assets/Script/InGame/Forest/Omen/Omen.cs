@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum LayerName
 {
-    SmallUnit,MiddleUnit,LargeUnit,EffectField
+    SmallUnit,MiddleUnit,LargeUnit,EffectField,Yuji
 }
 public class Omen : MonoBehaviour
 {
