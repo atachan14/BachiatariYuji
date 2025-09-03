@@ -1,11 +1,12 @@
 using TMPro;
 using UnityEngine;
 
-public class HelthWindow : SingletonMonoBehaviour<HelthWindow>
+public class HealthManager : SingletonMonoBehaviour<HealthManager>
 {
     [SerializeField] private TMP_Text valueText;
     [SerializeField] private TMP_Text maxText;
     [SerializeField] private TMP_Text slashText;
+    [SerializeField] GameObject healthEffect;
 
     private void Start()
     {
@@ -23,5 +24,7 @@ public class HelthWindow : SingletonMonoBehaviour<HelthWindow>
         maxText.text = YujiParams.Instance.MaxHelth.ToString();
         valueText.text = YujiParams.Instance.Health.ToString();
         Debug.Log($"受け取った！ {damage} ダメージ 色:{color}");
+        var go= Instantiate(healthEffect, transform);
+        go.GetComponent<HealthEffect>().SetColor(damage,color);
     }
 }

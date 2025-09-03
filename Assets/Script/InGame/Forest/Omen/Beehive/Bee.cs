@@ -76,7 +76,7 @@ public class Bee : MonoBehaviour
         // Yuji にぶつかったら
         if (collision.gameObject.layer == LayerMask.NameToLayer(LayerName.Yuji.ToString()))
         {
-            YujiParams.Instance.TakeDamage(dmg, Color.magenta);
+            YujiParams.Instance.TakeDamage(dmg, Color.blue);
         }
     }
 }
