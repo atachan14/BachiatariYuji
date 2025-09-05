@@ -4,7 +4,6 @@ public class GoToNode : BaseNode
 {
     [SerializeField] private Transform target;  // Yuji ‚ªŒü‚©‚¤êŠ
     [SerializeField] private float moveSpeedRatio = 1;
-    [SerializeField] private BaseNode nextNode;
 
     public override void PlayNode()
     {

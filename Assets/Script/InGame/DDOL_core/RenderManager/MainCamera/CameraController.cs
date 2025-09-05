@@ -1,8 +1,7 @@
 using UnityEngine;
-using static UnityEngine.LightProbeProxyVolume;
 using UnityEngine.SceneManagement;
 
-public enum CameraMode { Fixed, Follow, SideScroll }
+public enum CameraMode { Fixed, Follow, SideScroll, Title }
 
 public class CameraController : SingletonMonoBehaviour<CameraController>
 {
@@ -13,10 +12,19 @@ public class CameraController : SingletonMonoBehaviour<CameraController>
     private void OnEnable()
     {
         SceneManager.sceneLoaded += RefreshMode;
+        TitleManager.OnTitleMenu += HandleTitleMenu;
     }
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= RefreshMode;
+        TitleManager.OnTitleMenu -= HandleTitleMenu;
+
+    }
+
+    void HandleTitleMenu()
+    {
+        Debug.Log("HandleTitleMenu");
+        SwitchMode(CameraMode.Follow, 0.3f);
     }
     protected override void Awake()
     {
@@ -50,8 +58,8 @@ public class CameraController : SingletonMonoBehaviour<CameraController>
         cam.orthographicSize = size;
     }
 
-    void RefreshMode(Scene s,LoadSceneMode m)
+    void RefreshMode(Scene s, LoadSceneMode m)
     {
-        SwitchMode(SceneData.Instance.CameraMode,SceneData.Instance.CameraSize);
+        SwitchMode(SceneData.Instance.CameraMode, SceneData.Instance.CameraSize);
     }
 }

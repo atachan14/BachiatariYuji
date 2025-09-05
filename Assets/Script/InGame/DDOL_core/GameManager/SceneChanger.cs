@@ -12,7 +12,6 @@ public class SceneChanger : SingletonMonoBehaviour<SceneChanger>
     public void TransitionTo(SceneName targetScene, DoorName targetDoor)
     {
         SpawnDoorName = targetDoor;
-        Debug.Log($"Sceneêÿë÷: {targetScene}, targetDoor: {targetDoor},SpawnDoorName:{SpawnDoorName}");
         SceneManager.LoadScene(targetScene.ToString());
     }
 

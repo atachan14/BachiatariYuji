@@ -13,7 +13,6 @@ public class LightParamNode : BaseNode
     [SerializeField] private float targetOuterRadius = 5f;
 
     [SerializeField] private float duration = 1f; // フェード時間
-    [SerializeField] private BaseNode nextNode;
 
     public override void PlayNode()
     {

@@ -378,6 +378,7 @@ MonoBehaviour:
   - {fileID: 8155318210489121484, guid: 9d639c9a3347b2c48b8e1dfbb777aeca, type: 3}
   wallOmenPrefabs:
   - {fileID: 3530378175513955296, guid: 0f7f95d273c2b2e4a9b9287157c3da8a, type: 3}
+  - {fileID: 1939677437103852228, guid: 7a98721c6f707384e9f9be6cb12dba57, type: 3}
   beyondOmenPrefabs:
   - {fileID: 5999820388021327091, guid: 626953cd44aaf8c4fa8d6679d4db1880, type: 3}
   startStraightParent: {fileID: 229979293}

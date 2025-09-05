@@ -3,7 +3,6 @@ using UnityEngine;
 public class WaitNode : BaseNode
 {
     [SerializeField] private float waitTime = 1f;
-    [SerializeField] private BaseNode nextNode;
 
     public override void PlayNode()
     {

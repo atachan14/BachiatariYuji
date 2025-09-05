@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class DepositNode : BaseNode
 {
-    [SerializeField] BaseNode nextNode;
     public override void PlayNode()
     {
         int cashBefore = DayData.Instance.Cash;

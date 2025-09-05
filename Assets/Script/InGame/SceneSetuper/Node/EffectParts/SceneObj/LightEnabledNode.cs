@@ -5,7 +5,6 @@ public class LightEnabledNode : BaseNode
 {
     [SerializeField] private Light2D targetLight;
     [SerializeField] private bool targetEnabled = true;
-    [SerializeField] private BaseNode nextNode;
 
     public override void PlayNode()
     {

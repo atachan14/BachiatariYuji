@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class StatusChangeNode : BaseNode
 {
-    [SerializeField] private BaseNode nextNode;
 
     public override void PlayNode()
     {

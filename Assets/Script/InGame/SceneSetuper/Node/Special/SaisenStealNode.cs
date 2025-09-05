@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class SaisenStealNode : BaseNode
 {
-    [SerializeField] private BaseNode nextNode;
 
     [Header("Localized Texts")]
     [SerializeField] private List<LocalizedText> continueLabel;

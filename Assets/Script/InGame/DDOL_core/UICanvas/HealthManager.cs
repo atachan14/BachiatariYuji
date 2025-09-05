@@ -10,7 +10,6 @@ public class HealthManager : SingletonMonoBehaviour<HealthManager>
 
     private void Start()
     {
-        Debug.Log(YujiParams.Instance);
         YujiParams.Instance.OnDamaged += HandleDamaged;
     }
 

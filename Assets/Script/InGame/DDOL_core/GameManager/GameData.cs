@@ -16,6 +16,8 @@ public class GameData : SingletonMonoBehaviour<GameData>
         Day = day;
         Bank = bank;
     }
+
+    public bool IsSleep { get; set; } = true;
     public int Day
     {
         get => day;

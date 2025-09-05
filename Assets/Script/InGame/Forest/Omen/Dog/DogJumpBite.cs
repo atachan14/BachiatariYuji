@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class DogJumpBite : MonoBehaviour
 {
-    [SerializeField] DogParams para;
+    [SerializeField] PunishParams para;
     [SerializeField] DogChase chase;
     [SerializeField] BoxCollider2D col;
     [SerializeField] float biteDuration = 1f;       // Šš‚Ý‚Â‚«ŽžŠÔ
@@ -66,7 +66,7 @@ public class DogJumpBite : MonoBehaviour
                 if (damageTimer <= 0f)
                 {
 
-                    YujiParams.Instance.TakeDamage((int)para.biteDamage);
+                    YujiParams.Instance.TakeDamage((int)para.damage);
                     damageTimer = damageInterval;
                 }
 

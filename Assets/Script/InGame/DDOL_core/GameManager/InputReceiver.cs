@@ -1,3 +1,4 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Windows;
@@ -5,11 +6,11 @@ using Input = UnityEngine.Input;
 
 public enum InputMode
 {
-    TopDown, SideScroll, Dialog
+    TopDown, SideScroll, Dialog, Direction
 }
 public class InputReceiver : SingletonMonoBehaviour<InputReceiver>
 {
-    private InputMode Mode;
+    private InputMode Mode = InputMode.Dialog;
 
     [Header("TopDown")]
     public Vector2 MoveAxis { get; private set; }
@@ -30,16 +31,23 @@ public class InputReceiver : SingletonMonoBehaviour<InputReceiver>
     private void OnEnable()
     {
         SceneManager.sceneLoaded += RefreshMode;
+        TitleManager.OnTitleMenu += HandleDialogMode;
     }
 
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= RefreshMode;
+        TitleManager.OnTitleMenu -= HandleDialogMode;
     }
 
+    void HandleDialogMode()
+    {
+        SwitchMode(InputMode.Dialog);
+    }
 
     public void SwitchMode(InputMode newMode)
     {
+        Debug.Log(newMode.ToString());
         Mode = newMode;
         ResetInputs();
     }
@@ -51,7 +59,7 @@ public class InputReceiver : SingletonMonoBehaviour<InputReceiver>
 
     public void RefreshMode(Scene s, LoadSceneMode m)
     {
-        SwitchMode(SceneData.Instance.GetInputMode());
+        RefreshMode();
     }
 
     void ResetInputs()
@@ -79,6 +87,9 @@ public class InputReceiver : SingletonMonoBehaviour<InputReceiver>
             case InputMode.Dialog:
                 DialogInput();
                 break;
+            case InputMode.Direction:
+                Direction();
+                break;
         }
     }
 
@@ -100,10 +111,17 @@ public class InputReceiver : SingletonMonoBehaviour<InputReceiver>
 
     void DialogInput()
     {
-        Confirm = Input.GetKeyDown(KeyCode.E);
+        Confirm = Input.GetKeyDown(KeyCode.E)
+       || Input.GetKeyDown(KeyCode.Space)
+       || Input.GetKeyDown(KeyCode.Return);
         Up = Input.GetKeyDown(KeyCode.W);
         Down = Input.GetKeyDown(KeyCode.S);
         Left = Input.GetKeyDown(KeyCode.A);
         Right = Input.GetKeyDown(KeyCode.D);
+    }
+
+    void Direction()
+    {
+
     }
 }

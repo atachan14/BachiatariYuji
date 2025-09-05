@@ -3,9 +3,10 @@ using UnityEngine;
 
 public class DogChase : MonoBehaviour
 {
-    [SerializeField] DogParams para;
+    [SerializeField] PunishParams para;
     [SerializeField] DogJumpBite jumpBite;
     [SerializeField] float findPathCD = 0.5f;
+    [SerializeField] float biteCD = 1f;
 
     Transform yuji;
     List<Vector2Int> path = new();
@@ -28,7 +29,7 @@ public class DogChase : MonoBehaviour
         if (biteTimer <= 0f && dist < para.moveSpeed / 2)
         {
             jumpBite.Exe();
-            biteTimer = para.biteCd;
+            biteTimer = biteCD;
             return;
         }
 

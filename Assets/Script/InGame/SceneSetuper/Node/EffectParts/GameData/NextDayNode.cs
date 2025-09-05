@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class NextDayNode : BaseNode
 {
-    [SerializeField] private BaseNode nextNode;
 
     public override void PlayNode()
     {
