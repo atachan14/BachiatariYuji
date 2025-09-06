@@ -1162,7 +1162,6 @@ MonoBehaviour:
   originCam: {fileID: 1099664685044444613}
   yujiCam: {fileID: 6155751348371989629}
   forestCam: {fileID: 8050001023251449930}
-  titleCam: {fileID: 0}
 --- !u!114 &1099664685044444613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3078,13 +3077,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3efc54feb5e640347b7c8c809ec1990d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4
+  moveSpeed: 400
   maxHealth: 200
   health: 200
   fixDef: 0
   perDef: 0
   ccDef: 0
-  vision: 5
+  vision: 500
+  hallucinations: 0
   jumpForce: 7
   StealPower: 1
   MaxStealStreak: 3
@@ -3113,6 +3113,7 @@ MonoBehaviour:
   <PerDef>k__BackingField: 0
   <CcDef>k__BackingField: 0
   <Vision>k__BackingField: 0
+  <Hallucinations>k__BackingField: 0
   activeFieldEffects: []
   activeTimeEffect: []
 --- !u!114 &3230058285133469129
@@ -3197,7 +3198,7 @@ Rigidbody2D:
     serializedVersion: 2
     m_Bits: 0
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!1 &8665552258982748093

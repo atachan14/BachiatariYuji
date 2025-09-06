@@ -4,12 +4,11 @@ using UnityEngine;
 public enum EffectType
 {
     Slow,
-    MaxHP,
-    HP,
     FixDef,
     PerDef,
     CcDef,
     Vision,
+    Hallucinations
     // etc...
 }
 

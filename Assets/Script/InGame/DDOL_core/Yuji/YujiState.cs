@@ -11,6 +11,7 @@ public class YujiState : SingletonMonoBehaviour<YujiState>
     [field: SerializeField] public float PerDef { get; private set; }
     [field: SerializeField] public float CcDef { get; private set; }
     [field: SerializeField] public float Vision { get; private set; }
+    [field: SerializeField] public float Hallucinations { get; private set; }
 
     public List<EffectField> activeFieldEffects;
     public List<TimeEffect> activeTimeEffect;
@@ -31,6 +32,7 @@ public class YujiState : SingletonMonoBehaviour<YujiState>
         PerDef = YujiParams.Instance.PerDef;
         CcDef = YujiParams.Instance.CcDef;
         Vision = YujiParams.Instance.Vision;
+        Hallucinations = YujiParams.Instance.Hallucinations;
     }
 
     void ApplyInventry()
@@ -70,10 +72,65 @@ public class YujiState : SingletonMonoBehaviour<YujiState>
             }
         }
     }
-    void ApplyTimeEffects()
+    private void ApplyTimeEffects()
     {
-        //TimeEffect実装まで放置
+        float dt = Time.deltaTime;
+        for (int i = activeTimeEffect.Count - 1; i >= 0; i--)
+        {
+            if (activeTimeEffect[i].Tick(dt))
+            {
+                // 効果終了したらリストから削除
+                activeTimeEffect.RemoveAt(i);
+            }
+            else
+            {
+                // 効果適用
+                ApplyTimeEffect(activeTimeEffect[i]);
+            }
+        }
     }
 
-    
+    private void ApplyTimeEffect(TimeEffect effect)
+    {
+        switch (effect.Type)
+        {
+            case EffectType.Slow:
+                MoveSpeed *= (1 - effect.CurrentValue);
+                break;
+            case EffectType.Hallucinations:
+                Hallucinations += effect.CurrentValue;
+                break;
+                // 他も同様
+        }
+    }
+
+    public void TakeTimeEffect(TimeEffect effect)
+    {
+        activeTimeEffect.Add(effect);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer(LayerName.EffectField.ToString()))
+        {
+            var field = other.GetComponent<EffectField>();
+            if (field == null)
+                Debug.LogError("[YujiFieldReceiver] EffectField Layerなのにコンポーネントが無い！");
+            else
+                activeFieldEffects.Add(field);
+        }
+
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer(LayerName.EffectField.ToString()))
+        {
+            var field = other.GetComponent<EffectField>();
+            if (field == null)
+                Debug.LogError("[YujiFieldReceiver] EffectField Layerなのにコンポーネントが無い！");
+            else
+                activeFieldEffects.Remove(field);
+        }
+    }
 }

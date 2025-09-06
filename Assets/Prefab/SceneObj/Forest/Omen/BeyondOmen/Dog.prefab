@@ -48,7 +48,7 @@ MonoBehaviour:
   destiny: {fileID: 11400000, guid: 5de79567ab982724bbf092972cfe43bd, type: 2}
   parent: {fileID: 5419556295114716890}
   col: {fileID: 148699792448849687}
-  colEvilRatio: 5000
+  doubleColRangeEvil: 5000
   colRange: 2
   jumpOut: {fileID: 463400860241872384}
   chase: {fileID: 3523986375345036760}
@@ -136,7 +136,7 @@ MonoBehaviour:
   destiny: {fileID: 11400000, guid: cf41cdcf211421a4ca2f4be77544bd65, type: 2}
   parent: {fileID: 5419556295114716890}
   col: {fileID: 572194619059585988}
-  colEvilRatio: 5000
+  doubleColRangeEvil: 5000
   colRange: 2
   jumpOut: {fileID: 463400860241872384}
 --- !u!58 &572194619059585988
@@ -223,7 +223,7 @@ MonoBehaviour:
   destiny: {fileID: 11400000, guid: 0a420e3e32dc89a458d19a9b342863c0, type: 2}
   parent: {fileID: 5419556295114716890}
   col: {fileID: 6672768635130842510}
-  colEvilRatio: 5000
+  doubleColRangeEvil: 5000
   colRange: 2
 --- !u!58 &6672768635130842510
 CircleCollider2D:
@@ -744,9 +744,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   doubleMoveSpeedEvil: 5000
-  biteDamage: 5
-  doubleBiteDamageEvil: 3000
-  biteCd: 1
+  cd: 3
+  doubleCdEvil: 2000
+  damage: 10
+  doubleDamageEvil: 3000
+  effectValue: 0
+  doubleEffectValueEvill: 3000
 --- !u!114 &463400860241872384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -775,6 +778,7 @@ MonoBehaviour:
   para: {fileID: 1461071539425585684}
   jumpBite: {fileID: 4452073110090452535}
   findPathCD: 3
+  biteCD: 1
   isBiting: 0
 --- !u!114 &4452073110090452535
 MonoBehaviour:

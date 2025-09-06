@@ -3,53 +3,48 @@ using UnityEngine;
 
 public class SnakeBite : MonoBehaviour
 {
-    [SerializeField] private PunishParams para;      // ダメージ情報
-    [SerializeField] private float extendSpeed = 10f; // 伸縮スピード
-    [SerializeField] private float extendLength = 1f; // 最大伸び倍率（元のlocalScale.xに乗算）
-    [SerializeField] private string targetLayer = "Yuji"; // 当たり判定レイヤー
-
+    [SerializeField] private PunishParams para;       // ダメージ情報
+    [SerializeField] private float duration = 0.5f;   // 伸縮にかける時間（秒）
+    
     public void Bite(Transform target)
     {
         if (target == null) return;
-
         StartCoroutine(BiteRoutine(target));
     }
 
     private IEnumerator BiteRoutine(Transform target)
     {
         Vector3 originalScale = transform.localScale;
-        Vector3 direction = (target.position - transform.position).normalized;
-        float t = 0f;
+        Vector3 originalPosition = transform.localPosition;
+        Quaternion originalRotation = transform.rotation;
 
-        // 伸びる方向を向く
+        Vector3 direction = (target.position - transform.position).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
 
-        // 伸縮フェーズ
-        while (t < 1f)
+        float elapsed = 0f;
+        float distance = Vector2.Distance(transform.position, target.position);
+        float targetLength = distance * 1.1f; // 10%奥まで
+
+        while (elapsed < duration)
         {
-            t += Time.deltaTime * extendSpeed;
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
 
-            // 線形補間で伸びる
-            transform.localScale = new Vector3(
-                Mathf.Lerp(originalScale.x, originalScale.x * extendLength, t),
-                originalScale.y,
-                originalScale.z
-            );
+            float currentLength = Mathf.Lerp(originalScale.x, targetLength, t);
 
-            // Raycastで当たり判定
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, Vector2.Distance(transform.position, target.position), LayerMask.GetMask(targetLayer));
-            if (hit.collider != null)
-            {
-                YujiParams.Instance.TakeDamage((int)para.damage,Color.green);
-                // 一度当たったらそれ以上判定しない
-                break;
-            }
+            // スケールを伸ばす
+            transform.localScale = new Vector3(currentLength, originalScale.y, originalScale.z);
+
+            transform.localPosition = originalPosition + direction * (currentLength - originalScale.x) * 0.5f;
 
             yield return null;
         }
 
-        // 元のサイズに戻す
+        // 戻す
         transform.localScale = originalScale;
+        transform.localPosition = originalPosition;
+        transform.rotation = originalRotation;
     }
+
 }

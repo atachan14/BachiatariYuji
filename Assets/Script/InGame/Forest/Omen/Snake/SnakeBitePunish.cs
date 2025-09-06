@@ -9,6 +9,7 @@ public class SnakeBitePunish : Punish
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+
         if (Time.time - lastBiteTime >= para.cd)
         {
             snakeBite.Bite(collision.transform);

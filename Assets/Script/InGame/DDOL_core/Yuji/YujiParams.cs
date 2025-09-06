@@ -25,6 +25,7 @@ public class YujiParams : SingletonMonoBehaviour<YujiParams>
     [SerializeField] private int perDef = 0;
     [SerializeField] private int ccDef = 0;
     [SerializeField] private int vision = 5;
+    [SerializeField] private int hallucinations = 0;
 
     [Header("TopDown")]
 
@@ -81,6 +82,12 @@ public class YujiParams : SingletonMonoBehaviour<YujiParams>
     {
         get => vision;
         set => vision = Mathf.Max(0, value);
+    }
+
+    public int Hallucinations
+    {
+        get => hallucinations;
+        set => hallucinations = Mathf.Max(0, value);
     }
 
     public int JumpForce
