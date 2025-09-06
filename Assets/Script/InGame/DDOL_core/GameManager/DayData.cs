@@ -2,33 +2,41 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+public enum DayTime
+{
+    Morning, Night,Count
+}
 public class DayData : SingletonMonoBehaviour<DayData>
 {
     [field: SerializeField] private DayTime dayTime;
     [field: SerializeField] private int cash;
+    [field: SerializeField] private int moningTotalEvil;
     [field: SerializeField] private int dayEvil;
-
-    public static event Action OnDayTimeChanged;
-    public static event Action OnCashChanged;
 
     private void Start()
     {
-        DayTime = dayTime;
+        dayTime = DayTime.Morning;
         Cash = cash;
     }
 
     public DayTime DayTime
     {
         get => dayTime;
-        set
-        {
-            dayTime = value;
-            DayWindowManager.Instance.ChangeDayTime();
-            SunLightController.Instance.SetDayTime(dayTime);
-            OnDayTimeChanged?.Invoke();
-        }
+        
     }
+    public void NextDayTime()
+    {
+        dayTime++;
+        if ((int)dayTime >= (int)DayTime.Count)
+        {
+            GameData.Instance.Day++;
+            dayTime = DayTime.Morning;
+        }
+        DayWindowManager.Instance.ChangeDayTime();
+        SunLightController.Instance.SetDayTime(dayTime);
+        CanActionerManager.Instance.RefreshAll();
+    }
+
 
 
     public int Cash
@@ -39,15 +47,27 @@ public class DayData : SingletonMonoBehaviour<DayData>
             int old = cash;
             cash = value;
             CashWindowManager.Instance.valueChangeAnimator.ChangeValue(old, cash);
-            OnCashChanged?.Invoke();
         }
     }
     public int DayEvil
     {
         get => dayEvil;
+    }
+    public void AddDayEvil(int value)
+    {
+        dayEvil += value;
+        GameData.Instance.AddTotalEvil(value);
+    }
+    public void ResetDayEvil()
+    {
+        dayEvil = 0;
+    }
+    public int MoningTotalEvil
+    {
+        get => moningTotalEvil;
         set
         {
-            dayEvil = value;
+            moningTotalEvil = value;
         }
     }
 }

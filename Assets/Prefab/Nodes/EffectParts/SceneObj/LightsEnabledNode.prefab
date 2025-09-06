@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5308324588442315139}
   - component: {fileID: 1364755298940994698}
   m_Layer: 0
-  m_Name: LightEnabledNode
+  m_Name: LightsEnabledNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,6 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NodeName: 
-  targetLight: {fileID: 0}
-  targetEnabled: 1
   nextNode: {fileID: 0}
+  targetLights: []
+  targetEnabled: 1

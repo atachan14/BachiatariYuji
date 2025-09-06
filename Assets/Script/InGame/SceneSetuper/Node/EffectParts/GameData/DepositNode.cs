@@ -10,8 +10,7 @@ public class DepositNode : BaseNode
         // ‘SŠzˆÚ“®
         DayData.Instance.Cash = 0;
         GameData.Instance.Bank = bankBefore + cashBefore;
-        DayData.Instance.DayEvil = 0;
-
+        
         nextNode?.PlayNode();
     }
 }

@@ -1,22 +1,25 @@
-using UnityEngine.Rendering.Universal;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class LightEnabledNode : BaseNode
 {
-    [SerializeField] private Light2D targetLight;
+    [SerializeField] private List<Light2D> targetLights = new List<Light2D>();
     [SerializeField] private bool targetEnabled = true;
 
     public override void PlayNode()
     {
-        if (targetLight == null)
+        if (targetLights == null || targetLights.Count == 0)
         {
-            Debug.LogWarning($"{nameof(LightEnabledNode)}: Target Light not set!");
             nextNode?.PlayNode();
             return;
         }
 
-        // ë¶éûêÿë÷
-        targetLight.enabled = targetEnabled;
+        foreach (var light in targetLights)
+        {
+            if (light != null)
+                light.enabled = targetEnabled;
+        }
 
         nextNode?.PlayNode();
     }

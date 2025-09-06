@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class ForestSetuper : SceneData
 {
     protected override void Start()

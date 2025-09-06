@@ -1,9 +1,6 @@
 using UnityEngine;
 
-public enum DayTime
-{
-    Morning, Night
-}
+
 public class GameData : SingletonMonoBehaviour<GameData>
 {
     [field: SerializeField] private int day;
@@ -17,14 +14,16 @@ public class GameData : SingletonMonoBehaviour<GameData>
         Bank = bank;
     }
 
-    public bool IsSleep { get; set; } = true;
     public int Day
     {
         get => day;
         set
         {
             day = value;
+            daySeed = Random.Range(int.MinValue, int.MaxValue);// Ç‹ÇΩÇÕóêêîÇ≈ê∂ê¨
+            DayData.Instance.MoningTotalEvil = TotalEvil;
             DayWindowManager.Instance.ChangeDay();
+            DayData.Instance.ResetDayEvil();
         }
     }
     public int Bank
@@ -40,16 +39,16 @@ public class GameData : SingletonMonoBehaviour<GameData>
     public int TotalEvil
     {
         get => totalEvil;
-        set
-        {
-            totalEvil = value;
-        }
+     
+    }
+
+    public void AddTotalEvil(int value)
+    {
+        totalEvil += value;
     }
 
     public int DaySeed
     {
         get => daySeed;
-        set => daySeed = value;
-
     }
 }

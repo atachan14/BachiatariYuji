@@ -64,8 +64,6 @@ public class SaisenStealNode : BaseNode
         yield return ShowTotalResult(results);
 
         DialogWindowManager.Instance.ExitDialogMode();
-
-        DayData.Instance.DayTime = DayTime.Night;
         nextNode?.PlayNode();
     }
 
@@ -129,8 +127,7 @@ public class SaisenStealNode : BaseNode
         yield return DialogTextManager.Instance.WaitNextPress();
 
         DayData.Instance.Cash += total;
-        DayData.Instance.DayEvil += total;
-        GameData.Instance.TotalEvil += total;
+        DayData.Instance.AddDayEvil(total);
     }
 
     private int CalcStealAmount(StealSizeSO data)

@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class CanActionerRefreshNode : BaseNode
+public class NextDayTimeNode : BaseNode
 {
 
     public override void PlayNode()
     {
-        
+        DayData.Instance.NextDayTime();
 
         nextNode?.PlayNode();
     }
