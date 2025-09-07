@@ -22,6 +22,7 @@ public class ChoiceContainerManager : SingletonMonoBehaviour<ChoiceContainerMana
 {
     [Header("UI Prefabs & Container")]
     [SerializeField] private Transform choiceContainer; // ChoiceContainer本体
+    [SerializeField] private CanvasGroup cg;
     [SerializeField] private GameObject choiceRowPrefab; // ChoiceRow Prefab
     [SerializeField] private GameObject choiceOptionPrefab; // ChoiceOption Prefab
 
@@ -39,13 +40,14 @@ public class ChoiceContainerManager : SingletonMonoBehaviour<ChoiceContainerMana
     public IEnumerator PlayChoiceRoutine(ChoiceData[] datas, Action<ChoiceData> onDecided)
     {
         SpawnChoices(datas);
-
+        cg.alpha = 0f;
         //レイアウト調整用
         LayoutRebuilder.ForceRebuildLayoutImmediate(choiceContainer.GetComponent<RectTransform>());
         yield return null;
         LayoutRebuilder.ForceRebuildLayoutImmediate(choiceContainer.GetComponent<RectTransform>());
-        yield return new WaitForSeconds(0.5f);
-        
+        yield return null;
+        cg.alpha = 1f;
+
 
         ResetCursor();
 
@@ -63,6 +65,8 @@ public class ChoiceContainerManager : SingletonMonoBehaviour<ChoiceContainerMana
     {
         ClearChoices();
 
+        choiceContainer.gameObject.SetActive(false); // ←非表示にする
+
         int lastRowIndex = -1;
         GameObject currentRowObj = null;
 
@@ -70,17 +74,21 @@ public class ChoiceContainerManager : SingletonMonoBehaviour<ChoiceContainerMana
         {
             var data = datas[i];
 
-            // 新しい行を作る
             if (data.rowIndex != lastRowIndex)
             {
                 currentRowObj = SpawnRow();
                 lastRowIndex = data.rowIndex;
             }
 
-            // ChoiceOptionを行に追加
             SpawnOption(currentRowObj.transform, data);
         }
+
+        // Layout を強制再計算
+        LayoutRebuilder.ForceRebuildLayoutImmediate(choiceContainer.GetComponent<RectTransform>());
+
+        choiceContainer.gameObject.SetActive(true); // ←計算済みで表示
     }
+
 
     private GameObject SpawnRow()
     {

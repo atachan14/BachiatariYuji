@@ -728,6 +728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   choiceContainer: {fileID: 5877725635506030535}
+  cg: {fileID: 4908215556946709868}
   choiceRowPrefab: {fileID: 6736783120419871767, guid: 67511670dff1a344391a4f29dc7b3122, type: 3}
   choiceOptionPrefab: {fileID: 3489004470108774865, guid: 721b9905dbc0c3348bfdc80e1a162f4e, type: 3}
   defaultFontAsset: {fileID: 11400000, guid: c8a653bd9bf88af4288db4a066606f8a, type: 2}
@@ -1444,6 +1445,7 @@ GameObject:
   - component: {fileID: 5877725635506030535}
   - component: {fileID: 2113668925872476706}
   - component: {fileID: 1860906267845683647}
+  - component: {fileID: 4908215556946709868}
   m_Layer: 0
   m_Name: ChoiceContainer
   m_TagString: Untagged
@@ -1516,6 +1518,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!225 &4908215556946709868
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3175687494526013878}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &3284583467722259722
 GameObject:
   m_ObjectHideFlags: 0

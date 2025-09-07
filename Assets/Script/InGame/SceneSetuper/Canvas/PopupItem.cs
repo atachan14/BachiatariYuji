@@ -29,6 +29,9 @@ public class PopupItem : MonoBehaviour
         tmp.fontSize = (talk.fontSize > 0) ? talk.fontSize : defaultFontSize;
         tmp.font = talk.fontAsset ?? defaultFontAsset;
 
+        // ここで強制的にレイアウト更新
+        tmp.ForceMeshUpdate();
+
         // TMP の推奨サイズを取得
         Vector2 preferredSize = tmp.GetPreferredValues(tmp.text);
         tmp.rectTransform.sizeDelta = preferredSize;
@@ -41,7 +44,7 @@ public class PopupItem : MonoBehaviour
         Destroy(gameObject, talk.lifeTime);
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         if (target != null && mainCam != null)
         {
