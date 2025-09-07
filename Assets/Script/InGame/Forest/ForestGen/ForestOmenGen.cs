@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// === ForestOmenGen.cs ===
+// 大幅にスリム化
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -8,72 +10,49 @@ public class ForestOmenGen : SingletonMonoBehaviour<ForestOmenGen>
     public int aroundRadius = 2;
     public Color gizmoColor = Color.cyan;
 
-    private HashSet<Vector2Int> eligibleCoords = new();
-    private HashSet<Vector2Int> floorCandidates;
-    private HashSet<Vector2Int> wallCandidates;
-    private HashSet<Vector2Int> holeCandidates;
-    private HashSet<Vector2Int> edgeCandidates;
+    public HashSet<Vector2Int> EligibleCoords { get; private set; }
+    public HashSet<Vector2Int> FloorCandidates { get; private set; }
+    public HashSet<Vector2Int> WallCandidates { get; private set; }
+    public HashSet<Vector2Int> HoleCandidates { get; private set; }
+    public HashSet<Vector2Int> EdgeCandidates { get; private set; }
 
     public void Generate()
     {
         var manager = ForestManager.Instance;
 
-        // まず全Occupiedをコピーして候補生成
-        eligibleCoords = new HashSet<Vector2Int>(manager.AllOccupiedCoords);
+        EligibleCoords = new HashSet<Vector2Int>(manager.AllOccupiedCoords);
 
         // Start/Goal周囲を排除
         Vector2Int startDoorPos = Vector2Int.RoundToInt(ForestStartGen.Instance.startDoor.position);
         Vector2Int goalDoorPos = Vector2Int.RoundToInt(ForestGoalGen.Instance.goalDoor.position);
-        eligibleCoords.ExceptWith(GetAround(startDoorPos, aroundRadius));
-        eligibleCoords.ExceptWith(GetAround(goalDoorPos, aroundRadius));
+        EligibleCoords.ExceptWith(GetAround(startDoorPos, aroundRadius));
+        EligibleCoords.ExceptWith(GetAround(goalDoorPos, aroundRadius));
 
-        // 座標セットごとの候補
-        floorCandidates = new HashSet<Vector2Int>(manager.MainFloorCoords.Intersect(eligibleCoords));
-        wallCandidates = new HashSet<Vector2Int>(manager.SoftWallCoords.Intersect(eligibleCoords));
-        holeCandidates = new HashSet<Vector2Int>(manager.HoleWallCoords.Intersect(eligibleCoords));
-        edgeCandidates = new HashSet<Vector2Int>(manager.EdgeWallCoords.Intersect(eligibleCoords));
+        FloorCandidates = new HashSet<Vector2Int>(manager.MainFloorCoords.Intersect(EligibleCoords));
+        WallCandidates = new HashSet<Vector2Int>(manager.SoftWallCoords.Intersect(EligibleCoords));
+        HoleCandidates = new HashSet<Vector2Int>(manager.HoleWallCoords.Intersect(EligibleCoords));
+        EdgeCandidates = new HashSet<Vector2Int>(manager.EdgeWallCoords.Intersect(EligibleCoords));
 
-        // 抽選回数は全候補数
-        int drawCount = eligibleCoords.Count;
+        int drawCount = EligibleCoords.Count;
         Debug.Log($"[OmenGen] 抽選回数: {drawCount}");
 
         var allOmens = manager.GetAllOmen();
 
+        // === ForestOmenGen.cs ===
+        // 呼び出し部分を prefabRoot を渡すように変更
         for (int i = 0; i < drawCount; i++)
         {
             var picked = manager.OmenDestinyPick(allOmens);
-            if (picked == null)
-            {
-                Debug.LogWarning("[OmenGen] picked が null");
-                continue;
-            }
+            if (picked == null) continue;
 
             var omenComponent = picked.GetComponentInChildren<Omen>();
-            if (omenComponent == null)
-            {
-                Debug.LogWarning($"[OmenGen] {picked.name} に Omen コンポーネントがない");
-                continue;
-            }
+            if (omenComponent == null) continue;
 
-            switch (omenComponent.destiny.omenType)
-            {
-                case OmenType.NoneOmen:
-                    SpawnNone(picked);
-                    break;
-                case OmenType.FloorOmen:
-                    SpawnFloorOmen(picked);
-                    break;
-                case OmenType.WallOmen:
-                    SpawnWallOmen(picked);
-                    break;
-                case OmenType.BeyondOmen:
-                    SpawnBeyondOmen(picked);
-                    break;
-            }
+            // Prefabルートごと渡す！
+            omenComponent.Spawn(picked);
         }
-    }
 
-    #region 共通ユーティリティ
+    }
 
     private IEnumerable<Vector2Int> GetAround(Vector2Int center, int radius)
     {
@@ -83,104 +62,11 @@ public class ForestOmenGen : SingletonMonoBehaviour<ForestOmenGen>
                     yield return new Vector2Int(center.x + dx, center.y + dy);
     }
 
-    public HashSet<Vector2Int> GetAround(IEnumerable<Vector2Int> coords, int radius)
-    {
-        var result = new HashSet<Vector2Int>();
-        foreach (var pos in coords)
-            result.UnionWith(GetAround(pos, radius));
-        return result;
-    }
-
-    private void SpawnOmen(GameObject omen, HashSet<Vector2Int> candidateSet, Transform oldParent,Transform parent, HashSet<Vector2Int> oldCategory, HashSet<Vector2Int> newCategory, float zPos)
-    {
-        if (candidateSet == null || candidateSet.Count == 0)
-        {
-            Debug.LogWarning($"[OmenGen] {omen.name} の候補が空です");
-            return;
-        }
-
-        var manager = ForestManager.Instance;
-        var pos = candidateSet.ElementAt(manager.Rng.Next(candidateSet.Count));
-
-        // 既存Prefab削除
-        Transform oldObj = null;
-        foreach (Transform child in oldParent)
-        {
-            if (Vector2Int.RoundToInt(child.position) == pos)
-            {
-                oldObj = child;
-                break;
-            }
-        }
-        if (oldObj != null) Destroy(oldObj.gameObject);
-
-        // 新しいOmen生成
-        Instantiate(omen, new Vector3(pos.x, pos.y, zPos), Quaternion.identity, parent);
-
-        // Coords更新
-        oldCategory.Remove(pos);
-        newCategory.Add(pos);
-
-        // ✅ 生成済みは候補から削除
-        candidateSet.Remove(pos);
-    }
-
-
-    #endregion
-
-    #region 各種Spawn
-
-    private void SpawnNone(GameObject omen)
-    {
-        Debug.Log($"[OmenGen] None: {omen.name}");
-        // 何もしない
-    }
-
-    private void SpawnFloorOmen(GameObject omen)
-    {
-        Debug.Log($"[OmenGen] Foor: {omen.name}");
-        var manager = ForestManager.Instance;
-        SpawnOmen(omen, floorCandidates, manager.mainFloorParent,manager.floorOmenParent, manager.MainFloorCoords, manager.OmenCoords, manager.floorZ);
-    }
-
-    private void SpawnWallOmen(GameObject omen)
-    {
-        Debug.Log($"[OmenGen] Wall: {omen.name}");
-        var manager = ForestManager.Instance;
-        SpawnOmen(omen, wallCandidates, manager.innerWallParent,manager.wallOmenParent, manager.SoftWallCoords, manager.OmenCoords, manager.wallZ);
-    }
-
-    private void SpawnBeyondOmen(GameObject omen)
-    {
-        Debug.Log($"[OmenGen] Beyond: {omen.name}");
-        var manager = ForestManager.Instance;
-        HashSet<Vector2Int> pickSet;
-        Transform oldParent;
-
-        // holeCandidatesがある場合は80%で優先
-        if (holeCandidates != null && holeCandidates.Count > 0 && manager.Rng.NextDouble() < 0.8)
-        {
-            pickSet = holeCandidates;
-            oldParent = manager.holeWallParent;
-        }
-        else
-        {
-            pickSet = edgeCandidates;
-            oldParent = manager.edgeWallParent;
-        }
-
-        // Hole + Edgeのどちらかから選択
-        var oldSet = new HashSet<Vector2Int>(holeCandidates.Union(edgeCandidates));
-        SpawnOmen(omen, pickSet, oldParent,manager.beyondOmenParent, oldSet, manager.OmenCoords, manager.wallZ);
-    }
-
-    #endregion
-
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = gizmoColor;
-        if (eligibleCoords == null) return;
-        foreach (var pos in eligibleCoords)
+        if (EligibleCoords == null) return;
+        foreach (var pos in EligibleCoords)
             Gizmos.DrawSphere(new Vector3(pos.x, pos.y, 0), 0.1f);
     }
 }

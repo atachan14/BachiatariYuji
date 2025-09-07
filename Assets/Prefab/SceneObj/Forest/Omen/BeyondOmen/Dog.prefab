@@ -365,7 +365,8 @@ PrefabInstance:
       propertyPath: parent
       value: 
       objectReference: {fileID: 5419556295114716890}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4842074604295458646, guid: 38277bd13b9a0e14da1a6a2788df1ffc, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5287006965274230581, guid: 38277bd13b9a0e14da1a6a2788df1ffc, type: 3}
@@ -378,10 +379,35 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 8454710178840067898}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1818033483384760453, guid: 38277bd13b9a0e14da1a6a2788df1ffc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2807177851964763139}
     - targetCorrespondingSourceObject: {fileID: 3218236517423624054, guid: 38277bd13b9a0e14da1a6a2788df1ffc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1526353865647593853}
   m_SourcePrefab: {fileID: 100100000, guid: 38277bd13b9a0e14da1a6a2788df1ffc, type: 3}
+--- !u!1 &1983251273466456816 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1818033483384760453, guid: 38277bd13b9a0e14da1a6a2788df1ffc, type: 3}
+  m_PrefabInstance: {fileID: 197911356843033205}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2807177851964763139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1983251273466456816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9744a8816eaa234a952e6ce108b71e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destiny: {fileID: 11400000, guid: 69991e87df6f66f4e8be51c2b4cee539, type: 2}
+  punishes:
+  - {fileID: 3320954317629598979}
+  - {fileID: 5943172749418898202}
+  - {fileID: 858738877240746860}
 --- !u!1 &3320954317629598979 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3218236517423624054, guid: 38277bd13b9a0e14da1a6a2788df1ffc, type: 3}
@@ -597,6 +623,10 @@ PrefabInstance:
     - target: {fileID: 6770096178138275456, guid: 8d672a5b6b3ea9d4a968526a375f8afe, type: 3}
       propertyPath: Effects.Array.data[0].value
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7479202112094297722, guid: 8d672a5b6b3ea9d4a968526a375f8afe, type: 3}
+      propertyPath: sr
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1346415469816912319, guid: 8d672a5b6b3ea9d4a968526a375f8afe, type: 3}

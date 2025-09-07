@@ -9,6 +9,7 @@
 - Destinyのアニメーションカーブリファクタ
 - OmenとPunish追加
 - 買い物
+- EactionUI
 
 ### TopDownシーン基本構造###
 
