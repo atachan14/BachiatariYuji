@@ -24,9 +24,13 @@ public class GameData : SingletonMonoBehaviour<GameData>
         {
             day = value;
             daySeed = Random.Range(int.MinValue, int.MaxValue);// Ç‹ÇΩÇÕóêêîÇ≈ê∂ê¨
-            DayData.Instance.MoningTotalEvil = TotalEvil;
-            DayWindowManager.Instance.ChangeDay();
             DayData.Instance.ResetDayEvil();
+            DayData.Instance.MoningTotalEvil = TotalEvil;
+            YujiParams.Instance.SleepHeal();
+
+
+            DayWindowManager.Instance.ChangeDay();
+
         }
     }
     public int Bank

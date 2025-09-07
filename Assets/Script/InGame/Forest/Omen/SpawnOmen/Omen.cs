@@ -1,4 +1,3 @@
-// === Omen.cs ===
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,6 +6,15 @@ public abstract class Omen : MonoBehaviour
 {
     public OmenDestinySO destiny;
     [SerializeField] List<GameObject> punishes;
+
+    // 追加: SpawnMode
+    public enum SpawnMode
+    {
+        Replace, // 既存削除して置き換え
+        Overlay  // 既存残して上に生成
+    }
+
+    [SerializeField] protected SpawnMode spawnMode = SpawnMode.Replace;
 
     public void SelectPunish()
     {
@@ -37,27 +45,41 @@ public abstract class Omen : MonoBehaviour
         var manager = ForestManager.Instance;
         var pos = candidateSet.ElementAt(manager.Rng.Next(candidateSet.Count));
 
-        // 既存削除（位置一致）
-        Transform oldObj = null;
-        foreach (Transform child in oldParent)
+        // ★ モードごとの処理分岐
+        if (spawnMode == SpawnMode.Replace)
         {
-            if (Vector2Int.RoundToInt(child.position) == pos)
+            // 既存削除（位置一致）
+            Transform oldObj = null;
+            foreach (Transform child in oldParent)
             {
-                oldObj = child;
-                break;
+                if (Vector2Int.RoundToInt(child.position) == pos)
+                {
+                    oldObj = child;
+                    break;
+                }
             }
+            if (oldObj != null) Destroy(oldObj.gameObject);
         }
-        if (oldObj != null) Destroy(oldObj.gameObject);
 
-        // Prefabルートを生成
-        GameObject newObj = Object.Instantiate(prefabRoot, new Vector3(pos.x, pos.y, zPos), Quaternion.identity, parent);
+        // Prefabルートを生成（ReplaceでもOverlayでも共通）
+        GameObject newObj = Object.Instantiate(
+            prefabRoot,
+            new Vector3(pos.x, pos.y, zPos),
+            Quaternion.identity,
+            parent
+        );
 
-        // Coords更新
-        oldCategory.Remove(pos);
+        // Replace の場合だけ oldCategory を更新
+        if (spawnMode == SpawnMode.Replace)
+        {
+            oldCategory.Remove(pos);
+        }
+
+        // OverlayでもReplaceでも newCategory には登録
         newCategory.Add(pos);
 
         candidateSet.Remove(pos);
 
-        Debug.Log($"[Omen] {prefabRoot.name} を {pos} に生成");
+        Debug.Log($"[Omen] {prefabRoot.name} を {pos} に生成 ({spawnMode})");
     }
 }

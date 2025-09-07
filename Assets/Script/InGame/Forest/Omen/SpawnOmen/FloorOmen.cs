@@ -1,4 +1,3 @@
-// === FloorOmen.cs ===
 using UnityEngine;
 
 public class FloorOmen : Omen

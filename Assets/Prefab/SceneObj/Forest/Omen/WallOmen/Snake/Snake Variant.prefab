@@ -339,6 +339,7 @@ MonoBehaviour:
   punishes:
   - {fileID: 1133484463392876058}
   - {fileID: 7642709293536757031}
+  spawnMode: 1
 --- !u!4 &7659694705023841881 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5287006965274230581, guid: 38277bd13b9a0e14da1a6a2788df1ffc, type: 3}

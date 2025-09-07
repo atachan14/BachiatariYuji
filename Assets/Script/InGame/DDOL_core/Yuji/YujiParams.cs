@@ -98,7 +98,9 @@ public class YujiParams : SingletonMonoBehaviour<YujiParams>
     public void TakeDamage(int damage, Color color)
     {
         int finalDamage = Mathf.Max(0, damage * 100 / (100 + perDef) - fixDef);
-        health -= finalDamage;
+
+        // healthが0未満にならないように減算
+        health = Mathf.Max(0, health - finalDamage);
 
         OnDamaged?.Invoke(finalDamage, color);
 
@@ -113,7 +115,30 @@ public class YujiParams : SingletonMonoBehaviour<YujiParams>
     }
     public void GetHeal(int heal)
     {
-        health += heal;
-        OnHealed?.Invoke(heal);
+        // 最大体力を越えないように回復
+        int actualHeal = Mathf.Min(heal, maxHealth - health);
+        health += actualHeal;
+
+        // 回復イベント
+        OnHealed?.Invoke(actualHeal);
+    }
+
+    public void SleepHeal()
+    {
+        // 回復量 = maxHealth の1/3
+        int healAmount = maxHealth / 4;
+
+        // もし現在の health に回復を足して maxHealth を超える場合、overflow を maxHealth に加算
+        int projectedHealth = health + healAmount;
+        if (projectedHealth > maxHealth)
+        {
+            int overflow = projectedHealth - maxHealth;
+            maxHealth += overflow;
+        }
+
+        // 回復は最後に GetHeal で適用（UI/Effect もここで）
+        GetHeal(healAmount);
+
+        Debug.Log($"[SleepHeal] 回復量: {healAmount}, 現在体力: {health}, 最大体力: {maxHealth}");
     }
 }
