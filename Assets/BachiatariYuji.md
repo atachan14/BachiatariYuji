@@ -3,7 +3,12 @@
     - popup
     - dialog
 
-
+### 開発予定 ###
+- Title周り
+- Omen生成ロジックリファクタ
+- Destinyのアニメーションカーブリファクタ
+- OmenとPunish追加
+- 買い物
 
 ### TopDownシーン基本構造###
 

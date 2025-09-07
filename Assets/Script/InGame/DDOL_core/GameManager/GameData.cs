@@ -1,5 +1,8 @@
 using UnityEngine;
-
+public enum LayerName
+{
+    SmallUnit, MiddleUnit, LargeUnit, EffectField, Yuji
+}
 
 public class GameData : SingletonMonoBehaviour<GameData>
 {
