@@ -298,6 +298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NodeName: 
+  actionIcon: {fileID: 0}
   nextNode: {fileID: 421854709}
   continueLabel:
   - language: 0
@@ -493,6 +494,10 @@ PrefabInstance:
       propertyPath: NodeName
       value: Night
       objectReference: {fileID: 0}
+    - target: {fileID: 3712109963536054183, guid: 3af36f2911781ff4dbd81130fd859c99, type: 3}
+      propertyPath: actionIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: f082e69f825d0aa44b687e592731c0a8, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1293,6 +1298,10 @@ PrefabInstance:
       propertyPath: nextNode
       value: 
       objectReference: {fileID: 553636388}
+    - target: {fileID: 3712109963536054183, guid: 3af36f2911781ff4dbd81130fd859c99, type: 3}
+      propertyPath: actionIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: 216c53aef79eaaf40a1800cc5e542dc3, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

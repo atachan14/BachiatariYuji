@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ForestCamera : MonoBehaviour
+public class SideScrollCamera : MonoBehaviour
 {
     [SerializeField] private Transform yuji;
 

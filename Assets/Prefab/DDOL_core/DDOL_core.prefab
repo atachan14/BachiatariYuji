@@ -1022,6 +1022,7 @@ GameObject:
   - component: {fileID: 1099664685044444613}
   - component: {fileID: 6155751348371989629}
   - component: {fileID: 8050001023251449930}
+  - component: {fileID: 2849394709778712147}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1161,8 +1162,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 6093254823206393275}
   originCam: {fileID: 1099664685044444613}
-  yujiCam: {fileID: 6155751348371989629}
-  forestCam: {fileID: 8050001023251449930}
+  FollowCam: {fileID: 6155751348371989629}
+  sideScrollCam: {fileID: 8050001023251449930}
+  visionCam: {fileID: 2849394709778712147}
 --- !u!114 &1099664685044444613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1201,6 +1203,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   yuji: {fileID: 3417180609564958593}
+--- !u!114 &2849394709778712147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703997925136357978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e684b3329a810ce4babad621c031224e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  yuji: {fileID: 4716452080552778966}
+  cam: {fileID: 6093254823206393275}
 --- !u!1 &2484924048156228982
 GameObject:
   m_ObjectHideFlags: 0

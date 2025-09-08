@@ -196,10 +196,6 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4842074604295458646, guid: 38277bd13b9a0e14da1a6a2788df1ffc, type: 3}
-      propertyPath: 'punishes.Array.data[0]'
-      value: 
-      objectReference: {fileID: 8393668522258561076}
-    - target: {fileID: 4842074604295458646, guid: 38277bd13b9a0e14da1a6a2788df1ffc, type: 3}
       propertyPath: 'punishes.Array.data[1]'
       value: 
       objectReference: {fileID: 1821161038830828058}
@@ -283,10 +279,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destiny: {fileID: 11400000, guid: ab2cd44708be8a54f946a0ac05baed20, type: 2}
   punishes:
-  - {fileID: 8393668522258561076}
   - {fileID: 1821161038830828058}
---- !u!1 &8393668522258561076 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3218236517423624054, guid: 38277bd13b9a0e14da1a6a2788df1ffc, type: 3}
-  m_PrefabInstance: {fileID: 6401079634739386178}
-  m_PrefabAsset: {fileID: 0}
+  spawnMode: 0

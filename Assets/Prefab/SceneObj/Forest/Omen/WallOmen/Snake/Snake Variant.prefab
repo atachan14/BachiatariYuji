@@ -313,11 +313,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2442183248535621169}
   m_SourcePrefab: {fileID: 100100000, guid: 38277bd13b9a0e14da1a6a2788df1ffc, type: 3}
---- !u!1 &1133484463392876058 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3218236517423624054, guid: 38277bd13b9a0e14da1a6a2788df1ffc, type: 3}
-  m_PrefabInstance: {fileID: 2527516729182865772}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4191013698437341673 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1818033483384760453, guid: 38277bd13b9a0e14da1a6a2788df1ffc, type: 3}
@@ -337,7 +332,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destiny: {fileID: 11400000, guid: 828079fd40ca8704a91460f77565d47a, type: 2}
   punishes:
-  - {fileID: 1133484463392876058}
   - {fileID: 7642709293536757031}
   spawnMode: 1
 --- !u!4 &7659694705023841881 stripped

@@ -1039,7 +1039,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <SceneViewMode>k__BackingField: 0
-  <CameraMode>k__BackingField: 1
+  <CameraMode>k__BackingField: 3
   <CameraSize>k__BackingField: 5
   <IsOutDoor>k__BackingField: 1
   doorList:
