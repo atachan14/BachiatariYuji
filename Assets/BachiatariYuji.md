@@ -3,11 +3,9 @@
 
 ### 開発予定 ###
 - Title周り
-- Destinyのアニメーションカーブリファクタ
-- TotalEvil→Omen DayEvil→Punish
 - OmenとPunish追加
 - 買い物
-- EactionUI
+- actionUI
 
 ### TopDownシーン基本構造###
 
@@ -60,6 +58,10 @@ SceneRoot
 
 - 落とし穴(FloorOmen)
     - Stunとダメージ（時間やダメージがDayEvil比例）
+
+- 弓ハム
+    - 範囲に入ると撃ってくる。
+    - 範囲に入ると全弓ハムが撃ってくる。
 
 - 雷（地蔵か何か）（WallOmenか何か）
     - 半径に入ると半径を覆う雷が1回降る（半径とダメージがDayEvil依存）
