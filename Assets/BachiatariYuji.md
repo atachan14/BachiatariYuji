@@ -1,12 +1,10 @@
 ### 修正予定バグ###
-- テキストレイアウトの遅れ
-    - popup
-    - dialog
+
 
 ### 開発予定 ###
 - Title周り
-- Omen生成ロジックリファクタ
 - Destinyのアニメーションカーブリファクタ
+- TotalEvil→Omen DayEvil→Punish
 - OmenとPunish追加
 - 買い物
 - EactionUI

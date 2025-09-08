@@ -245,20 +245,20 @@ public class ForestManager : SingletonMonoBehaviour<ForestManager>
 
     public GameObject OmenDestinyPick(List<GameObject> prefabs)
     {
-
-        float day = GameData.Instance.Day;
+        float moningTotalEvil = DayData.Instance.MoningTotalEvil;
         float totalWeight = 0f;
         List<float> weights = new();
 
         foreach (var prefab in prefabs)
         {
             var omen = prefab.GetComponentInChildren<Omen>();
-            if (omen == null || omen.destiny == null) { weights.Add(0f); continue; }
+            if (omen == null || omen.destiny == null)
+            {
+                weights.Add(0f);
+                continue;
+            }
 
-            var so = omen.destiny;
-            float diff = day - so.peak;
-            float gauss = Mathf.Exp(-(diff * diff) / (2f * so.sigma * so.sigma));
-            float weight = so.baseWeight + so.rarity * gauss;
+            float weight = omen.destiny.GetWeight(moningTotalEvil);
             weights.Add(weight);
             totalWeight += weight;
         }
@@ -276,6 +276,7 @@ public class ForestManager : SingletonMonoBehaviour<ForestManager>
 
         return prefabs[^1];
     }
+
     #endregion
 
 }
