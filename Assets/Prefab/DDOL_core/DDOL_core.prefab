@@ -3281,6 +3281,7 @@ GameObject:
   - component: {fileID: 3273426645511504869}
   - component: {fileID: 7221002254768827953}
   - component: {fileID: 902821866368356842}
+  - component: {fileID: 2593902836316698376}
   m_Layer: 5
   m_Name: ActionWindow
   m_TagString: Untagged
@@ -3335,7 +3336,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7482667652216324306, guid: 056204f447ba28144bdd95eafc79dfd4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 45612d93bb71d8f48bb1dba4b0f5caac, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3345,6 +3346,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2593902836316698376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8671992880930388205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b31ef648c578cb4bb4017f22aa70340, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: 902821866368356842}
+  notIcon: {fileID: 21300000, guid: 45612d93bb71d8f48bb1dba4b0f5caac, type: 3}
 --- !u!1 &9094812638355841591
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,7 +1,8 @@
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
-public  class CanAction : MonoBehaviour
+public class CanAction : MonoBehaviour
 {
     [SerializeField] protected BaseNode[] nodes;
     protected BaseNode currentNode;
@@ -27,5 +28,8 @@ public  class CanAction : MonoBehaviour
         }
         return node;
     }
-
+    public Sprite GetIcon()
+    {
+        return currentNode.ActionIcon;
+    }
 }

@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class YujiDoActioner : MonoBehaviour
+public class YujiDoActioner : SingletonMonoBehaviour<YujiDoActioner>
 {
     [SerializeField] private Transform yujiTransform;      // YujiTopDown / YujiSideScroll の Transform
     [SerializeField] private YujiFacingBase yujiFacing;    // YTDFacing / YSSFacing をセット
     [SerializeField] private float forwardOffset = 0.5f;   // 前方への距離
 
-    private List<CanAction> canActionInRange = new List<CanAction>();
+    public List<CanAction> canActionInRange { get; } = new List<CanAction>();
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -16,6 +16,7 @@ public class YujiDoActioner : MonoBehaviour
         {
             canActionInRange.Add(c);
         }
+        ActionWindow.Instance.UpdateIcon();
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -25,6 +26,7 @@ public class YujiDoActioner : MonoBehaviour
         {
             canActionInRange.Remove(c);
         }
+        ActionWindow.Instance.UpdateIcon();
     }
 
     private void Update()
