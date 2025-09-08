@@ -12,8 +12,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a34dd580da88df40b8cbb0c2beda061, type: 3}
   m_Name: DogDestiny
   m_EditorClassIdentifier: 
-  peak: 80
-  sigma: 100
+  weightCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.2
+      inSlope: 0.0003
+      outSlope: 0.0003
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1000
+      value: 0.5
+      inSlope: 0.0003
+      outSlope: 0.000055555556
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 10000
+      value: 1
+      inSlope: 0.000055555556
+      outSlope: 1
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   rarity: 1
-  baseWeight: 0.1
-  omenType: 3
+  baseWeight: 0

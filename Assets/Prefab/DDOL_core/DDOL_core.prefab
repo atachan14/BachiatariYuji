@@ -3092,7 +3092,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3efc54feb5e640347b7c8c809ec1990d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 400
+  moveSpeed: 300
   maxHealth: 200
   health: 200
   fixDef: 0
@@ -3103,7 +3103,7 @@ MonoBehaviour:
   jumpForce: 7
   StealPower: 1
   MaxStealStreak: 3
-  MaxSteal: 10000
+  MaxSteal: 1000
   UnlockedStealSizes:
   - {fileID: 11400000, guid: 01735f6e66151564782d7d3766f235c0, type: 2}
   - {fileID: 11400000, guid: 29590e02cad43184ca2bd73a411dcae5, type: 2}

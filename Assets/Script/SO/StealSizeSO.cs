@@ -6,8 +6,6 @@ public class StealSizeSO : ScriptableObject
 {
     public StealSize size;
     public List<LocalizedText> localizedTexts;
-    [Range(0f, 1f)]
-    public float medianRate; // 中央値の割合（MaxStealに対する比率）
-
+    public AnimationCurve distributionCurve; // 0~1 を入力にして重みを返す
     public int id;
 }

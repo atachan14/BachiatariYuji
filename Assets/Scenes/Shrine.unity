@@ -1168,10 +1168,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: DDOL_core
       objectReference: {fileID: 0}
-    - target: {fileID: 4122434437835004187, guid: 5f37529912d337b4e8090454eb13e0cc, type: 3}
-      propertyPath: moveSpeed
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 7066226932406765845, guid: 5f37529912d337b4e8090454eb13e0cc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

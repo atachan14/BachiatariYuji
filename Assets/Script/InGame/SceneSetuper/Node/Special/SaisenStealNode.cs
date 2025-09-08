@@ -133,26 +133,37 @@ public class SaisenStealNode : BaseNode
     private int CalcStealAmount(StealSizeSO data)
     {
         int maxSteal = YujiParams.Instance.MaxSteal;
-        float median = maxSteal * data.medianRate;
-        float sigma = median * YujiParams.Instance.SigmaRatio;
+        float pick = Random.value; // 0~1
+        float accum = 0f;
+        const int resolution = 1000; // サンプリング解像度
 
-        int value;
-        do
+        // 確率分布として正規化して使う
+        float[] weights = new float[resolution];
+        float totalWeight = 0f;
+        for (int i = 0; i < resolution; i++)
         {
-            value = Mathf.RoundToInt(NextGaussian(median, sigma));
-        } while (value < 1 || value > maxSteal);
+            float x = i / (float)(resolution - 1); // 0~1
+            float w = data.distributionCurve.Evaluate(x);
+            weights[i] = w;
+            totalWeight += w;
+        }
 
-        return value;
+        float threshold = pick * totalWeight;
+        for (int i = 0; i < resolution; i++)
+        {
+            accum += weights[i];
+            if (accum >= threshold)
+            {
+                float ratio = i / (float)(resolution - 1);
+                return Mathf.Clamp(Mathf.RoundToInt(maxSteal * ratio), 1, maxSteal);
+            }
+        }
+
+        return maxSteal;
     }
 
-    private float NextGaussian(float mean, float stdDev)
-    {
-        float u1 = 1.0f - Random.value;
-        float u2 = 1.0f - Random.value;
-        float randStdNormal = Mathf.Sqrt(-2.0f * Mathf.Log(u1)) *
-                              Mathf.Sin(2.0f * Mathf.PI * u2);
-        return mean + stdDev * randStdNormal;
-    }
+
+
 
     private string GeneratePartialAmount(int amount)
     {

@@ -10,6 +10,17 @@ public abstract class DestinySO : ScriptableObject
 
     public float GetWeight(float evilValue)
     {
+        if (weightCurve == null)
+        {
+            Debug.LogError($"[GetWeight] weightCurve is NULL! SO: {name}");
+            return baseWeight; // fallback
+        }
+
+        if (weightCurve.keys == null || weightCurve.keys.Length == 0)
+        {
+            Debug.LogError($"[GetWeight] weightCurve has NO KEYS! SO: {name}");
+            return baseWeight;
+        }
         float curveValue = weightCurve.Evaluate(evilValue);
         return curveValue * rarity + baseWeight;
     }
