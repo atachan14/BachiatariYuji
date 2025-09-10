@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class BeforTitleBoot : SceneData
+public class OpeningSceneData : SceneData
 {
     
     protected override void Start()
@@ -10,6 +10,6 @@ public class BeforTitleBoot : SceneData
     private void Update()
     {
         if(Input.anyKeyDown)
-        SceneManager.LoadScene(SceneName.House2F.ToString());
+            SceneManager.LoadScene(SceneName.House2F.ToString());
     }
 }

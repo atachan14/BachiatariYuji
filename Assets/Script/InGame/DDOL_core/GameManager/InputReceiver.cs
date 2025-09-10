@@ -31,13 +31,11 @@ public class InputReceiver : SingletonMonoBehaviour<InputReceiver>
     private void OnEnable()
     {
         SceneManager.sceneLoaded += RefreshMode;
-        TitleManager.OnTitleMenu += HandleDialogMode;
     }
 
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= RefreshMode;
-        TitleManager.OnTitleMenu -= HandleDialogMode;
     }
 
     void HandleDialogMode()

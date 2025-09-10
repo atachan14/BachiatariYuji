@@ -5,7 +5,6 @@
 - Title周り
 - OmenとPunish追加
 - 買い物
-- actionUI
 
 ### TopDownシーン基本構造###
 

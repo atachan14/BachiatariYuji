@@ -1,6 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+public enum YujiCondition
+{
+    Normal,   // ’Êí
+    Sleeping, // –°‚Á‚Ä‚é
+    Falling,  // —‰º’†
+}
 public class YujiState : SingletonMonoBehaviour<YujiState>
 {
     [field: SerializeField] public float MoveSpeed { get; private set; }
@@ -14,6 +19,7 @@ public class YujiState : SingletonMonoBehaviour<YujiState>
     public List<EffectField> activeFieldEffects;
     public List<TimeEffect> activeTimeEffect;
 
+    
     private void Update()
     {
         LoadParams();

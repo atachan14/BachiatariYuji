@@ -126,7 +126,7 @@ public class YujiParams : SingletonMonoBehaviour<YujiParams>
     public void SleepHeal()
     {
         // ‰ñ•œ—Ê = maxHealth ‚Ì1/3
-        int healAmount = maxHealth / 4;
+        int healAmount = maxHealth / 10;
 
         // ‚à‚µŒ»İ‚Ì health ‚É‰ñ•œ‚ğ‘«‚µ‚Ä maxHealth ‚ğ’´‚¦‚éê‡Aoverflow ‚ğ maxHealth ‚É‰ÁZ
         int projectedHealth = health + healAmount;

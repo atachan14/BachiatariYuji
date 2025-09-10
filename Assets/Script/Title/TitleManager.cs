@@ -1,33 +1,22 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum TitleMode
-{
-    TitleMenu,
-    LanguageMenu,
-    AchieveMenu,
-    StartGame,
-    Wait
-}
-
+// TitleManager
 public class TitleManager : SingletonMonoBehaviour<TitleManager>
 {
-    [SerializeField] private TitleMenuController titleMenu;
-    [SerializeField] private LanguageMenuController languageMenu;
-    [SerializeField] private AchieveMenuController achieveMenu;
-    [SerializeField] private BaseNode titleStartNode;
-    [SerializeField] private BaseNode gameStartNode; 
-
-    public TitleMode currentMode = TitleMode.TitleMenu;
-    public static event System.Action OnTitleMenu;
-
+    [SerializeField] BaseNode titleMenuStartNode;
+    [SerializeField] BaseNode gameStartNode;
+    public MenuBase currentMenu;
+    public TitleMenuController titleMenu;
+    public LanguageMenuController languageMenu;
+    public AchieveMenuController achieveMenu;
     protected override void Awake()
     {
         base.Awake();
-        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(gameObject);
     }
+
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -37,91 +26,55 @@ public class TitleManager : SingletonMonoBehaviour<TitleManager>
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
-
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-
-        StartCoroutine(InvokeTitleMenuAfterDelay());
-    }
-
-    private IEnumerator InvokeTitleMenuAfterDelay()
-    {
-        yield return null;
-        OnTitleMenu?.Invoke();
-        yield return null;
-        titleStartNode.PlayNode();
-        Debug.Log("inbod");
-    }
-
-    public void SwitchMode(TitleMode nextMode)
-    {
-        currentMode = nextMode;
-
-        // 新しいモードを表示
-        switch (nextMode)
+        if (scene.name == SceneName.House2F.ToString())
         {
-            case TitleMode.StartGame:
-                StartCoroutine(PlayStartSequence());
-                break;
-            case TitleMode.TitleMenu:
-                titleMenu.Show();
-                break;
-            case TitleMode.LanguageMenu:
-                languageMenu.Show();
-                break;
-            case TitleMode.AchieveMenu:
-                achieveMenu.Show();
-                break;
-            default:
-                break;
+            StartCoroutine(ResetInputModeNextFrame());
         }
     }
 
-    private IEnumerator PlayStartSequence()
+    private IEnumerator ResetInputModeNextFrame()
     {
-        yield return YujiAwake();
-        yield return CamZoomOut();
-        gameStartNode.PlayNode();
-        Destroy(gameObject);
-
-        // ゲーム開始時の演出用（現状は空）
-    }
-    IEnumerator YujiAwake()
-    {
-        yield return new WaitForSeconds(2f);
+        yield return null; // 1フレーム待つ
+        InputReceiver.Instance.SwitchMode(InputMode.Dialog); // Title用に上書き
+        titleMenuStartNode.PlayNode();
+        ShowTitleMenu();
     }
 
-    private IEnumerator CamZoomOut()
+    public void ShowTitleMenu()
     {
-        Transform camTrans = CameraController.Instance.transform;
-
-        Vector3 startPos = camTrans.position;
-        Vector3 targetPos = new Vector3(0f, 0f, camTrans.position.z); // XYをゼロにする想定
-        float startSize = Camera.main.orthographicSize;
-        float targetSize = 5f;
-
-        float duration = 2f;
-        float time = 0f;
-
-        while (time < duration)
-        {
-            time += Time.deltaTime;
-            float t = time / duration;
-
-            camTrans.position = Vector3.Lerp(startPos, targetPos, t);
-            Camera.main.orthographicSize = Mathf.Lerp(startSize, targetSize, t);
-
-            yield return null;
-        }
-
-        camTrans.position = targetPos;
-        Camera.main.orthographicSize = targetSize;
+        SwitchMenu(titleMenu);
     }
 
+    public void ShowLanguageMenu()
+    {
+        Debug.Log("language");
+        SwitchMenu(languageMenu);
+    }
 
+    public void ShowArchiveMenu()
+    {
+        SwitchMenu(achieveMenu);
+    }
 
+    private void SwitchMenu(MenuBase nextMenu)
+    {
+        if (currentMenu != null)
+            currentMenu.Hide();
 
+        currentMenu = nextMenu;
+        currentMenu.Show();
+    }
 
+    public void StartGame()
+    {
+        Debug.Log("Start Game!");
+        // ゲーム開始演出呼び出し
+    }
 
-
+    public void ContinueGame()
+    {
+        Debug.Log("Continue Game!");
+    }
 }

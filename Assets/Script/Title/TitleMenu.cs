@@ -1,9 +1,8 @@
-using UnityEngine;
-using TMPro;
 using System.Collections.Generic;
-using System.Collections;
+using TMPro;
+using UnityEngine;
 
-public class TitleMenuController : MonoBehaviour
+public class TitleMenuController : MenuBase
 {
     public TextMeshProUGUI startText;
     public TextMeshProUGUI continueText;
@@ -16,41 +15,22 @@ public class TitleMenuController : MonoBehaviour
     public List<LocalizedText> achieveLocalized;
     public List<LocalizedText> languageLocalized;
 
-    private TextMeshProUGUI[] menuItems;
-    private int currentIndex = 0;
+    private TextMeshProUGUI[] menuItemsArray;
+    protected override TextMeshProUGUI[] MenuItems => menuItemsArray;
 
-    void Start()
+    private void Awake()
     {
-        menuItems = new TextMeshProUGUI[] { startText, continueText, achieveText, languageText };
-        UpdateSelection();
-        ApplyLocalization(); // 初期表示
+        menuItemsArray = new[] { startText, continueText, achieveText, languageText };
     }
 
-    void Update()
+    private void Start()
     {
-        // 言語切り替え反映
         ApplyLocalization();
-
-        if (TitleManager.Instance.currentMode != TitleMode.TitleMenu) return;
-
-        if (InputReceiver.Instance.Up)
-        {
-            currentIndex--;
-            if (currentIndex < 0) currentIndex = menuItems.Length - 1;
-            UpdateSelection();
-        }
-
-        if (InputReceiver.Instance.Down)
-        {
-            currentIndex++;
-            if (currentIndex >= menuItems.Length) currentIndex = 0;
-            UpdateSelection();
-        }
-
-        if (InputReceiver.Instance.Confirm)
-        {
-            StartCoroutine(ExecuteSelectionCoroutine(currentIndex));
-        }
+        UpdateSelection();
+    }
+    protected override void OnBeforeShow()
+    {
+        ApplyLocalization(); // Showのタイミングで最新言語に反映
     }
 
     private void ApplyLocalization()
@@ -62,147 +42,14 @@ public class TitleMenuController : MonoBehaviour
         languageText.text = languageLocalized.GetText(lang);
     }
 
-    private void UpdateSelection()
+    protected override void OnConfirm(int index)
     {
-        for (int i = 0; i < menuItems.Length; i++)
-        {
-            menuItems[i].fontStyle = (i == currentIndex) ? FontStyles.Bold : FontStyles.Normal;
-        }
-    }
-
-
-    private IEnumerator ExecuteSelectionCoroutine(int index)
-    {
-        TitleManager.Instance.SwitchMode(TitleMode.Wait);
-        // 共通フェードアウト処理
-        yield return StartCoroutine(FadeOutOthers(index));
-
-        // 個別処理に移行
         switch (index)
         {
-            case 0:
-                StartGame();
-                break;
-            case 1:
-                ContinueGame();
-                break;
-            case 2:
-                Achieve();
-                break;
-            case 3:
-                Language();
-                break;
+            case 0: TitleManager.Instance.StartGame(); break;
+            case 1: TitleManager.Instance.ContinueGame(); break;
+            case 2: TitleManager.Instance.ShowArchiveMenu(); break;
+            case 3: TitleManager.Instance.ShowLanguageMenu(); break;
         }
-    }
-
-    private IEnumerator FadeOutOthers(int keepIndex)
-    {
-        float duration = 1f;
-        float time = 0f;
-
-        Color[] startColors = new Color[menuItems.Length];
-        for (int i = 0; i < menuItems.Length; i++)
-        {
-            startColors[i] = menuItems[i].color;
-        }
-
-        while (time < duration)
-        {
-            time += Time.deltaTime;
-            float t = time / duration;
-
-            for (int i = 0; i < menuItems.Length; i++)
-            {
-                if (i == keepIndex) continue;
-                Color c = startColors[i];
-                c.a = Mathf.Lerp(1f, 0f, t);
-                menuItems[i].color = c;
-            }
-
-            yield return null;
-        }
-
-        for (int i = 0; i < menuItems.Length; i++)
-        {
-            if (i == keepIndex) continue;
-            Color c = menuItems[i].color;
-            c.a = 0f;
-            menuItems[i].color = c;
-        }
-    }
-
-    public void Show()
-    {
-        StartCoroutine(FadeInOthers(currentIndex));
-    }
-
-    private IEnumerator FadeInOthers(int keepIndex)
-    {
-        TitleManager.Instance.currentMode= TitleMode.Wait;
-        float duration = 1f;
-        float time = 0f;
-
-        Color[] startColors = new Color[menuItems.Length];
-        for (int i = 0; i < menuItems.Length; i++)
-        {
-            startColors[i] = menuItems[i].color;
-            if (i != keepIndex)
-            {
-                // 非選択項目は透明から始める
-                Color c = menuItems[i].color;
-                c.a = 0f;
-                menuItems[i].color = c;
-            }
-        }
-
-        while (time < duration)
-        {
-            time += Time.deltaTime;
-            float t = time / duration;
-
-            for (int i = 0; i < menuItems.Length; i++)
-            {
-                if (i == keepIndex) continue; // 選択中はそのまま残す
-                Color c = menuItems[i].color;
-                c.a = Mathf.Lerp(0f, 1f, t);
-                menuItems[i].color = c;
-            }
-
-            yield return null;
-        }
-
-        // 念のため最終値補正
-        for (int i = 0; i < menuItems.Length; i++)
-        {
-            if (i == keepIndex) continue;
-            Color c = menuItems[i].color;
-            c.a = 1f;
-            menuItems[i].color = c;
-        }
-        TitleManager.Instance.currentMode=TitleMode.TitleMenu;
-    }
-
-
-    private void StartGame()
-    {
-        Debug.Log("Start Game!");
-        TitleManager.Instance.SwitchMode(TitleMode.StartGame); // ゲーム開始演出とか
-    }
-
-    private void ContinueGame()
-    {
-        Debug.Log("Continue Game!");
-    }
-
-    private void Achieve()
-    {
-        Debug.Log("Achievements!");
-        TitleManager.Instance.SwitchMode(TitleMode.AchieveMenu);
-    }
-
-    private void Language()
-    {
-        Debug.Log("Language Settings!");
-        TitleManager.Instance.SwitchMode(TitleMode.LanguageMenu);
     }
 }

@@ -8,8 +8,6 @@ public class AlphaChangeNode : BaseNode
     [SerializeField, Range(0f, 1f)] private float startAlpha = 0f;
     [SerializeField, Range(0f, 1f)] private float endAlpha = 1f;
     [SerializeField, Min(0f)] private float duration = 0.5f;
-    [SerializeField] private bool useUnscaledTime = false;
-    [SerializeField] private AnimationCurve easing = AnimationCurve.Linear(0, 0, 1, 1);
 
     [Header("Targets")]
     [SerializeField] private Image[] uiImages;
@@ -38,11 +36,9 @@ public class AlphaChangeNode : BaseNode
         float t = 0f;
         while (t < duration)
         {
-            float dt = useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
-            t += dt;
+            t += Time.deltaTime;
             float u = Mathf.Clamp01(t / duration);
-            float eased = Mathf.Clamp01(easing.Evaluate(u));
-            float a = Mathf.LerpUnclamped(startAlpha, endAlpha, eased);
+            float a = Mathf.Lerp(startAlpha, endAlpha, u);
             ApplyAlpha(a);
             yield return null;
         }

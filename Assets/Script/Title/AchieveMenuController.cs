@@ -1,9 +1,13 @@
+using TMPro;
+using UnityEditor;
 using UnityEngine;
 
-public class AchieveMenuController : MonoBehaviour
+public class AchieveMenuController : MenuBase
 {
-    public void Show()
+    public TextMeshProUGUI[] menuItems;
+    protected override TextMeshProUGUI[] MenuItems => menuItems;
+
+    protected override void OnConfirm(int index)
     {
-        //sukeruton
     }
 }

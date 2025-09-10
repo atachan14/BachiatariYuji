@@ -5,7 +5,7 @@ public enum CameraMode { Fixed, Follow, SideScroll, Vision }
 
 public class CameraController : SingletonMonoBehaviour<CameraController>
 {
-    [SerializeField] Camera cam;
+    [SerializeField] public Camera cam;
     [SerializeField] private OriginCamera originCam;
     [SerializeField] private FollowCamera FollowCam;
     [SerializeField] private SideScrollCamera sideScrollCam;
@@ -13,20 +13,13 @@ public class CameraController : SingletonMonoBehaviour<CameraController>
     private void OnEnable()
     {
         SceneManager.sceneLoaded += RefreshMode;
-        TitleManager.OnTitleMenu += HandleTitleMenu;
     }
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= RefreshMode;
-        TitleManager.OnTitleMenu -= HandleTitleMenu;
 
     }
 
-    void HandleTitleMenu()
-    {
-        Debug.Log("HandleTitleMenu");
-        SwitchMode(CameraMode.Follow, 0.3f);
-    }
     protected override void Awake()
     {
         base.Awake();
