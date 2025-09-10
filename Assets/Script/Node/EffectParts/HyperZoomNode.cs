@@ -11,10 +11,10 @@ public class HyperZoomNode : BaseNode
     [SerializeField] private float endSize = 3.5f; // 最終カメラサイズ
     [SerializeField] private float zoomDuration = 1f;
 
-    [Header("UI Scale")]
+    [Header("UI Size")]
     [SerializeField] private bool isHyper = false;
-    [SerializeField] private Vector3 normalScale = new Vector3(1920, 1080, 1f);
-    [SerializeField] private Vector3 hyperScale = new Vector3(3840, 2160, 1f);
+    [SerializeField] private Vector2 normalSize = new Vector2(1920, 1080);
+    [SerializeField] private Vector2 hyperSize = new Vector2(3840, 2160);
 
     private Coroutine running;
 
@@ -26,7 +26,6 @@ public class HyperZoomNode : BaseNode
 
     private IEnumerator HyperZoomRoutine()
     {
-        // ターゲット決定
         Transform target = targetIsYuji ? Yuji.Instance.transform : customTarget;
         if (target == null)
         {
@@ -44,8 +43,10 @@ public class HyperZoomNode : BaseNode
         Vector3 startPos = cam.transform.position;
         float startSize = cam.orthographicSize;
 
-        Vector3 startScale = StandingUI.Instance.transform.localScale;
-        Vector3 endScale = isHyper ? hyperScale : normalScale;
+        // RectTransformサイズで操作
+        RectTransform uiRect = StandingUI.Instance.GetComponent<RectTransform>();
+        Vector2 startSizeDelta = uiRect.sizeDelta;
+        Vector2 endSizeDelta = isHyper ? hyperSize : normalSize;
 
         float elapsed = 0f;
 
@@ -60,8 +61,8 @@ public class HyperZoomNode : BaseNode
             cam.transform.position = Vector3.Lerp(startPos, targetPos, t);
             cam.orthographicSize = Mathf.Lerp(startSize, endSize, t);
 
-            // UI
-            StandingUI.Instance.transform.localScale = Vector3.Lerp(startScale, endScale, t);
+            // UIサイズ
+            uiRect.sizeDelta = Vector2.Lerp(startSizeDelta, endSizeDelta, t);
 
             yield return null;
         }
@@ -69,7 +70,7 @@ public class HyperZoomNode : BaseNode
         // 最終値で固定
         cam.transform.position = new Vector3(target.position.x, target.position.y, cam.transform.position.z);
         cam.orthographicSize = endSize;
-        StandingUI.Instance.transform.localScale = endScale;
+        uiRect.sizeDelta = endSizeDelta;
 
         running = null;
 

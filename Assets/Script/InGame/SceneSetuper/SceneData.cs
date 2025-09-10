@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SceneData : SingletonMonoBehaviour<SceneData>
 {
-    [field:SerializeField]public SceneViewMode SceneViewMode { get; set; }
     [field: SerializeField] public CameraMode CameraMode { get; set; }
     [field: SerializeField] public float CameraSize { get; set; } = 5f;
     [field: SerializeField] public bool IsOutDoor { get; set; }
@@ -18,15 +17,6 @@ public class SceneData : SingletonMonoBehaviour<SceneData>
         SelectSpawnDoor();
     }
 
-    public InputMode GetInputMode()
-    {
-        switch (SceneViewMode)
-        {
-            case SceneViewMode.TopDown: return InputMode.TopDown;
-            case SceneViewMode.SideScroll: return InputMode.SideScroll;
-            default: return InputMode.TopDown; // fallback
-        }
-    }
 
     public void SelectSpawnDoor()
     {

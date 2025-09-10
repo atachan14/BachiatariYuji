@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum SceneViewMode { TopDown, SideScroll }
 
 
 public class SceneChanger : SingletonMonoBehaviour<SceneChanger>

@@ -15,6 +15,7 @@ public enum SceneName
 // Door名（シーン内でユニーク）
 public enum DoorName
 {
+    Start,
     GoUp,
     GoDown,
     GoTown,

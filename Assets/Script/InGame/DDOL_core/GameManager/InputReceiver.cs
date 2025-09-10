@@ -6,7 +6,7 @@ using Input = UnityEngine.Input;
 
 public enum InputMode
 {
-    TopDown, SideScroll, Dialog, Direction
+    TopDown,  Dialog, Direction
 }
 public class InputReceiver : SingletonMonoBehaviour<InputReceiver>
 {
@@ -16,10 +16,6 @@ public class InputReceiver : SingletonMonoBehaviour<InputReceiver>
     public Vector2 MoveAxis { get; private set; }
     public bool Action { get; private set; }
 
-    [Header("SideScroll")]
-    public float MoveAxisX { get; private set; }
-    public bool JumpPressed { get; private set; }
-    public bool CrouchHeld { get; private set; }
 
     [Header("Dialog")]
     public bool Confirm { get; set; }
@@ -52,7 +48,7 @@ public class InputReceiver : SingletonMonoBehaviour<InputReceiver>
 
     public void RefreshMode()
     {
-        SwitchMode(SceneData.Instance.GetInputMode());
+        SwitchMode(InputMode.TopDown);
     }
 
     public void RefreshMode(Scene s, LoadSceneMode m)
@@ -65,9 +61,6 @@ public class InputReceiver : SingletonMonoBehaviour<InputReceiver>
         MoveAxis = Vector2.zero;
         Action = false;
 
-        MoveAxisX = 0;
-        JumpPressed = false;
-        CrouchHeld = false;
 
         Confirm = false;
     }
@@ -78,9 +71,6 @@ public class InputReceiver : SingletonMonoBehaviour<InputReceiver>
         {
             case InputMode.TopDown:
                 TopDownInput();
-                break;
-            case InputMode.SideScroll:
-                SideScrollInput();
                 break;
             case InputMode.Dialog:
                 DialogInput();
@@ -98,13 +88,6 @@ public class InputReceiver : SingletonMonoBehaviour<InputReceiver>
         MoveAxis = new Vector2(h, v).normalized;
 
         Action = Input.GetKeyDown(KeyCode.E);
-    }
-
-    void SideScrollInput()
-    {
-        MoveAxisX = Input.GetAxisRaw("Horizontal");
-        JumpPressed = Input.GetKeyDown(KeyCode.W);
-        CrouchHeld = Input.GetKey(KeyCode.S);
     }
 
     void DialogInput()

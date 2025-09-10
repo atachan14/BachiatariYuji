@@ -30,11 +30,11 @@ public class TitleManager : SingletonMonoBehaviour<TitleManager>
     {
         if (scene.name == SceneName.House2F.ToString())
         {
-            StartCoroutine(ResetInputModeNextFrame());
+            StartCoroutine(StartTitle());
         }
     }
 
-    private IEnumerator ResetInputModeNextFrame()
+    private IEnumerator StartTitle()
     {
         yield return null; // 1フレーム待つ
         InputReceiver.Instance.SwitchMode(InputMode.Dialog); // Title用に上書き
@@ -69,7 +69,7 @@ public class TitleManager : SingletonMonoBehaviour<TitleManager>
 
     public void StartGame()
     {
-        Debug.Log("Start Game!");
+        gameStartNode.PlayNode();
         // ゲーム開始演出呼び出し
     }
 

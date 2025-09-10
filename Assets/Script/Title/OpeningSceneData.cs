@@ -10,6 +10,6 @@ public class OpeningSceneData : SceneData
     private void Update()
     {
         if(Input.anyKeyDown)
-            SceneManager.LoadScene(SceneName.House2F.ToString());
+            SceneChanger.Instance.TransitionTo(SceneName.House2F, DoorName.Start);
     }
 }

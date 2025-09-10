@@ -209,7 +209,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7306841767759976125, guid: dd290483119b3264f9a352476b046419, type: 3}
       propertyPath: doorName
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7306841767759976125, guid: dd290483119b3264f9a352476b046419, type: 3}
       propertyPath: targetScene
@@ -217,7 +217,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7306841767759976125, guid: dd290483119b3264f9a352476b046419, type: 3}
       propertyPath: targetDoorName
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8001995245988760408, guid: dd290483119b3264f9a352476b046419, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1038,7 +1038,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0458efc7ad064494b9a4051b529dfb10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <SceneViewMode>k__BackingField: 0
   <CameraMode>k__BackingField: 3
   <CameraSize>k__BackingField: 5
   <IsOutDoor>k__BackingField: 1
@@ -1103,7 +1102,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7306841767759976125, guid: dd290483119b3264f9a352476b046419, type: 3}
       propertyPath: doorName
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7306841767759976125, guid: dd290483119b3264f9a352476b046419, type: 3}
       propertyPath: targetScene
@@ -1111,7 +1110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7306841767759976125, guid: dd290483119b3264f9a352476b046419, type: 3}
       propertyPath: targetDoorName
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8001995245988760408, guid: dd290483119b3264f9a352476b046419, type: 3}
       propertyPath: m_LocalPosition.y

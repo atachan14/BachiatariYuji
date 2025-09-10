@@ -31,9 +31,9 @@ public class YujiDoActioner : SingletonMonoBehaviour<YujiDoActioner>
     private void Update()
     {
         // 1. ‘O•û‚ÉˆÚ“®
-        if (YujiFacing.Instance.Dir != null && yujiTransform != null)
+        if (YujiController.Instance.Dir != null && yujiTransform != null)
         {
-            Vector3 forward = YujiFacing.Instance.Dir.normalized;
+            Vector3 forward = YujiController.Instance.Dir.normalized;
             transform.position = yujiTransform.position + forward * forwardOffset;
         }
 

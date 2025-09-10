@@ -13,6 +13,6 @@ public class DialogWindowManager : SingletonMonoBehaviour<DialogWindowManager>
     public void ExitDialogMode()
     {
         dialogWindow.SetActive(false);
-        InputReceiver.Instance.SwitchMode(SceneData.Instance.GetInputMode());
+        InputReceiver.Instance.SwitchMode(InputMode.TopDown);
     }
 }
