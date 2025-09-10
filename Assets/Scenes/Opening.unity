@@ -418,6 +418,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 2160
       objectReference: {fileID: 0}
+    - target: {fileID: 1131343139670205347, guid: 5f37529912d337b4e8090454eb13e0cc, type: 3}
+      propertyPath: <CurrentCondition>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3205864558223998614, guid: 5f37529912d337b4e8090454eb13e0cc, type: 3}
       propertyPath: titleCam
       value: 

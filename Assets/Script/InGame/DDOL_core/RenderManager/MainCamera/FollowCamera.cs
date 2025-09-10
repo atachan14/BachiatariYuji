@@ -2,10 +2,9 @@ using UnityEngine;
 
 public class FollowCamera : MonoBehaviour
 {
-    [SerializeField] private Transform yuji;
 
     private void LateUpdate()
     {
-        transform.position = new Vector3(yuji.position.x, yuji.position.y, -10);
+        transform.position = new Vector3(Yuji.Instance.transform.position.x, Yuji.Instance.transform.position.y, -10);
     }
 }

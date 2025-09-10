@@ -7,13 +7,13 @@ public class ActionWindow : SingletonMonoBehaviour<ActionWindow>
     [SerializeField] Sprite notIcon;
     public void UpdateIcon()
     {
-        if (YujiDoActioner.Instance.canActionInRange.Count <= 0)
+        if (YujiDoActioner.Instance.CanActionInRange.Count <= 0)
         {
             icon.sprite = notIcon;
         }
         else
         {
-            icon.sprite = YujiDoActioner.Instance.canActionInRange[0].GetIcon();
+            icon.sprite = YujiDoActioner.Instance.CanActionInRange[0].GetIcon();
         }
 
     }

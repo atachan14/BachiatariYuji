@@ -1,8 +1,10 @@
+using UnityEditor;
 using UnityEngine;
 
 public class UnitSpriteController : MonoBehaviour
 {
     public SpriteRenderer sr;
+    private Sprite currentSprite;
 
     [Header("4方向のSprite")]
     public Sprite spriteUp;
@@ -10,31 +12,27 @@ public class UnitSpriteController : MonoBehaviour
     public Sprite spriteLeft;
     public Sprite spriteRight;
 
-    // 外部からセットされる入力
-    public Vector2 dir;
-
     // ウヨウヨの現在値
     private Vector3 posOffset;
     private Vector3 scaleOffset;
 
     private void Update()
     {
-        UpdateSpriteByDir();
         UpdateHallucinationEffect();
     }
+    public void SetSprite(Sprite s)
+    {
+        sr.sprite = s;
+    }
 
-    private void UpdateSpriteByDir()
+    public void SetDirSprite(Vector2 dir)
     {
         if (dir == Vector2.zero) return;
 
         if (Mathf.Abs(dir.x) > Mathf.Abs(dir.y))
-        {
-            sr.sprite = dir.x > 0 ? spriteRight : spriteLeft;
-        }
+            sr.sprite = (dir.x > 0 ? spriteRight : spriteLeft);
         else
-        {
-            sr.sprite = dir.y > 0 ? spriteUp : spriteDown;
-        }
+            sr.sprite = (dir.y > 0 ? spriteUp : spriteDown);
     }
 
     private void UpdateHallucinationEffect()
