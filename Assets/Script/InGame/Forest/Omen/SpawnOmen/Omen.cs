@@ -80,6 +80,5 @@ public abstract class Omen : MonoBehaviour
 
         candidateSet.Remove(pos);
 
-        Debug.Log($"[Omen] {prefabRoot.name} Ç {pos} Ç…ê∂ê¨ ({spawnMode})");
     }
 }

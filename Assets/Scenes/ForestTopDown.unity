@@ -381,6 +381,7 @@ MonoBehaviour:
   - {fileID: 1939677437103852228, guid: 7a98721c6f707384e9f9be6cb12dba57, type: 3}
   beyondOmenPrefabs:
   - {fileID: 5999820388021327091, guid: 626953cd44aaf8c4fa8d6679d4db1880, type: 3}
+  - {fileID: 9093941293681903936, guid: 7c4aae3ec688969428722fbcb633a67b, type: 3}
   startStraightParent: {fileID: 229979293}
   mainFloorParent: {fileID: 407497585}
   branchParent: {fileID: 918154938}

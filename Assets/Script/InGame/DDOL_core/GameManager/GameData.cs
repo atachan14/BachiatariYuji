@@ -26,10 +26,9 @@ public class GameData : SingletonMonoBehaviour<GameData>
             daySeed = Random.Range(int.MinValue, int.MaxValue);// Ç‹ÇΩÇÕóêêîÇ≈ê∂ê¨
             DayData.Instance.ResetDayEvil();
             DayData.Instance.MoningTotalEvil = TotalEvil;
-            YujiParams.Instance.SleepHeal();
-
-
             DayWindowManager.Instance.ChangeDay();
+            if (day == 1) return;
+            YujiParams.Instance.SleepHeal();
 
         }
     }
@@ -46,7 +45,7 @@ public class GameData : SingletonMonoBehaviour<GameData>
     public int TotalEvil
     {
         get => totalEvil;
-     
+
     }
 
     public void AddTotalEvil(int value)
