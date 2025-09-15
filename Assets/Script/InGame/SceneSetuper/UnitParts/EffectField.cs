@@ -6,9 +6,10 @@ public enum EffectType
     Slow,
     FixDef,
     PerDef,
-    CcDef,
+    DetoxPower,
     Vision,
-    Hallucinations
+    Hallucinations,
+    Drowsiness
     // etc...
 }
 

@@ -2990,6 +2990,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 796567324157819265, guid: 8d672a5b6b3ea9d4a968526a375f8afe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1168516394074145294}
+    - targetCorrespondingSourceObject: {fileID: 796567324157819265, guid: 8d672a5b6b3ea9d4a968526a375f8afe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 76509428281261774}
   m_SourcePrefab: {fileID: 100100000, guid: 8d672a5b6b3ea9d4a968526a375f8afe, type: 3}
 --- !u!114 &369426649524404193 stripped
 MonoBehaviour:
@@ -3063,10 +3066,8 @@ MonoBehaviour:
   health: 200
   fixDef: 0
   perDef: 0
-  ccDef: 0
+  detoxPower: 1
   vision: 500
-  hallucinations: 0
-  jumpForce: 7
   StealPower: 1
   MaxStealStreak: 3
   MaxSteal: 1000
@@ -3089,14 +3090,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <MoveSpeed>k__BackingField: 0
-  <MaxHelth>k__BackingField: 0
   <FixDef>k__BackingField: 0
   <PerDef>k__BackingField: 0
-  <CcDef>k__BackingField: 0
+  <DetoxPower>k__BackingField: 0
   <Vision>k__BackingField: 0
   <Hallucinations>k__BackingField: 0
+  <DayDrowsiness>k__BackingField: 0
+  <Drowsiness>k__BackingField: 0
   activeFieldEffects: []
-  activeTimeEffect: []
+  activePoisons: []
 --- !u!114 &549919201210779190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3122,6 +3124,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteController: {fileID: 369426649524404193}
+--- !u!114 &76509428281261774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7631060292294776858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3475527b5c737144fa21f6157cd1b4ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  yujiSpriteController: {fileID: 369426649524404193}
+  sleepingSprite: {fileID: 7482667652216324306, guid: 056204f447ba28144bdd95eafc79dfd4, type: 3}
+  wakingSprite: {fileID: 7482667652216324306, guid: 056204f447ba28144bdd95eafc79dfd4, type: 3}
+  drowsinessThreshold: 100
+  drowsinessDecayPerSecond: 30
 --- !u!4 &8184022944615414323 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1403008330137279400, guid: 8d672a5b6b3ea9d4a968526a375f8afe, type: 3}

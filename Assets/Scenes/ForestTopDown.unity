@@ -375,7 +375,7 @@ MonoBehaviour:
   NoneOmenPrefabs:
   - {fileID: 7356954007566443547, guid: c70e99fbd2f25064cb929cb77fc5d77c, type: 3}
   floorOmenPrefabs:
-  - {fileID: 8155318210489121484, guid: 9d639c9a3347b2c48b8e1dfbb777aeca, type: 3}
+  - {fileID: 2432780835326773788, guid: a2d3a75e63d3c6642b337dabf0dbc52b, type: 3}
   wallOmenPrefabs:
   - {fileID: 3530378175513955296, guid: 0f7f95d273c2b2e4a9b9287157c3da8a, type: 3}
   - {fileID: 1939677437103852228, guid: 7a98721c6f707384e9f9be6cb12dba57, type: 3}
@@ -779,7 +779,7 @@ Transform:
   m_GameObject: {fileID: 1743438300}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.9}
+  m_LocalPosition: {x: 0, y: 0, z: 2}
   m_LocalScale: {x: 100, y: 100, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

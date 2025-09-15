@@ -4,54 +4,42 @@ public class YujiSleeper : SingletonMonoBehaviour<YujiSleeper>
 {
     [SerializeField] UnitSpriteController yujiSpriteController;
     [SerializeField] Sprite sleepingSprite;
-    [SerializeField] Sprite wakingSprite; 
-    [SerializeField] private float sleepThreshold = 100f;
-    [SerializeField] private float sleepDecayPerSecond = 5f;
-    [SerializeField] private float wakeDamageFactor = 20f; // 1ダメージで何ポイント減るか
-    
-    public float SleepValue { get; private set; }
-    public bool IsSleeping { get; private set; }
+    [SerializeField] Sprite wakingSprite;
+    [SerializeField] private float drowsinessThreshold = 100f;
+    [SerializeField] private float drowsinessDecayPerSecond = 5f;
 
-    // 強制Sleepフラグ（演出用）
+    public bool IsSleeping { get; private set; }
     private bool forcedSleep = false;
 
-    private void Update()
-    {
-        if (forcedSleep) return; // 強制Sleep中はSleepValue無視
+    // 内部カウンタ（累積経過時間）
+    private float sleepElapsed;
 
-        if (SleepValue > 0)
+    public void Apply()
+    {
+        if (forcedSleep) return;
+
+        if (IsSleeping)
         {
-            SleepValue -= sleepDecayPerSecond * Time.deltaTime;
-            SleepValue = Mathf.Max(SleepValue, 0);
+            DecayWhileSleeping();
         }
 
         CheckSleepState();
     }
 
-    public void AddSleep(float value)
+    private void DecayWhileSleeping()
     {
-        if (forcedSleep) return;
-
-        SleepValue += value;
-        CheckSleepState();
-    }
-
-    public void TakeDamage(float damage)
-    {
-        if (forcedSleep) return;
-
-        SleepValue -= damage * wakeDamageFactor;
-        SleepValue = Mathf.Max(SleepValue, 0);
-        CheckSleepState();
+        sleepElapsed += Time.deltaTime;
+        float decay = drowsinessDecayPerSecond * Time.deltaTime;
+        YujiState.Instance.DayDrowsiness -= decay;
     }
 
     private void CheckSleepState()
     {
-        if (SleepValue >= sleepThreshold && !IsSleeping)
+        if (YujiState.Instance.Drowsiness >= drowsinessThreshold && !IsSleeping)
         {
             EnterSleep();
         }
-        else if (SleepValue <= 0 && IsSleeping)
+        else if (YujiState.Instance.Drowsiness <= 0 && IsSleeping)
         {
             ExitSleep();
         }
@@ -60,7 +48,8 @@ public class YujiSleeper : SingletonMonoBehaviour<YujiSleeper>
     private void EnterSleep()
     {
         IsSleeping = true;
-        YujiController.Instance.gameObject.SetActive(false);
+        sleepElapsed = 0f; // リセット
+        YujiController.Instance.enabled = false;
         yujiSpriteController.SetSprite(sleepingSprite);
         Debug.Log("Yuji fell asleep...");
     }
@@ -68,18 +57,15 @@ public class YujiSleeper : SingletonMonoBehaviour<YujiSleeper>
     private void ExitSleep()
     {
         IsSleeping = false;
-        YujiController.Instance.gameObject.SetActive(true);
+        YujiController.Instance.enabled = true;
         yujiSpriteController.SetSprite(wakingSprite);
         Debug.Log("Yuji woke up!");
     }
 
-    // --- 演出用 ---
     public void ForceSleep(bool enable)
     {
         forcedSleep = enable;
-        if (enable)
-            EnterSleep();
-        else
-            ExitSleep();
+        if (enable) EnterSleep();
+        else ExitSleep();
     }
 }

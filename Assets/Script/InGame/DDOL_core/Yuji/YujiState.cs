@@ -9,34 +9,36 @@ public enum YujiCondition
 public class YujiState : SingletonMonoBehaviour<YujiState>
 {
     [field: SerializeField] public float MoveSpeed { get; private set; }
-    [field: SerializeField] public float MaxHelth { get; private set; }
     [field: SerializeField] public float FixDef { get; private set; }
     [field: SerializeField] public float PerDef { get; private set; }
-    [field: SerializeField] public float CcDef { get; private set; }
+    [field: SerializeField] public float DetoxPower { get; private set; }
     [field: SerializeField] public float Vision { get; private set; }
-    [field: SerializeField] public float Hallucinations { get; private set; }
+    [field: SerializeField] public float Hallucinations { get; set; }
+    [field: SerializeField] public float DayDrowsiness { get; set; } = 0;
+    [field: SerializeField] public float Drowsiness { get; set; }
 
-    public List<EffectField> activeFieldEffects;
-    public List<TimeEffect> activeTimeEffect;
+    public List<EffectField> activeFieldEffects = new();
+    public List<PoisonEffect> activePoisons = new();
 
-    
+
     private void Update()
     {
         LoadParams();
         ApplyInventry();
         ApplyFieldEffects();
-        ApplyTimeEffects();
+        ApplyPoisons();
+        ApplyConditions();
     }
 
     void LoadParams()
     {
         MoveSpeed = YujiParams.Instance.MoveSpeed;
-        MaxHelth = YujiParams.Instance.MaxHelth;
         FixDef = YujiParams.Instance.FixDef;
         PerDef = YujiParams.Instance.PerDef;
-        CcDef = YujiParams.Instance.CcDef;
+        DetoxPower = YujiParams.Instance.DetoxPower;
         Vision = YujiParams.Instance.Vision;
-        Hallucinations = YujiParams.Instance.Hallucinations;
+        Hallucinations = 0;
+        Drowsiness = DayDrowsiness;
     }
 
     void ApplyInventry()
@@ -65,8 +67,8 @@ public class YujiState : SingletonMonoBehaviour<YujiState>
                         PerDef += e.value;
                         break;
 
-                    case EffectType.CcDef:
-                        CcDef += e.value;
+                    case EffectType.DetoxPower:
+                        DetoxPower += e.value;
                         break;
 
                     case EffectType.Vision:
@@ -76,41 +78,32 @@ public class YujiState : SingletonMonoBehaviour<YujiState>
             }
         }
     }
-    private void ApplyTimeEffects()
+    private void ApplyPoisons()
     {
         float dt = Time.deltaTime;
-        for (int i = activeTimeEffect.Count - 1; i >= 0; i--)
+
+        for (int i = activePoisons.Count - 1; i >= 0; i--)
         {
-            if (activeTimeEffect[i].Tick(dt))
+            PoisonEffect effect = activePoisons[i];
+
+            if (effect.Tick(dt))
             {
-                // 効果終了したらリストから削除
-                activeTimeEffect.RemoveAt(i);
+                activePoisons.RemoveAt(i);
             }
             else
             {
-                // 効果適用
-                ApplyTimeEffect(activeTimeEffect[i]);
+                effect.Apply(dt); // Stateを渡して毒処理はPoisonEffect側に任せる
             }
         }
     }
 
-    private void ApplyTimeEffect(TimeEffect effect)
+    private void ApplyConditions()
     {
-        switch (effect.Type)
-        {
-            case EffectType.Slow:
-                MoveSpeed *= (1 - effect.CurrentValue);
-                break;
-            case EffectType.Hallucinations:
-                Hallucinations += effect.CurrentValue;
-                break;
-                // 他も同様
-        }
+        YujiSleeper.Instance.Apply();
     }
-
-    public void TakeTimeEffect(TimeEffect effect)
+    public void TakePosion(PoisonEffect effect)
     {
-        activeTimeEffect.Add(effect);
+        activePoisons.Add(effect);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

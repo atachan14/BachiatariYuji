@@ -27,6 +27,7 @@ public class GameData : SingletonMonoBehaviour<GameData>
             DayData.Instance.ResetDayEvil();
             DayData.Instance.MoningTotalEvil = TotalEvil;
             DayWindowManager.Instance.ChangeDay();
+            YujiState.Instance.DayDrowsiness = 0;
             if (day == 1) return;
             YujiParams.Instance.SleepHeal();
 

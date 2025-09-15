@@ -9,12 +9,6 @@ public enum StealSize
     Medium,
     Large
 }
-public enum DamageType
-{
-    Nomal,
-    Poison,
-    Elec
-}
 public class YujiParams : SingletonMonoBehaviour<YujiParams>
 {
     [Header("‹¤’Ê")]
@@ -23,14 +17,11 @@ public class YujiParams : SingletonMonoBehaviour<YujiParams>
     [SerializeField] private int health = 200;
     [SerializeField] private int fixDef = 0;
     [SerializeField] private int perDef = 0;
-    [SerializeField] private int ccDef = 0;
+    [SerializeField] private int detoxPower = 1;
     [SerializeField] private int vision = 5;
-    [SerializeField] private int hallucinations = 0;
 
     [Header("TopDown")]
 
-    [Header("SideScroll")]
-    [SerializeField] private int jumpForce = 7;
 
     [Header("SaisenSteal")]
     public int StealPower = 1;
@@ -72,10 +63,10 @@ public class YujiParams : SingletonMonoBehaviour<YujiParams>
         set => perDef = value;
     }
 
-    public int CcDef
+    public int DetoxPower
     {
-        get => ccDef;
-        set => ccDef = value;
+        get => detoxPower;
+        set => detoxPower = value;
     }
 
     public int Vision
@@ -84,17 +75,7 @@ public class YujiParams : SingletonMonoBehaviour<YujiParams>
         set => vision = Mathf.Max(0, value);
     }
 
-    public int Hallucinations
-    {
-        get => hallucinations;
-        set => hallucinations = Mathf.Max(0, value);
-    }
 
-    public int JumpForce
-    {
-        get => jumpForce;
-        set => jumpForce = Mathf.Max(0, value);
-    }
     public void TakeDamage(int damage, Color color)
     {
         int finalDamage = Mathf.Max(0, damage * 100 / (100 + perDef) - fixDef);
